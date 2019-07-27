@@ -11,6 +11,18 @@ export default class Player {
 
   draw(ctx) {
     ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    let image = new Image();
+    image.src = "./player.png";
+    ctx.drawImage(
+      image,
+      0,
+      0,
+      16,
+      16,
+      this.position.x,
+      this.position.y,
+      16,
+      16
+    );
   }
 }
