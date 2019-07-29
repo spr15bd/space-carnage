@@ -6,7 +6,13 @@ let ctx = canvas.getContext("2d");
 const SCREEN_WIDTH = 800;
 const SCREEN_HEIGHT = 600;
 
-ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
 let player = new Player(SCREEN_WIDTH, SCREEN_HEIGHT);
-player.draw(ctx);
+
+function gameLoop() {
+  ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+  player.draw(ctx);
+  player.update();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
