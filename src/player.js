@@ -1,11 +1,11 @@
 import Sprite from "./sprite.js";
-//import { runInThisContext } from "vm";
-//import { deflateRaw } from "zlib";
+//import Input from "./input.js";
 export default class Player {
   constructor(screenWidth, screenHeight) {
     // declare player properties
     this.width = 150;
     this.height = 30;
+    this.speed = 0;
     this.position = {
       x: screenWidth / 2 - this.width / 2,
       y: screenHeight - this.height - 10
@@ -15,11 +15,23 @@ export default class Player {
     this.playerSprite = new Sprite(this.image, this.position);
   }
 
+  left() {
+    this.speed = -5;
+  }
+
+  right() {
+    this.speed = 5;
+  }
+
+  stop() {
+    this.speed = 0;
+  }
+
   draw(ctx) {
-    ctx.fillStyle = "red";
+    //ctx.fillStyle = "red";
     this.playerSprite.draw(ctx);
   }
   update() {
-    this.position.x += 0.1;
+    this.position.x += this.speed;
   }
 }
