@@ -8,10 +8,15 @@ const SCREEN_HEIGHT = 600;
 
 let game = new Game(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-function gameLoop() {
-  ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+let lastRender; // time in milliSeconds of last update
+let progress; // time in milliSeconds between each loop iteration
+function gameLoop(timestamp) {
+  progress = timestamp - lastRender;
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+  game.update(progress);
   game.draw(ctx);
-  game.update();
+  lastRender = timestamp;
   requestAnimationFrame(gameLoop);
 }
 

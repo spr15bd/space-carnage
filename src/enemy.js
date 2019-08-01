@@ -1,18 +1,18 @@
 import Sprite from "./sprite.js";
 //import Input from "./input.js";
-export default class Player {
-  constructor(screenWidth, screenHeight) {
+export default class Enemy {
+  constructor(xPos, yPos) {
     // declare player properties
     this.width = 32;
     this.height = 32;
     this.speed = 0;
     this.position = {
-      x: screenWidth / 2 - this.width / 2,
-      y: screenHeight - this.height - 10
+      x: xPos,
+      y: yPos
     };
     this.image = new Image();
-    this.image.src = "./player.png";
-    this.playerSprite = new Sprite(this.image, this.position);
+    this.image.src = "./enemies.png";
+    this.enemySprite = new Sprite(this.image, this.position);
   }
 
   left() {
@@ -29,7 +29,7 @@ export default class Player {
 
   draw(ctx) {
     //ctx.fillStyle = "red";
-    this.playerSprite.draw(ctx);
+    this.enemySprite.draw(ctx);
   }
   update(delta) {
     // every delta milliSeconds
