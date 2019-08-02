@@ -1,6 +1,8 @@
 export default class Sprite {
-  constructor(image, position) {
+  constructor(image, width, height, position) {
     this.image = image;
+    this.width = width;
+    this.height = height;
     this.position = position;
   }
   draw(ctx) {
@@ -8,8 +10,8 @@ export default class Sprite {
       this.image,
       0,
       0,
-      16,
-      16,
+      this.width,
+      this.height,
       this.position.x,
       this.position.y,
       32,

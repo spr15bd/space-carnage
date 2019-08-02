@@ -12,7 +12,9 @@ export default class Enemy {
     };
     this.image = new Image();
     this.image.src = "./enemies.png";
-    this.enemySprite = new Sprite(this.image, this.position);
+    this.sourceWidth = 32;
+    this.sourceHeight = 32;
+    this.enemySprite = new Sprite(this.image, this.sourceWidth, this.sourceHeight, this.position);
   }
 
   left() {

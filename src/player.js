@@ -12,7 +12,9 @@ export default class Player {
     };
     this.image = new Image();
     this.image.src = "./player.png";
-    this.playerSprite = new Sprite(this.image, this.position);
+    this.sourceWidth = 16;
+    this.sourceHeight = 16;
+    this.playerSprite = new Sprite(this.image, this.sourceWidth, this.sourceHeight, this.position);
   }
 
   left() {
