@@ -12,6 +12,14 @@ export default class Game {
 
   update(delta) {
     this.player.update(delta);
+
+    if (
+      this.enemy.position.x < 0 ||
+      this.enemy.position.x > this.screenWidth - this.enemy.width
+    ) {
+      this.enemy.down();
+      this.enemy.speedX *= -1;
+    }
   }
   draw(ctx) {
     this.player.draw(ctx);
