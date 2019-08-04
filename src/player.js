@@ -14,7 +14,14 @@ export default class Player {
     this.image.src = "./player.png";
     this.sourceWidth = 16;
     this.sourceHeight = 16;
-    this.playerSprite = new Sprite(this.image, this.sourceWidth, this.sourceHeight, this.position);
+    this.targetWidth = 32;
+    this.targetHeight = 32;
+    this.playerSprite = new Sprite(
+      this.image,
+      this.sourceWidth,
+      this.sourceHeight,
+      this.position
+    );
   }
 
   left() {

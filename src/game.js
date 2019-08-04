@@ -7,18 +7,20 @@ export default class Game {
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight);
     this.enemy = new Enemy(50, 30);
+    this.enemy.right();
     new Input(this.player);
   }
 
   update(delta) {
     this.player.update(delta);
-
+    this.enemy.update(delta);
     if (
       this.enemy.position.x < 0 ||
       this.enemy.position.x > this.screenWidth - this.enemy.width
     ) {
-      this.enemy.down();
-      this.enemy.speedX *= -1;
+      //this.enemy.speed.x=0;
+
+      this.enemy.speed.x *= -1;
     }
   }
   draw(ctx) {

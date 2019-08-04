@@ -5,7 +5,10 @@ export default class Enemy {
     // declare player properties
     this.width = 32;
     this.height = 32;
-    this.speedX = 25;
+    this.speed = {
+      x: 0,
+      y: 0
+    };
     this.position = {
       x: xPos,
       y: yPos
@@ -18,25 +21,27 @@ export default class Enemy {
       this.image,
       this.sourceWidth,
       this.sourceHeight,
-      this.position
+      this.position,
+      4 // number of frames in the spritsheet
     );
   }
 
   left() {
-    this.speedX = -25; // -25 pixels per second
+    this.speed.x = -25; // -25 pixels per second
   }
 
   right() {
-    this.speedX = 25; // +25 pixels per second
+    this.speed.x = 25; // +25 pixels per second
   }
 
   down() {
-    this.speedY = 25; // +25 pixels per second
+    this.speed.y = 25; // +25 pixels per second
+    this.speed.x = 0;
   }
 
   stop() {
-    this.speedX = 0;
-    this.speedY = 0;
+    this.speed.x = 0;
+    this.speed.y = 0;
   }
 
   draw(ctx) {
@@ -46,7 +51,8 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    this.position.x += this.speedX / delta; // pixels per milliSecond
-    this.position.y += this.speedY / delta; // pixels per milliSecond
+    this.position.x += this.speed.x / delta; // pixels per milliSecond
+    this.position.y += this.speed.y / delta; // pixels per milliSecond
+    //this.stop();
   }
 }
