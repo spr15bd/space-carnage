@@ -1,21 +1,45 @@
 export default class Sprite {
-  constructor(image, sourceWidth, sourceHeight, position) {
+  constructor(
+    image,
+    sourceWidth,
+    sourceHeight,
+    position,
+    targetWidth,
+    targetHeight,
+    numFrames
+  ) {
     this.image = image;
     this.sourceWidth = sourceWidth;
     this.sourceHeight = sourceHeight;
     this.position = position;
+    this.targetWidth = targetWidth;
+    this.targetHeight = targetHeight;
+
+    this.frameIndex = 0;
+    this.ticksPerFrame = 15;
+    this.ticks = 0;
+  }
+  update(delta) {
+    this.ticks++;
+    if (this.ticks >= this.ticksPerFrame) {
+      this.frameIndex++;
+      if (this.frameIndex >= 4) {
+        this.frameIndex = 0;
+      }
+      this.ticks = 0;
+    }
   }
   draw(ctx) {
     ctx.drawImage(
       this.image,
-      0, // source x
+      32 * this.frameIndex, // source x
       0, // source y
       this.sourceWidth,
       this.sourceHeight,
       this.position.x,
       this.position.y,
-      37,
-      23
+      this.targetWidth,
+      this.targetHeight
     );
   }
 }

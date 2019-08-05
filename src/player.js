@@ -20,7 +20,10 @@ export default class Player {
       this.image,
       this.sourceWidth,
       this.sourceHeight,
-      this.position
+      this.position,
+      this.targetWidth,
+      this.targetHeight,
+      1
     );
   }
 

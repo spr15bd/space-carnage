@@ -17,11 +17,15 @@ export default class Enemy {
     this.image.src = "./enemies.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
+    this.targetWidth = 32;
+    this.targetHeight = 32;
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
       this.position,
+      this.targetWidth,
+      this.targetHeight,
       4 // number of frames in the spritsheet
     );
   }
@@ -54,5 +58,6 @@ export default class Enemy {
     this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.position.y += this.speed.y / delta; // pixels per milliSecond
     //this.stop();
+    this.enemySprite.update(delta);
   }
 }
