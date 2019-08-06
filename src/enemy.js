@@ -28,19 +28,26 @@ export default class Enemy {
       this.targetHeight,
       4 // number of frames in the spritsheet
     );
+    this.now = 0;
+    this.moving = false;
   }
 
   left() {
+    this.now = new Date().getTime();
+    this.moving = true;
     this.speed.x = -25; // -25 pixels per second
   }
 
   right() {
-    this.speed.x = 25; // +25 pixels per second
+    this.now = new Date().getTime();
+    this.moving = true;
+    this.speed.x = 25; // 25 pixels per second
   }
 
   down() {
-    this.speed.y = 25; // +25 pixels per second
-    this.speed.x = 0;
+    this.now = new Date().getTime();
+    this.moving = true;
+    this.speed.y = 25; // 25 pixels per second
   }
 
   stop() {
@@ -55,8 +62,31 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    this.position.x += this.speed.x / delta; // pixels per milliSecond
-    this.position.y += this.speed.y / delta; // pixels per milliSecond
+
+    // movement across screen
+    //this.position.x += this.speed.x / delta; // pixels per milliSecond
+    //this.position.y += this.speed.y / delta; // pixels per milliSecond
+    if (!this.moving) {
+      let randomNum = Math.random();
+      if (randomNum < 0.25) {
+        this.left();
+        //this.position.x += this.speed.x / delta;
+      } else if (randomNum < 0.5) {
+        this.right();
+        //this.position.x += this.speed.x / delta;
+      } else {
+        this.down();
+        //this.position.y += this.speed.y / delta;
+      }
+    }
+    this.position.x += this.speed.x / delta;
+    this.position.y += this.speed.y / delta;
+
+    //}
+    if (new Date().getTime() - this.now > 400) {
+      this.stop();
+      this.moving = false;
+    }
     //this.stop();
     this.enemySprite.update(delta);
   }
