@@ -6,25 +6,39 @@ export default class Game {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight);
-    this.enemy = new Enemy(50, 30);
-    this.enemy.right();
+    this.enemies = [];
+    this.enemies.push(
+      new Enemy(50, 30, 1, "./enemies.png"),
+      new Enemy(100, 30, 0, "./enemies.png")
+    );
+    //this.enemy = new Enemy(50, 30);
+    //this.enemy2 = new Enemy(100, 30);
+    //this.enemy.right();
     new Input(this.player);
   }
 
   update(delta) {
     this.player.update(delta);
-    this.enemy.update(delta);
-    if (
-      this.enemy.position.x < 0 ||
-      this.enemy.position.x > this.screenWidth - this.enemy.width
-    ) {
-      //this.enemy.speed.x=0;
+    this.enemies.forEach(enemy => {
+      enemy.update(delta);
+      if (
+        enemy.position.x < 0 ||
+        enemy.position.x > this.screenWidth - enemy.width
+      ) {
+        //this.enemy.speed.x=0;
 
-      this.enemy.speed.x *= -1;
-    }
+        enemy.speed.x *= -1;
+      }
+    });
+    //this.enemy.update(delta);
+    //this.enemy2.update(delta);
   }
   draw(ctx) {
     this.player.draw(ctx);
-    this.enemy.draw(ctx);
+    this.enemies.forEach(enemy => {
+      enemy.draw(ctx);
+    });
+    //this.enemy.draw(ctx);
+    //this.enemy2.draw(ctx);
   }
 }

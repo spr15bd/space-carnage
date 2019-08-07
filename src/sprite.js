@@ -23,7 +23,7 @@ export default class Sprite {
     this.ticks++;
     if (this.ticks >= this.ticksPerFrame) {
       this.frameIndex++;
-      if (this.frameIndex >= 4) {
+      if (this.frameIndex >= 8) {
         this.frameIndex = 0;
       }
       this.ticks = 0;
