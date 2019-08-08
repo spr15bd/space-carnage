@@ -8,8 +8,8 @@ export default class Game {
     this.player = new Player(this.screenWidth, this.screenHeight);
     this.enemies = [];
     this.enemies.push(
-      new Enemy(50, 30, 1, "./enemies.png"),
-      new Enemy(100, 30, 0, "./enemies.png")
+      new Enemy(336, 30, 1, "./enemies.png"),
+      new Enemy(432, 30, 1, "./enemies.png")
     );
     //this.enemy = new Enemy(50, 30);
     //this.enemy2 = new Enemy(100, 30);
@@ -17,9 +17,15 @@ export default class Game {
     new Input(this.player);
   }
 
+  // TODO
+  moveEnemies() {
+    this.enemies.forEach(enemy => {});
+  }
+
   update(delta) {
     this.player.update(delta);
     this.enemies.forEach(enemy => {
+      enemy.speed.x = 62 * Math.sin(new Date().getTime() / 620);
       enemy.update(delta);
       if (
         enemy.position.x < 0 ||

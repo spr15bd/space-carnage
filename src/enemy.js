@@ -31,7 +31,7 @@ export default class Enemy {
     );
     this.now = 0;
     this.moving = false;
-    this.move(this.enemyType);
+    //this.move(this.enemyType);
   }
 
   move(enemyNumber) {
@@ -121,7 +121,7 @@ export default class Enemy {
       if (new Date().getTime() - this.now > 400) {
         this.stop();
         this.moving = false;
-        this.move(0);
+        //this.move(0);
       }
     } else {
       // TODO
