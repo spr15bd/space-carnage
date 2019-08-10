@@ -18,15 +18,14 @@ export default class Enemy {
     this.image.src = "./enemies.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
-    this.targetWidth = 32;
-    this.targetHeight = 32;
+
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
       this.position,
-      this.targetWidth,
-      this.targetHeight,
+      this.width,
+      this.height,
       4 // number of frames in the spritsheet
     );
     this.now = 0;
@@ -120,7 +119,7 @@ export default class Enemy {
     if (this.enemyType === 0) {
       if (new Date().getTime() - this.now > 400) {
         this.stop();
-        this.moving = false;
+        //this.moving = false;
         //this.move(0);
       }
     } else {

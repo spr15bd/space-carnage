@@ -11,6 +11,7 @@ export default class Game {
       new Enemy(336, 30, 1, "./enemies.png"),
       new Enemy(432, 30, 1, "./enemies.png")
     );
+    this.ticks = 0;
     //this.enemy = new Enemy(50, 30);
     //this.enemy2 = new Enemy(100, 30);
     //this.enemy.right();
@@ -23,17 +24,25 @@ export default class Game {
   }
 
   update(delta) {
+    this.ticks++;
     this.player.update(delta);
-    this.enemies.forEach(enemy => {
-      enemy.speed.x = 62 * Math.sin(new Date().getTime() / 620);
+    this.enemies.forEach((enemy, i) => {
+      enemy.position.x = 350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
       enemy.update(delta);
       if (
         enemy.position.x < 0 ||
         enemy.position.x > this.screenWidth - enemy.width
       ) {
         //this.enemy.speed.x=0;
+        //enemy.speed.x *= -1;
+      }
 
-        enemy.speed.x *= -1;
+      if (this.ticks > 500 && this.ticks < 1000) {
+        enemy.speed.y = 20;
+      }
+      if (enemy.position.y > 1000) {
+        this.ticks = 0;
+        enemy.speed.y = 0;
       }
     });
     //this.enemy.update(delta);
