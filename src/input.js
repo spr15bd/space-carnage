@@ -1,5 +1,7 @@
+import Game from "./game";
+
 export default class Input {
-  constructor(player) {
+  constructor(player, game) {
     document.addEventListener("keydown", event => {
       let key = event.keyCode || event.key;
 
@@ -9,6 +11,10 @@ export default class Input {
           break;
         case 39:
           player.right();
+          break;
+        case 32:
+          console.log("pressed space");
+          game.start();
           break;
       }
     });
