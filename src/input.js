@@ -1,5 +1,3 @@
-import Game from "./game";
-
 export default class Input {
   constructor(player, game) {
     document.addEventListener("keydown", event => {
@@ -13,7 +11,6 @@ export default class Input {
           player.right();
           break;
         case 32:
-          console.log("pressed space");
           game.start();
           break;
       }

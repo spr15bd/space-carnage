@@ -14,7 +14,7 @@ export default class Sprite {
     this.position = position;
     this.targetWidth = targetWidth;
     this.targetHeight = targetHeight;
-
+    this.numFrames = numFrames;
     this.frameIndex = 0;
     this.ticksPerFrame = 15;
     this.ticks = 0;
@@ -23,7 +23,7 @@ export default class Sprite {
     this.ticks++;
     if (this.ticks >= this.ticksPerFrame) {
       this.frameIndex++;
-      if (this.frameIndex >= 8) {
+      if (this.frameIndex >= this.numFrames) {
         this.frameIndex = 0;
       }
       this.ticks = 0;
@@ -32,7 +32,7 @@ export default class Sprite {
   draw(ctx) {
     ctx.drawImage(
       this.image,
-      32 * this.frameIndex, // source x
+      this.sourceWidth * this.frameIndex, // source x
       0, // source y
       this.sourceWidth,
       this.sourceHeight,

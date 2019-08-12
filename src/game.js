@@ -71,15 +71,14 @@ export default class Game {
       ctx.fill();
 
       ctx.textAlign = "center";
-      ctx.fillStyle = "green";
-      ctx.font = "40px Times";
+      ctx.fillStyle = "white";
+      ctx.font = "22px Arial";
       ctx.fillText(
-        "Good luck 'an go ahead!",
+        "Press <space> to start. Good luck 'an go ahead!",
         this.screenWidth / 2,
         this.screenHeight / 2
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      console.log("Game started");
       this.player.draw(ctx);
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);

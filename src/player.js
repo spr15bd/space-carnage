@@ -14,16 +14,15 @@ export default class Player {
     this.image.src = "./player.png";
     this.sourceWidth = 16;
     this.sourceHeight = 16;
-    this.targetWidth = 32;
-    this.targetHeight = 32;
+
     this.playerSprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
       this.position,
-      this.targetWidth,
-      this.targetHeight,
-      1
+      this.width,
+      this.height,
+      4
     );
   }
 
@@ -47,5 +46,6 @@ export default class Player {
     // every delta milliSeconds
     if (!delta) return;
     this.position.x += this.speed / delta; // pixels per milliSecond
+    this.playerSprite.update(delta);
   }
 }

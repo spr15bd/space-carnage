@@ -26,7 +26,7 @@ export default class Enemy {
       this.position,
       this.width,
       this.height,
-      4 // number of frames in the spritsheet
+      8 // number of frames in the spritsheet
     );
     this.now = 0;
     this.moving = false;
