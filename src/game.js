@@ -17,7 +17,12 @@ export default class Game {
       new Enemy(432, 30, 1, "./enemies.png")
     );
     this.ticks = 0;
+
     this.randomHalt = 300;
+    this.enemyCharging = false;
+    this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+    this.startOfPeriod = 0;
+    //this.randomPath = Math.random() < 0.5 ? 0 : 1;
     this.gameState = GAMESTATE.MENU;
     //this.enemy = new Enemy(50, 30);
     //this.enemy2 = new Enemy(100, 30);
@@ -38,20 +43,38 @@ export default class Game {
     this.ticks++;
     this.player.update(delta);
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x = 350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
-
-      /*if (
-        enemy.position.x < 0 ||
-        enemy.position.x > this.screenWidth - enemy.width
-      ) {
-        //this.enemy.speed.x=0;
-        //enemy.speed.x *= -1;
+      if (this.enemyCharging === false) {
+        enemy.position.x =
+          350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+      } else {
+        if (i === this.chargingEnemy) {
+          if (this.ticks - this.now < 100) {
+            enemy.speed.y = 30;
+            enemy.speed.x = 0;
+          } else if (this.ticks - this.now < 400) {
+            enemy.speed.x = 30;
+            enemy.speed.y = 0;
+          } else if (this.ticks - this.now < 650) {
+            enemy.speed.y = -5;
+            enemy.speed.x = -30;
+          } else {
+            enemy.speed.y = -5;
+            enemy.speed.x = -10;
+          }
+          //enemy.stop();
+          //enemy.move();
+        } else {
+          enemy.position.x =
+            350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+        }
       }
-      */
+
       if (enemy.position.y < 30) {
         enemy.speed.y = 0;
       }
       if (this.ticks % this.randomHalt === 0 && enemy.speed.y === 0) {
+        this.now = this.ticks;
+        this.enemyCharging = true;
         enemy.speed.y = 20;
       }
 
@@ -59,6 +82,7 @@ export default class Game {
         enemy.speed.y = -20;
         this.randomHalt = 300 * Math.floor(Math.random() * 3 + 1);
       }
+
       enemy.update(delta);
     });
     //this.enemy.update(delta);
@@ -72,7 +96,7 @@ export default class Game {
 
       ctx.textAlign = "center";
       ctx.fillStyle = "white";
-      ctx.font = "22px Arial";
+      ctx.font = "18px monospace";
       ctx.fillText(
         "Press <space> to start. Good luck 'an go ahead!",
         this.screenWidth / 2,

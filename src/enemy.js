@@ -33,7 +33,7 @@ export default class Enemy {
     //this.move(this.enemyType);
   }
 
-  move(enemyNumber) {
+  move() {
     if (this.enemyType === 0) {
       this.now = new Date().getTime();
       let randomNum = Math.random();
@@ -50,29 +50,29 @@ export default class Enemy {
     } else {
       this.right();
       setTimeout(() => {
-        this.stop();
+        //this.stop();
         this.down();
-      }, 400);
+      }, 1000);
       setTimeout(() => {
-        this.stop();
+        //this.stop();
         this.right();
-      }, 800);
+      }, 2000);
       setTimeout(() => {
-        this.stop();
+        //this.stop();
         this.down();
-      }, 1200);
+      }, 3000);
       setTimeout(() => {
-        this.stop();
-        this.right();
-      }, 1400);
-      setTimeout(() => {
-        this.stop();
+        //this.stop();
         this.left();
-      }, 1700);
+      }, 4000);
       setTimeout(() => {
-        this.stop();
+        //this.stop();
+        this.left();
+      }, 5000);
+      setTimeout(() => {
+        //this.stop();
         this.right();
-      }, 1900);
+      }, 6000);
     }
   }
 
@@ -80,17 +80,20 @@ export default class Enemy {
     //this.now = new Date().getTime();
     this.moving = true;
     this.speed.x = -25; // -25 pixels per second
+    this.speed.y = 0;
   }
 
   right() {
     //this.now = new Date().getTime();
     this.moving = true;
     this.speed.x = 25; // 25 pixels per second
+    this.speed.y = 0;
   }
 
   down() {
     //this.now = new Date().getTime();
     this.moving = true;
+    this.speed.x = 0;
     this.speed.y = 25; // 25 pixels per second
   }
 
