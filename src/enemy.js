@@ -2,7 +2,7 @@ import Sprite from "./sprite.js";
 //import Input from "./input.js";
 export default class Enemy {
   constructor(xPos, yPos, enemyType, imageSrc) {
-    // declare player properties
+    // declare enemy properties
     this.enemyType = enemyType;
     this.width = 32;
     this.height = 32;

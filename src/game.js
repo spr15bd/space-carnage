@@ -14,7 +14,9 @@ export default class Game {
     this.enemies = [];
     this.enemies.push(
       new Enemy(336, 30, 1, "./enemies.png"),
-      new Enemy(432, 30, 1, "./enemies.png")
+      new Enemy(432, 30, 1, "./enemies.png"),
+      new Enemy(528, 30, 1, "./enemies.png"),
+      new Enemy(624, 30, 1, "./enemies.png")
     );
     this.ticks = 0;
 
@@ -49,17 +51,25 @@ export default class Game {
       } else {
         if (i === this.chargingEnemy) {
           if (this.ticks - this.now < 100) {
-            enemy.speed.y = 30;
+            enemy.speed.y = 15;
             enemy.speed.x = 0;
-          } else if (this.ticks - this.now < 400) {
+          } else if (this.ticks - this.now < 200) {
             enemy.speed.x = 30;
             enemy.speed.y = 0;
-          } else if (this.ticks - this.now < 650) {
-            enemy.speed.y = -5;
+          } else if (this.ticks - this.now < 300) {
+            enemy.speed.y = 0;
             enemy.speed.x = -30;
+          } else if (this.ticks - this.now < 400) {
+            enemy.speed.y = -30;
+            enemy.speed.x = -5;
           } else {
-            enemy.speed.y = -5;
-            enemy.speed.x = -10;
+            enemy.position.x =
+              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+            enemy.speed.y = -20;
+            this.enemyCharging = false;
+            this.chargingEnemy = Math.floor(
+              Math.random() * this.enemies.length
+            );
           }
           //enemy.stop();
           //enemy.move();
@@ -85,6 +95,7 @@ export default class Game {
 
       enemy.update(delta);
     });
+
     //this.enemy.update(delta);
     //this.enemy2.update(delta);
   }
@@ -98,7 +109,7 @@ export default class Game {
       ctx.fillStyle = "white";
       ctx.font = "18px monospace";
       ctx.fillText(
-        "Press <space> to start. Good luck 'an go ahead!",
+        "Press <space> to start. Good luck an' go ahead!",
         this.screenWidth / 2,
         this.screenHeight / 2
       );

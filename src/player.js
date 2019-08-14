@@ -3,8 +3,8 @@ import Sprite from "./sprite.js";
 export default class Player {
   constructor(screenWidth, screenHeight) {
     // declare player properties
-    this.width = 32;
-    this.height = 32;
+    this.width = 24;
+    this.height = 30;
     this.speed = 0;
     this.position = {
       x: screenWidth / 2 - this.width / 2,
