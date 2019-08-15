@@ -62,15 +62,38 @@ export default class Game {
           } else if (this.ticks - this.now < 400) {
             enemy.speed.y = -30;
             enemy.speed.x = -5;
-          } else {
-            enemy.position.x =
-              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+          } else if (this.ticks - this.now < 600) {
+            // once the charge is over move the enemy back into formation
+            if (
+              enemy.position.x <
+              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
+            ) {
+              enemy.speed.x =
+                (350 +
+                  330 * Math.sin(this.ticks * 0.02) +
+                  i * (32 * 2) -
+                  enemy.position.x) /
+                3;
+            } else if (
+              enemy.position.x >
+              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
+            ) {
+              enemy.speed.x =
+                (350 +
+                  330 * Math.sin(this.ticks * 0.02) +
+                  i * (32 * 2) -
+                  enemy.position.x) /
+                3;
+            }
+
             enemy.speed.y = -20;
+          } else {
             this.enemyCharging = false;
             this.chargingEnemy = Math.floor(
               Math.random() * this.enemies.length
             );
           }
+
           //enemy.stop();
           //enemy.move();
         } else {

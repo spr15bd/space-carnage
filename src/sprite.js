@@ -4,16 +4,16 @@ export default class Sprite {
     sourceWidth,
     sourceHeight,
     position,
-    targetWidth,
-    targetHeight,
+    width,
+    height,
     numFrames
   ) {
     this.image = image;
     this.sourceWidth = sourceWidth;
     this.sourceHeight = sourceHeight;
     this.position = position;
-    this.targetWidth = targetWidth;
-    this.targetHeight = targetHeight;
+    this.width = width;
+    this.height = height;
     this.numFrames = numFrames;
     this.frameIndex = 0;
     this.ticksPerFrame = 15;
@@ -38,8 +38,8 @@ export default class Sprite {
       this.sourceHeight,
       this.position.x,
       this.position.y,
-      this.targetWidth,
-      this.targetHeight
+      this.width,
+      this.height
     );
   }
 }

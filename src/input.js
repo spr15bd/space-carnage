@@ -10,6 +10,9 @@ export default class Input {
         case 39:
           player.right();
           break;
+        case 17:
+          player.shoot();
+          break;
         case 32:
           game.start();
           break;
