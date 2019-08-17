@@ -6,13 +6,15 @@ export default class Player {
     // declare player properties
     this.width = 24;
     this.height = 30;
+    this.screenWidth = screenWidth;
+    this.screenHeight = screenHeight;
     this.speed = {
       x: 0,
       y: 0
     };
     this.position = {
-      x: screenWidth / 2 - this.width / 2,
-      y: screenHeight - this.height - 10
+      x: this.screenWidth / 2 - this.width / 2,
+      y: this.screenHeight - this.height - 10
     };
     this.playerImage = new Image();
     this.playerImage.src = "./player.png";
@@ -30,7 +32,7 @@ export default class Player {
       this.height,
       4
     );
-    //this.bullet = null;
+    this.bulletPool = [];
   }
 
   left() {
@@ -46,24 +48,39 @@ export default class Player {
   }
 
   shoot() {
-    this.bullet = new Bullet(
-      this.position.x + this.width / 2,
-      this.position.y,
-      0, // type of bullet, 0 for player 1 for enemy
-      this.bulletImage
+    this.bulletPool.push(
+      new Bullet(
+        this.position.x + this.width / 2,
+        this.position.y,
+        0, // type of bullet, 0 for player 1 for enemy
+        this.bulletImage
+      )
     );
+    console.log(this.bulletPool);
   }
 
   draw(ctx) {
     //ctx.fillStyle = "red";
-    if (this.bullet != null) this.bullet.draw(ctx);
+    if (this.bulletPool.length > 0) {
+      this.bulletPool.forEach(bullet => {
+        bullet.draw(ctx);
+      });
+    }
     this.playerSprite.draw(ctx);
   }
+
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
     this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.playerSprite.update(delta);
-    if (this.bullet != null) this.bullet.update(delta);
+    if (this.bulletPool.length > 0) {
+      this.bulletPool.forEach((bullet, i) => {
+        bullet.update(delta);
+        if (bullet.position.y < 0) {
+          this.bulletPool.splice(i, 1);
+        }
+      });
+    }
   }
 }
