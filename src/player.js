@@ -6,7 +6,10 @@ export default class Player {
     // declare player properties
     this.width = 24;
     this.height = 30;
-    this.speed = 0;
+    this.speed = {
+      x: 0,
+      y: 0
+    };
     this.position = {
       x: screenWidth / 2 - this.width / 2,
       y: screenHeight - this.height - 10
@@ -31,11 +34,15 @@ export default class Player {
   }
 
   left() {
-    this.speed = -25; // -25 pixels per second
+    this.speed.x = -25; // -25 pixels per second
   }
 
   right() {
-    this.speed = 25; // +25 pixels per second
+    this.speed.x = 25; // +25 pixels per second
+  }
+
+  stop() {
+    this.speed.x = 0;
   }
 
   shoot() {
@@ -55,7 +62,7 @@ export default class Player {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    this.position.x += this.speed / delta; // pixels per milliSecond
+    this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.playerSprite.update(delta);
     if (this.bullet != null) this.bullet.update(delta);
   }
