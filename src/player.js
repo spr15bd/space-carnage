@@ -1,5 +1,5 @@
 import Sprite from "./sprite.js";
-import Bullet from "./bullet.js";
+
 //import Input from "./input.js";
 export default class Player {
   constructor(screenWidth, screenHeight) {
@@ -32,7 +32,6 @@ export default class Player {
       this.height,
       4
     );
-    this.bulletPool = [];
   }
 
   left() {
@@ -47,25 +46,9 @@ export default class Player {
     this.speed.x = 0;
   }
 
-  shoot() {
-    this.bulletPool.push(
-      new Bullet(
-        this.position.x + this.width / 2,
-        this.position.y,
-        0, // type of bullet, 0 for player 1 for enemy
-        this.bulletImage
-      )
-    );
-    console.log(this.bulletPool);
-  }
-
   draw(ctx) {
     //ctx.fillStyle = "red";
-    if (this.bulletPool.length > 0) {
-      this.bulletPool.forEach(bullet => {
-        bullet.draw(ctx);
-      });
-    }
+
     this.playerSprite.draw(ctx);
   }
 
@@ -74,13 +57,5 @@ export default class Player {
     if (!delta) return;
     this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.playerSprite.update(delta);
-    if (this.bulletPool.length > 0) {
-      this.bulletPool.forEach((bullet, i) => {
-        bullet.update(delta);
-        if (bullet.position.y < 0) {
-          this.bulletPool.splice(i, 1);
-        }
-      });
-    }
   }
 }

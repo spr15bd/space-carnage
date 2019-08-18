@@ -11,7 +11,7 @@ export default class Input {
           player.right();
           break;
         case 17:
-          player.shoot();
+          game.shootBullet();
           break;
         case 32:
           game.start();

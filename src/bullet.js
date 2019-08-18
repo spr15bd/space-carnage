@@ -3,6 +3,7 @@ export default class Bullet {
   constructor(xPos, yPos, bulletType, image) {
     // declare bullet properties
     this.bulletType = bulletType;
+    this.bulletDelay = 100;
     this.width = 4;
     this.height = 8;
     this.position = {
@@ -27,6 +28,16 @@ export default class Bullet {
       this.height,
       1
     );
+  }
+  collidesWith(enemy) {
+    if (
+      this.position.x >= enemy.position.x &&
+      this.position.x <= enemy.position.x + enemy.width - this.width &&
+      this.position.y >= enemy.position.y &&
+      this.position.y <= enemy.position.y + enemy.height - this.height
+    ) {
+      return true;
+    }
   }
   draw(ctx) {
     this.bulletSprite.draw(ctx);

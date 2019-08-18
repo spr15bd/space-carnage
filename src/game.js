@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import Bullet from "./bullet.js";
 import Enemy from "./enemy.js";
 import Input from "./input";
 
@@ -19,26 +20,34 @@ export default class Game {
       new Enemy(624, 30, 1, "./enemies.png")
     );
     this.ticks = 0;
-
+    this.bulletFiredTicks = 0;
     this.randomHalt = 300;
     this.enemyCharging = false;
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
     this.startOfPeriod = 0;
     //this.randomPath = Math.random() < 0.5 ? 0 : 1;
     this.gameState = GAMESTATE.MENU;
-    //this.enemy = new Enemy(50, 30);
-    //this.enemy2 = new Enemy(100, 30);
-    //this.enemy.right();
-    new Input(this.player, this);
-  }
 
-  // TODO
-  moveEnemies() {
-    this.enemies.forEach(enemy => {});
+    new Input(this.player, this);
+    this.bulletPool = [];
   }
 
   start() {
     this.gameState = GAMESTATE.GAMEINPROGRESS;
+  }
+
+  shootBullet() {
+    if (this.ticks - this.bulletFiredTicks > 15) {
+      this.bulletPool.push(
+        new Bullet(
+          this.player.position.x + this.player.width / 2,
+          this.player.position.y,
+          0, // type of bullet, 0 for player 1 for enemy
+          this.player.bulletImage
+        )
+      );
+      this.bulletFiredTicks = this.ticks;
+    }
   }
 
   update(delta) {
@@ -85,7 +94,6 @@ export default class Game {
                   enemy.position.x) /
                 3;
             }
-
             enemy.speed.y = -20;
           } else {
             this.enemyCharging = false;
@@ -93,9 +101,6 @@ export default class Game {
               Math.random() * this.enemies.length
             );
           }
-
-          //enemy.stop();
-          //enemy.move();
         } else {
           enemy.position.x =
             350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
@@ -118,7 +123,21 @@ export default class Game {
 
       enemy.update(delta);
     });
-
+    if (this.bulletPool.length > 0) {
+      this.bulletPool.forEach((bullet, i) => {
+        bullet.update(delta);
+        if (bullet.position.y < 0) {
+          this.bulletPool.splice(i, 1);
+        }
+        this.enemies.forEach((enemy, i) => {
+          if (bullet.collidesWith(enemy)) {
+            console.log("collision");
+            this.bulletPool.splice(i, 1);
+            this.enemies.splice(i, 1);
+          }
+        });
+      });
+    }
     //this.enemy.update(delta);
     //this.enemy2.update(delta);
   }
@@ -127,22 +146,35 @@ export default class Game {
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
       ctx.fillStyle = "black";
       ctx.fill();
-
       ctx.textAlign = "center";
       ctx.fillStyle = "white";
       ctx.font = "18px monospace";
       ctx.fillText(
+        "Controls",
+        this.screenWidth / 2,
+        this.screenHeight / 2 - 40
+      );
+      ctx.fillText(
+        "Use keyboard arrows to move left and right, and <ctrl> to fire.",
+        this.screenWidth / 2,
+        this.screenHeight / 2 + 20
+      );
+      ctx.fillStyle = "skyblue";
+      ctx.fillText(
         "Press <space> to start. Good luck an' go ahead!",
         this.screenWidth / 2,
-        this.screenHeight / 2
+        this.screenHeight / 2 + 80
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.player.draw(ctx);
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });
-      //this.enemy.draw(ctx);
-      //this.enemy2.draw(ctx);
+      if (this.bulletPool.length > 0) {
+        this.bulletPool.forEach(bullet => {
+          bullet.draw(ctx);
+        });
+      }
     }
   }
 }
