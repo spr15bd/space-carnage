@@ -6,7 +6,9 @@ export default class Sprite {
     position,
     width,
     height,
-    numFrames
+    numFrames,
+    frameDuration,
+    repeatAnimation
   ) {
     this.image = image;
     this.sourceWidth = sourceWidth;
@@ -16,15 +18,21 @@ export default class Sprite {
     this.height = height;
     this.numFrames = numFrames;
     this.frameIndex = 0;
-    this.ticksPerFrame = 15;
+    this.ticksPerFrame = frameDuration;
+    this.repeatAnimation = repeatAnimation
     this.ticks = 0;
+    this.terminateSprite = false;
   }
   update(delta) {
     this.ticks++;
     if (this.ticks >= this.ticksPerFrame) {
       this.frameIndex++;
       if (this.frameIndex >= this.numFrames) {
-        this.frameIndex = 0;
+        if (this.repeatAnimation==true) {
+          this.frameIndex = 0;
+        } else {
+          this.terminateSprite = true;
+        }
       }
       this.ticks = 0;
     }

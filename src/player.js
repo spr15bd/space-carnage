@@ -22,7 +22,9 @@ export default class Player {
     this.bulletImage.src = "./playerBullet.png";
     this.sourceWidth = 16;
     this.sourceHeight = 16;
-
+    this.numberOfFrames = 4;
+    this.frameDuration = 15;
+    this.repeatAnimation = true;
     this.playerSprite = new Sprite(
       this.playerImage,
       this.sourceWidth,
@@ -30,7 +32,9 @@ export default class Player {
       this.position,
       this.width,
       this.height,
-      4
+      this.numberOfFrames,
+      this.frameDuration,
+      this.repeatAnimation
     );
   }
 
@@ -46,6 +50,14 @@ export default class Player {
     this.speed.x = 0;
   }
 
+  checkWhetherOnScreen() {
+    if (this.position.x<0) {
+      this.position.x=0;
+    } else if (this.position.x>this.screenWidth-this.width) {
+      this.position.x=this.screenWidth-this.width;
+    }
+  }
+
   draw(ctx) {
     //ctx.fillStyle = "red";
 
@@ -55,7 +67,11 @@ export default class Player {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
+    
     this.position.x += this.speed.x / delta; // pixels per milliSecond
+    this.checkWhetherOnScreen();
+      
+    
     this.playerSprite.update(delta);
   }
 }

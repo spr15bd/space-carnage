@@ -1,6 +1,7 @@
 import Player from "./player.js";
 import Bullet from "./bullet.js";
 import Enemy from "./enemy.js";
+import Explosion from "./explosion.js";
 import Input from "./input";
 
 const GAMESTATE = {
@@ -27,7 +28,7 @@ export default class Game {
     this.startOfPeriod = 0;
     //this.randomPath = Math.random() < 0.5 ? 0 : 1;
     this.gameState = GAMESTATE.MENU;
-
+    this.explosion = null;
     new Input(this.player, this);
     this.bulletPool = [];
   }
@@ -37,7 +38,7 @@ export default class Game {
   }
 
   shootBullet() {
-    if (this.ticks - this.bulletFiredTicks > 15) {
+    if (this.ticks - this.bulletFiredTicks > 10) {
       this.bulletPool.push(
         new Bullet(
           this.player.position.x + this.player.width / 2,
@@ -133,13 +134,21 @@ export default class Game {
           if (bullet.collidesWith(enemy)) {
             console.log("collision");
             this.bulletPool.splice(i, 1);
+            this.explosion = new Explosion(enemy.position.x, enemy.position.y, "./explosion.png")
             this.enemies.splice(i, 1);
+            
           }
         });
       });
     }
-    //this.enemy.update(delta);
-    //this.enemy2.update(delta);
+    
+    if (this.explosion!=null) {
+      if (this.explosion.readyForDeletion===true) {
+        this.explosion = null;
+      } else {
+        this.explosion.update(delta);
+      }
+    }
   }
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
@@ -175,6 +184,7 @@ export default class Game {
           bullet.draw(ctx);
         });
       }
+      if (this.explosion!=null) this.explosion.draw(ctx);
     }
   }
 }

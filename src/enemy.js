@@ -1,5 +1,4 @@
 import Sprite from "./sprite.js";
-//import Input from "./input.js";
 export default class Enemy {
   constructor(xPos, yPos, enemyType, imageSrc) {
     // declare enemy properties
@@ -15,10 +14,12 @@ export default class Enemy {
       y: yPos
     };
     this.image = new Image();
-    this.image.src = "./enemies.png";
+    this.image.src = imageSrc;
     this.sourceWidth = 32;
     this.sourceHeight = 32;
-
+    this.numberOfFrames = 8;
+    this.frameDuration = 15;
+    this.repeatAnimation = true;
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
@@ -26,7 +27,9 @@ export default class Enemy {
       this.position,
       this.width,
       this.height,
-      8 // number of frames in the spritsheet
+      this.numberOfFrames, // number of frames in the spritsheet
+      this.frameDuration,
+      this.repeatAnimation
     );
     this.now = 0;
     this.moving = false;
