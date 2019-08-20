@@ -16,7 +16,7 @@ export default class Explosion {
     this.sourceWidth = 16;
     this.sourceHeight = 16;
     this.numberOfFrames = 4;
-    this.frameDuration = 7;
+    this.frameDuration = 6;
     this.repeatAnimation = false;
     this.explosionSprite = new Sprite(
       this.image,
@@ -37,7 +37,7 @@ export default class Explosion {
   }
   update(delta) {
     this.explosionSprite.update(delta);
-    if (this.explosionSprite.terminateSprite===true) {
+    if (this.explosionSprite.terminateSprite === true) {
       this.readyForDeletion = true;
     }
   }

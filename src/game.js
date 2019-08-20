@@ -1,8 +1,9 @@
 import Player from "./player.js";
 import Bullet from "./bullet.js";
-import Enemy from "./enemy.js";
+
 import Explosion from "./explosion.js";
 import Input from "./input";
+import Level from "./level";
 
 const GAMESTATE = {
   MENU: 0,
@@ -13,20 +14,13 @@ export default class Game {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight);
-    this.enemies = [];
-    this.enemies.push(
-      new Enemy(336, 30, 1, "./enemies.png"),
-      new Enemy(432, 30, 1, "./enemies.png"),
-      new Enemy(528, 30, 1, "./enemies.png"),
-      new Enemy(624, 30, 1, "./enemies.png")
-    );
-    this.ticks = 0;
-    this.bulletFiredTicks = 0;
-    this.randomHalt = 300;
-    this.enemyCharging = false;
-    this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-    this.startOfPeriod = 0;
-    //this.randomPath = Math.random() < 0.5 ? 0 : 1;
+    this.level = new Level(0); // initialise the first level
+    this.enemies = this.level.getEnemies();
+    this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
+    this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
+    this.randomHalt = 300; //used to make alien movement less predictable
+    this.enemyCharging = false; //true whenver an alien swoops towards the player
+    this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU;
     this.explosion = null;
     new Input(this.player, this);
@@ -38,7 +32,8 @@ export default class Game {
   }
 
   shootBullet() {
-    if (this.ticks - this.bulletFiredTicks > 10) {
+    if (this.ticks - this.bulletFiredAtTicks > 10) {
+      // do not allow a bullet to be fired until 10 ticks have elapsed
       this.bulletPool.push(
         new Bullet(
           this.player.position.x + this.player.width / 2,
@@ -47,7 +42,7 @@ export default class Game {
           this.player.bulletImage
         )
       );
-      this.bulletFiredTicks = this.ticks;
+      this.bulletFiredAtTicks = this.ticks;
     }
   }
 
@@ -134,16 +129,19 @@ export default class Game {
           if (bullet.collidesWith(enemy)) {
             console.log("collision");
             this.bulletPool.splice(i, 1);
-            this.explosion = new Explosion(enemy.position.x, enemy.position.y, "./explosion.png")
+            this.explosion = new Explosion(
+              enemy.position.x,
+              enemy.position.y,
+              "./explosion.png"
+            );
             this.enemies.splice(i, 1);
-            
           }
         });
       });
     }
-    
-    if (this.explosion!=null) {
-      if (this.explosion.readyForDeletion===true) {
+
+    if (this.explosion != null) {
+      if (this.explosion.readyForDeletion === true) {
         this.explosion = null;
       } else {
         this.explosion.update(delta);
@@ -156,19 +154,20 @@ export default class Game {
       ctx.fillStyle = "black";
       ctx.fill();
       ctx.textAlign = "center";
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "#e61ce1";
       ctx.font = "18px monospace";
       ctx.fillText(
         "Controls",
         this.screenWidth / 2,
         this.screenHeight / 2 - 40
       );
+      ctx.fillStyle = "#a21ce6";
       ctx.fillText(
         "Use keyboard arrows to move left and right, and <ctrl> to fire.",
         this.screenWidth / 2,
         this.screenHeight / 2 + 20
       );
-      ctx.fillStyle = "skyblue";
+      ctx.fillStyle = "#741ce6";
       ctx.fillText(
         "Press <space> to start. Good luck an' go ahead!",
         this.screenWidth / 2,
@@ -184,7 +183,7 @@ export default class Game {
           bullet.draw(ctx);
         });
       }
-      if (this.explosion!=null) this.explosion.draw(ctx);
+      if (this.explosion != null) this.explosion.draw(ctx);
     }
   }
 }
