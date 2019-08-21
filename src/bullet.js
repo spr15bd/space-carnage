@@ -2,7 +2,7 @@ import Sprite from "./sprite.js";
 export default class Bullet {
   constructor(xPos, yPos, bulletType, image) {
     // declare bullet properties
-    this.bulletType = bulletType;
+    this.type = bulletType;
     this.bulletDelay = 100;
     this.width = 4;
     this.height = 8;
@@ -12,7 +12,7 @@ export default class Bullet {
     };
     this.speed = {
       x: 0,
-      y: -80
+      y: this.type === 0 ? -80 : 80
     };
     this.image = image;
     //this.image.src = imageSrc;
@@ -29,12 +29,12 @@ export default class Bullet {
       1
     );
   }
-  collidesWith(enemy) {
+  collidesWith(entity) {
     if (
-      this.position.x >= enemy.position.x &&
-      this.position.x <= enemy.position.x + enemy.width - this.width &&
-      this.position.y >= enemy.position.y &&
-      this.position.y <= enemy.position.y + enemy.height - this.height
+      this.position.x >= entity.position.x &&
+      this.position.x <= entity.position.x + entity.width - this.width &&
+      this.position.y >= entity.position.y &&
+      this.position.y <= entity.position.y + entity.height - this.height
     ) {
       return true;
     }

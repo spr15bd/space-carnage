@@ -1,4 +1,5 @@
 import Sprite from "./sprite.js";
+
 export default class Enemy {
   constructor(xPos, yPos, enemyType, imageSrc) {
     // declare enemy properties
@@ -15,6 +16,8 @@ export default class Enemy {
     };
     this.image = new Image();
     this.image.src = imageSrc;
+    this.bulletImage = new Image();
+    this.bulletImage.src = "./enemyBullet.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
     this.numberOfFrames = 8;
@@ -33,7 +36,7 @@ export default class Enemy {
     );
     this.now = 0;
     this.moving = false;
-    //this.move(this.enemyType);
+    this.bulletPool = [];
   }
 
   move() {
@@ -133,6 +136,7 @@ export default class Enemy {
     }
 
     //this.stop();
+
     this.enemySprite.update(delta);
   }
 }

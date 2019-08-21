@@ -31,19 +31,19 @@ export default class Game {
     this.gameState = GAMESTATE.GAMEINPROGRESS;
   }
 
-  shootBullet() {
-    if (this.ticks - this.bulletFiredAtTicks > 10) {
-      // do not allow a bullet to be fired until 10 ticks have elapsed
-      this.bulletPool.push(
-        new Bullet(
-          this.player.position.x + this.player.width / 2,
-          this.player.position.y,
-          0, // type of bullet, 0 for player 1 for enemy
-          this.player.bulletImage
-        )
-      );
-      this.bulletFiredAtTicks = this.ticks;
-    }
+  shootBullet(entity) {
+    //if (this.ticks - this.bulletFiredAtTicks > 10) {
+    // do not allow a bullet to be fired until 10 ticks have elapsed
+    this.bulletPool.push(
+      new Bullet(
+        entity.position.x + entity.width / 2,
+        entity.position.y,
+        entity === this.player ? 0 : 1, // type of bullet, 0 for player 1 for enemy
+        entity.bulletImage
+      )
+    );
+    this.bulletFiredAtTicks = this.ticks;
+    //}
   }
 
   update(delta) {
@@ -53,6 +53,9 @@ export default class Game {
       if (this.enemyCharging === false) {
         enemy.position.x =
           350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+        if (Math.random() > 0.98) {
+          this.shootBullet(enemy);
+        }
       } else {
         if (i === this.chargingEnemy) {
           if (this.ticks - this.now < 100) {
@@ -100,6 +103,9 @@ export default class Game {
         } else {
           enemy.position.x =
             350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+          if (Math.random() > 0.99) {
+            this.shootBullet(enemy);
+          }
         }
       }
 
@@ -122,11 +128,14 @@ export default class Game {
     if (this.bulletPool.length > 0) {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
-        if (bullet.position.y < 0) {
+        if (
+          (bullet.type === 0 && bullet.position.y < 0) ||
+          (bullet.type === 1 && bullet.position.y > this.screenHeight)
+        ) {
           this.bulletPool.splice(i, 1);
         }
         this.enemies.forEach((enemy, i) => {
-          if (bullet.collidesWith(enemy)) {
+          if (bullet.collidesWith(enemy) && bullet.type === 0) {
             console.log("collision");
             this.bulletPool.splice(i, 1);
             this.explosion = new Explosion(
