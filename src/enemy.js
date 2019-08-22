@@ -121,8 +121,8 @@ export default class Enemy {
     //this.position.y += this.speed.y / delta; // pixels per milliSecond
     if (!this.moving) {
     }
-    this.position.x += this.speed.x / delta;
-    this.position.y += this.speed.y / delta;
+    this.position.x += this.speed.x * delta;
+    this.position.y += this.speed.y * delta;
 
     //}
     if (this.enemyType === 0) {

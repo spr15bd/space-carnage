@@ -1,8 +1,8 @@
 import Sprite from "./sprite.js";
 export default class Bullet {
-  constructor(xPos, yPos, bulletType, image) {
+  constructor(xPos, yPos, speed, image) {
     // declare bullet properties
-    this.type = bulletType;
+    //this.type = bulletType;
     this.bulletDelay = 100;
     this.width = 4;
     this.height = 8;
@@ -12,7 +12,7 @@ export default class Bullet {
     };
     this.speed = {
       x: 0,
-      y: this.type === 0 ? -80 : 80
+      y: speed
     };
     this.image = image;
     //this.image.src = imageSrc;

@@ -17,6 +17,7 @@ export default class Game {
     this.level = new Level(0); // initialise the first level
     this.enemies = this.level.getEnemies();
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
+    this.now = this.ticks;
     this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
     this.randomHalt = 300; //used to make alien movement less predictable
     this.enemyCharging = false; //true whenver an alien swoops towards the player
@@ -32,68 +33,74 @@ export default class Game {
   }
 
   shootBullet(entity) {
-    //if (this.ticks - this.bulletFiredAtTicks > 10) {
-    // do not allow a bullet to be fired until 10 ticks have elapsed
-    this.bulletPool.push(
-      new Bullet(
-        entity.position.x + entity.width / 2,
-        entity.position.y,
-        entity === this.player ? 0 : 1, // type of bullet, 0 for player 1 for enemy
-        entity.bulletImage
-      )
-    );
-    this.bulletFiredAtTicks = this.ticks;
-    //}
+    // do not allow a player bullet to be fired until 10 ticks have elapsed
+    if (entity === this.player && this.ticks - this.bulletFiredAtTicks > 14) {
+      this.bulletPool.push(
+        new Bullet(
+          entity.position.x + entity.width / 2,
+          entity.position.y,
+          -80, // speed of bullet, -80 for player
+          entity.bulletImage
+        )
+      );
+      this.bulletFiredAtTicks = this.ticks;
+    } else {
+      this.bulletPool.push(
+        new Bullet(
+          entity.position.x + entity.width / 2,
+          entity.position.y,
+          60, // speed of bullet, 60 for enemy
+          entity.bulletImage
+        )
+      );
+    }
   }
 
   update(delta) {
     this.ticks++;
-    this.player.update(delta);
+    //console.log(this.ticks);
+    if (this.player != null) this.player.update(delta);
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
         enemy.position.x =
-          350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+          300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
         if (Math.random() > 0.98) {
           this.shootBullet(enemy);
         }
       } else {
         if (i === this.chargingEnemy) {
-          if (this.ticks - this.now < 100) {
-            enemy.speed.y = 15;
+          if (this.ticks - this.now < 80) {
+            enemy.speed.y = this.screenHeight / 7 / 350;
             enemy.speed.x = 0;
-          } else if (this.ticks - this.now < 200) {
-            enemy.speed.x = 30;
+          } else if (this.ticks - this.now < 160) {
+            enemy.speed.x = this.screenHeight / 7 / 500;
             enemy.speed.y = 0;
-          } else if (this.ticks - this.now < 300) {
+            if (Math.random() > 0.9) {
+              this.shootBullet(enemy);
+            }
+          } else if (this.ticks - this.now < 240) {
             enemy.speed.y = 0;
-            enemy.speed.x = -30;
-          } else if (this.ticks - this.now < 400) {
-            enemy.speed.y = -30;
-            enemy.speed.x = -5;
-          } else if (this.ticks - this.now < 600) {
+            enemy.speed.x = -(this.screenHeight / 7) / 500;
+            if (Math.random() > 0.9) {
+              this.shootBullet(enemy);
+            }
+          } else if (this.ticks - this.now < 320) {
+            enemy.speed.y = -(this.screenHeight / 8) / 400;
+            enemy.speed.x = -500 / 4000;
+          } else if (this.ticks - this.now < 700) {
             // once the charge is over move the enemy back into formation
             if (
-              enemy.position.x <
-              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
+              enemy.position.x !==
+              300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
             ) {
               enemy.speed.x =
-                (350 +
-                  330 * Math.sin(this.ticks * 0.02) +
+                (300 +
+                  270 * Math.sin(this.ticks * 0.02) +
                   i * (32 * 2) -
                   enemy.position.x) /
-                3;
-            } else if (
-              enemy.position.x >
-              350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
-            ) {
-              enemy.speed.x =
-                (350 +
-                  330 * Math.sin(this.ticks * 0.02) +
-                  i * (32 * 2) -
-                  enemy.position.x) /
-                3;
+                delta;
+              enemy.speed.y = -(enemy.position.y - 30) / delta;
             }
-            enemy.speed.y = -20;
           } else {
             this.enemyCharging = false;
             this.chargingEnemy = Math.floor(
@@ -102,7 +109,7 @@ export default class Game {
           }
         } else {
           enemy.position.x =
-            350 + 330 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+            300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
           if (Math.random() > 0.99) {
             this.shootBullet(enemy);
           }
@@ -112,14 +119,14 @@ export default class Game {
       if (enemy.position.y < 30) {
         enemy.speed.y = 0;
       }
-      if (this.ticks % this.randomHalt === 0 && enemy.speed.y === 0) {
+      if (this.ticks - this.now > 700 && enemy.speed.y === 0) {
         this.now = this.ticks;
         this.enemyCharging = true;
-        enemy.speed.y = 20;
+        //enemy.speed.y = this.screenHeight / 3000;
       }
 
-      if (enemy.position.y > this.screenHeight - this.player.height * 3) {
-        enemy.speed.y = -20;
+      if (enemy.position.y > this.screenHeight - 48) {
+        enemy.speed.y = -this.screenHeight / 2000;
         this.randomHalt = 300 * Math.floor(Math.random() * 3 + 1);
       }
 
@@ -129,13 +136,27 @@ export default class Game {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (
-          (bullet.type === 0 && bullet.position.y < 0) ||
-          (bullet.type === 1 && bullet.position.y > this.screenHeight)
+          (bullet.speed === -80 && bullet.position.y < 0) ||
+          (bullet.speed === 60 && bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
         }
+        /* player and enemy bullet collision
+        if (bullet.collidesWith(this.player) && bullet.speed.y === 60) {
+          console.log("collision");
+          this.bulletPool.splice(i, 1);
+
+          this.explosion = new Explosion(
+            this.player.position.x,
+            this.player.position.y,
+            "./explosion.png"
+          );
+          
+          
+         this.playerImage.src = "";
+        }*/
         this.enemies.forEach((enemy, i) => {
-          if (bullet.collidesWith(enemy) && bullet.type === 0) {
+          if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
             console.log("collision");
             this.bulletPool.splice(i, 1);
             this.explosion = new Explosion(
@@ -183,7 +204,7 @@ export default class Game {
         this.screenHeight / 2 + 80
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      this.player.draw(ctx);
+      if (this.player != null) this.player.draw(ctx);
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });

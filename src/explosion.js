@@ -16,7 +16,7 @@ export default class Explosion {
     this.sourceWidth = 16;
     this.sourceHeight = 16;
     this.numberOfFrames = 4;
-    this.frameDuration = 6;
+    this.frameDuration = 12;
     this.repeatAnimation = false;
     this.explosionSprite = new Sprite(
       this.image,
