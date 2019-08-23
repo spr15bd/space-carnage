@@ -70,6 +70,7 @@ export default class Game {
       } else {
         if (i === this.chargingEnemy) {
           if (this.ticks - this.now < 80) {
+            // move (1/7)th of the screen height over a period of 0.35 seconds
             enemy.speed.y = this.screenHeight / 7 / 350;
             enemy.speed.x = 0;
           } else if (this.ticks - this.now < 160) {
@@ -119,7 +120,11 @@ export default class Game {
       if (enemy.position.y < 30) {
         enemy.speed.y = 0;
       }
-      if (this.ticks - this.now > 700 && enemy.speed.y === 0) {
+      if (
+        this.ticks - this.now > 700 &&
+        Math.abs(this.player.position.x - enemy.position.x) <
+          100 /*&& enemy.speed.y === 0*/
+      ) {
         this.now = this.ticks;
         this.enemyCharging = true;
         //enemy.speed.y = this.screenHeight / 3000;
