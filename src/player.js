@@ -36,6 +36,7 @@ export default class Player {
       this.frameDuration,
       this.repeatAnimation
     );
+    this.dead = false;
   }
 
   left() {
@@ -51,10 +52,10 @@ export default class Player {
   }
 
   checkWhetherOnScreen() {
-    if (this.position.x<0) {
-      this.position.x=0;
-    } else if (this.position.x>this.screenWidth-this.width) {
-      this.position.x=this.screenWidth-this.width;
+    if (this.position.x < 0) {
+      this.position.x = 0;
+    } else if (this.position.x > this.screenWidth - this.width) {
+      this.position.x = this.screenWidth - this.width;
     }
   }
 
@@ -67,11 +68,10 @@ export default class Player {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    
+
     this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.checkWhetherOnScreen();
-      
-    
+
     this.playerSprite.update(delta);
   }
 }

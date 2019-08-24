@@ -88,8 +88,9 @@ export default class Game {
           } else if (this.ticks - this.now < 320) {
             enemy.speed.y = -(this.screenHeight / 8) / 400;
             enemy.speed.x = -500 / 4000;
-          } else if (this.ticks - this.now < 700) {
+          } else if (this.ticks - this.now < 900) {
             // once the charge is over move the enemy back into formation
+            enemy.stop();
             if (
               enemy.position.x !==
               300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
@@ -100,6 +101,7 @@ export default class Game {
                   i * (32 * 2) -
                   enemy.position.x) /
                 delta;
+
               enemy.speed.y = -(enemy.position.y - 30) / delta;
             }
           } else {
@@ -121,7 +123,7 @@ export default class Game {
         enemy.speed.y = 0;
       }
       if (
-        this.ticks - this.now > 700 &&
+        this.ticks - this.now > 900 &&
         Math.abs(this.player.position.x - enemy.position.x) <
           100 /*&& enemy.speed.y === 0*/
       ) {
@@ -150,7 +152,6 @@ export default class Game {
         if (bullet.collidesWith(this.player) && bullet.speed.y === 60) {
           console.log("collision");
           this.bulletPool.splice(i, 1);
-
           this.explosion = new Explosion(
             this.player.position.x,
             this.player.position.y,
