@@ -33,17 +33,19 @@ export default class Game {
   }
 
   shootBullet(entity) {
-    // do not allow a player bullet to be fired until 10 ticks have elapsed
-    if (entity === this.player && this.ticks - this.bulletFiredAtTicks > 14) {
-      this.bulletPool.push(
-        new Bullet(
-          entity.position.x + entity.width / 2,
-          entity.position.y,
-          -80, // speed of bullet, -80 for player
-          entity.bulletImage
-        )
-      );
-      this.bulletFiredAtTicks = this.ticks;
+    // do not allow a player bullet to be fired until 14 ticks have elapsed
+    if (entity === this.player) {
+      if (this.ticks - this.bulletFiredAtTicks > 14) {
+        this.bulletPool.push(
+          new Bullet(
+            entity.position.x + entity.width / 2,
+            entity.position.y,
+            -80, // speed of bullet, -80 for player
+            entity.bulletImage
+          )
+        );
+        this.bulletFiredAtTicks = this.ticks;
+      }
     } else {
       this.bulletPool.push(
         new Bullet(
@@ -148,22 +150,24 @@ export default class Game {
         ) {
           this.bulletPool.splice(i, 1);
         }
-        /* player and enemy bullet collision
-        if (bullet.collidesWith(this.player) && bullet.speed.y === 60) {
-          console.log("collision");
+        // player and enemy bullet collision
+        if (
+          bullet.collidesWith(this.player) &&
+          bullet.speed.y === 60 &&
+          !this.player.hit
+        ) {
           this.bulletPool.splice(i, 1);
+
           this.explosion = new Explosion(
             this.player.position.x,
             this.player.position.y,
             "./explosion.png"
           );
-          
-          
-         this.playerImage.src = "";
-        }*/
+
+          this.player.playerHit();
+        }
         this.enemies.forEach((enemy, i) => {
           if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
-            console.log("collision");
             this.bulletPool.splice(i, 1);
             this.explosion = new Explosion(
               enemy.position.x,
@@ -210,7 +214,7 @@ export default class Game {
         this.screenHeight / 2 + 80
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      if (this.player != null) this.player.draw(ctx);
+      this.player.draw(ctx);
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });

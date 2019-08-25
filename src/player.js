@@ -36,7 +36,7 @@ export default class Player {
       this.frameDuration,
       this.repeatAnimation
     );
-    this.dead = false;
+    this.hit = false;
   }
 
   left() {
@@ -59,9 +59,18 @@ export default class Player {
     }
   }
 
+  playerHit() {
+    this.hit = true;
+    setTimeout(() => {
+      this.hit = false;
+    }, 3000);
+  }
+
   draw(ctx) {
     //ctx.fillStyle = "red";
-
+    if (this.hit) {
+      return;
+    }
     this.playerSprite.draw(ctx);
   }
 
