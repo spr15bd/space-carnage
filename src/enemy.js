@@ -55,8 +55,8 @@ export default class Enemy {
     // movement across screen
     // pixels per milliSecond
 
-    this.position.x += this.speed.x * delta;
-    this.position.y += this.speed.y * delta;
+    this.position.x += this.speed.x;
+    this.position.y += this.speed.y;
     this.enemySprite.update(delta);
   }
 }

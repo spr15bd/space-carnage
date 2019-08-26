@@ -9,6 +9,18 @@ export default class Level {
         new Enemy(528, 30, 1, "./enemies.png"),
         new Enemy(624, 30, 1, "./enemies.png")
       );
+    } else {
+      this.enemies.push(
+        new Enemy(300, 30, 1, "./enemies.png"),
+        new Enemy(350, 30, 1, "./enemies.png"),
+        new Enemy(400, 30, 1, "./enemies.png"),
+        new Enemy(450, 30, 1, "./enemies.png"),
+        new Enemy(500, 30, 1, "./enemies.png"),
+        new Enemy(550, 30, 1, "./enemies.png"),
+        new Enemy(325, 80, 1, "./enemies.png"),
+        new Enemy(375, 80, 1, "./enemies.png"),
+        new Enemy(425, 80, 1, "./enemies.png")
+      );
     }
   }
   getEnemies() {

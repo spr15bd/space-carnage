@@ -14,7 +14,8 @@ export default class Game {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight);
-    this.level = new Level(0); // initialise the first level
+    this.screen = 0;
+    this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies();
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
     this.now = this.ticks;
@@ -59,6 +60,7 @@ export default class Game {
   }
 
   update(delta) {
+    //console.log(this.ticks);
     this.ticks++;
     //console.log(this.ticks);
     if (this.player != null) this.player.update(delta);
@@ -73,24 +75,24 @@ export default class Game {
         if (i === this.chargingEnemy) {
           if (this.ticks - this.now < 80) {
             // move (1/7)th of the screen height over a period of 0.35 seconds
-            enemy.speed.y = this.screenHeight / 7 / 350;
+            enemy.speed.y = 3;
             enemy.speed.x = 0;
           } else if (this.ticks - this.now < 160) {
-            enemy.speed.x = this.screenHeight / 7 / 500;
+            enemy.speed.x = 4;
             enemy.speed.y = 0;
             if (Math.random() > 0.9) {
               this.shootBullet(enemy);
             }
           } else if (this.ticks - this.now < 240) {
             enemy.speed.y = 0;
-            enemy.speed.x = -(this.screenHeight / 7) / 500;
+            enemy.speed.x = -4;
             if (Math.random() > 0.9) {
               this.shootBullet(enemy);
             }
-          } else if (this.ticks - this.now < 320) {
-            enemy.speed.y = -(this.screenHeight / 8) / 400;
-            enemy.speed.x = -500 / 4000;
-          } else if (this.ticks - this.now < 900) {
+          } else if (this.ticks - this.now < 250) {
+            enemy.speed.y = -3;
+            enemy.speed.x = -1;
+          } else if (this.ticks - this.now < 290) {
             // once the charge is over move the enemy back into formation
             enemy.stop();
             if (
@@ -103,10 +105,10 @@ export default class Game {
                   i * (32 * 2) -
                   enemy.position.x) /
                 delta;
-
-              enemy.speed.y = -(enemy.position.y - 30) / delta;
             }
+            enemy.speed.y = -enemy.position.y / delta;
           } else {
+            enemy.stop();
             this.enemyCharging = false;
             this.chargingEnemy = Math.floor(
               Math.random() * this.enemies.length
@@ -122,10 +124,10 @@ export default class Game {
       }
 
       if (enemy.position.y < 30) {
-        enemy.speed.y = 0;
+        enemy.position.y = 30;
       }
       if (
-        this.ticks - this.now > 900 &&
+        this.ticks - this.now > 550 &&
         Math.abs(this.player.position.x - enemy.position.x) <
           100 /*&& enemy.speed.y === 0*/
       ) {
@@ -175,6 +177,7 @@ export default class Game {
               "./explosion.png"
             );
             this.enemies.splice(i, 1);
+            console.log(this.enemies.length);
           }
         });
       });
@@ -186,6 +189,11 @@ export default class Game {
       } else {
         this.explosion.update(delta);
       }
+    }
+    if (this.enemies.length <= 0) {
+      this.screen++;
+      this.level = new Level(this.screen);
+      this.enemies = this.level.getEnemies();
     }
   }
   draw(ctx) {
