@@ -20,7 +20,6 @@ export default class Game {
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
     this.now = this.ticks;
     this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
-    this.randomHalt = 300; //used to make alien movement less predictable
     this.enemyCharging = false; //true whenver an alien swoops towards the player
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU;
@@ -168,7 +167,7 @@ export default class Game {
 
           this.player.playerHit();
         }
-        this.enemies.forEach((enemy, i) => {
+        this.enemies.forEach((enemy, j) => {
           if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
             this.bulletPool.splice(i, 1);
             this.explosion = new Explosion(
@@ -176,7 +175,8 @@ export default class Game {
               enemy.position.y,
               "./explosion.png"
             );
-            this.enemies.splice(i, 1);
+            
+            this.enemies.splice(j, 1);
             console.log(this.enemies.length);
           }
         });
@@ -190,10 +190,19 @@ export default class Game {
         this.explosion.update(delta);
       }
     }
+
+    // when all enemies defeated, pause a few seconds, move onto next level and reset variables
     if (this.enemies.length <= 0) {
-      this.screen++;
-      this.level = new Level(this.screen);
-      this.enemies = this.level.getEnemies();
+      setTimeout(() => {
+        this.explosion = null;
+        this.screen++;
+        this.level = new Level(this.screen);
+        this.enemies = this.level.getEnemies();
+        this.bulletFiredAtTicks = 0; 
+        this.enemyCharging = false; 
+        this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+      }, 4000);
+      
     }
   }
   draw(ctx) {
