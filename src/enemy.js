@@ -35,8 +35,8 @@ export default class Enemy {
       this.repeatAnimation
     );
     this.now = 0;
-    this.moving = false;
-    this.bulletPool = [];
+    //this.moving = false;
+    //this.bulletPool = [];
   }
 
   stop() {

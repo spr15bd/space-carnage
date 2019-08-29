@@ -1,6 +1,5 @@
 import Player from "./player.js";
 import Bullet from "./bullet.js";
-
 import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
@@ -17,6 +16,7 @@ export default class Game {
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies();
+    this.blocks = this.level.getBlocks();
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
     this.now = this.ticks;
     this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
@@ -63,6 +63,10 @@ export default class Game {
     this.ticks++;
     //console.log(this.ticks);
     if (this.player != null) this.player.update(delta);
+    this.blocks.forEach(block => {
+      block.update(delta);
+      //block.speed.x = 0;
+    });
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
         enemy.position.x =
@@ -175,7 +179,7 @@ export default class Game {
               enemy.position.y,
               "./explosion.png"
             );
-            
+
             this.enemies.splice(j, 1);
             console.log(this.enemies.length);
           }
@@ -193,16 +197,16 @@ export default class Game {
 
     // when all enemies defeated, pause a few seconds, move onto next level and reset variables
     if (this.enemies.length <= 0) {
+      this.bulletPool = [];
+      this.screen++;
+      this.level = new Level(this.screen);
       setTimeout(() => {
-        this.explosion = null;
-        this.screen++;
-        this.level = new Level(this.screen);
+        //this.explosion = null;
         this.enemies = this.level.getEnemies();
-        this.bulletFiredAtTicks = 0; 
-        this.enemyCharging = false; 
+        //this.bulletFiredAtTicks = 0;
+        this.enemyCharging = false;
         this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
       }, 4000);
-      
     }
   }
   draw(ctx) {
@@ -232,9 +236,16 @@ export default class Game {
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.player.draw(ctx);
+
+      if (this.blocks.length > 0) {
+        this.blocks.forEach(block => {
+          block.draw(ctx);
+        });
+      }
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });
+
       if (this.bulletPool.length > 0) {
         this.bulletPool.forEach(bullet => {
           bullet.draw(ctx);

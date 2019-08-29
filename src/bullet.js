@@ -3,7 +3,7 @@ export default class Bullet {
   constructor(xPos, yPos, speed, image) {
     // declare bullet properties
     //this.type = bulletType;
-    this.bulletDelay = 100;
+    //this.bulletDelay = 100;
     this.width = 4;
     this.height = 8;
     this.position = {

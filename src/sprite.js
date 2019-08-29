@@ -19,7 +19,7 @@ export default class Sprite {
     this.numFrames = numFrames;
     this.frameIndex = 0;
     this.ticksPerFrame = frameDuration;
-    this.repeatAnimation = repeatAnimation
+    this.repeatAnimation = repeatAnimation;
     this.ticks = 0;
     this.terminateSprite = false;
   }
@@ -28,7 +28,7 @@ export default class Sprite {
     if (this.ticks >= this.ticksPerFrame) {
       this.frameIndex++;
       if (this.frameIndex >= this.numFrames) {
-        if (this.repeatAnimation==true) {
+        if (this.repeatAnimation === true) {
           this.frameIndex = 0;
         } else {
           this.terminateSprite = true;
@@ -49,5 +49,6 @@ export default class Sprite {
       this.width,
       this.height
     );
+    //console.log("drawn");
   }
 }
