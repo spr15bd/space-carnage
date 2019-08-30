@@ -1,3 +1,8 @@
 body {
-  font-family: sans-serif;
+  font-family: 18px monospace;
+}
+div {
+  background-color: rgb(255, 255, 255);
+  color: blue;
+  width: 800px;
 }

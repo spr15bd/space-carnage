@@ -37,6 +37,8 @@ export default class Player {
       this.repeatAnimation
     );
     this.hit = false;
+    this.score = 0;
+    this.lives = 3;
   }
 
   left() {
