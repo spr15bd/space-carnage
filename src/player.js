@@ -9,7 +9,7 @@ export default class Player {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
-    this.hiscore = this.score;
+    this.hiscore = 0;
     this.reset();
   }
 
