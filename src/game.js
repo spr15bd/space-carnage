@@ -6,13 +6,19 @@ import Level from "./level";
 
 const GAMESTATE = {
   MENU: 0,
-  GAMEINPROGRESS: 1
+  GAMEINPROGRESS: 1,
+  GAMEOVER: 2
 };
 export default class Game {
   constructor(screenWidth, screenHeight) {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-    this.player = new Player(this.screenWidth, this.screenHeight);
+    this.player = new Player(this.screenWidth, this.screenHeight, this);
+    new Input(this.player, this);
+    this.initialiseGame();
+  }
+
+  initialiseGame() {
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies();
@@ -24,12 +30,20 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU;
     this.explosion = null;
-    new Input(this.player, this);
+
     this.bulletPool = [];
+    this.stats = document.getElementById("stats");
+    this.score = document.getElementById("score");
+    this.lives = document.getElementById("lives");
+    this.hiscore = document.getElementById("hiscore");
   }
 
   start() {
     this.gameState = GAMESTATE.GAMEINPROGRESS;
+  }
+
+  gameOver() {
+    this.gameState = GAMESTATE.GAMEOVER;
   }
 
   shootBullet(entity) {
@@ -174,6 +188,7 @@ export default class Game {
         this.enemies.forEach((enemy, j) => {
           if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
             this.bulletPool.splice(i, 1);
+            this.player.incrementScore(enemy.enemyType);
             this.explosion = new Explosion(
               enemy.position.x,
               enemy.position.y,
@@ -211,6 +226,8 @@ export default class Game {
   }
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
+      this.stats.style.display = "none";
+
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
       ctx.fillStyle = "black";
       ctx.fill();
@@ -235,6 +252,7 @@ export default class Game {
         this.screenHeight / 2 + 80
       );
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+      this.stats.style.display = "flex";
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
@@ -251,7 +269,18 @@ export default class Game {
           bullet.draw(ctx);
         });
       }
+      this.lives.innerHTML = this.player.lives;
+      this.score.innerHTML = this.player.score;
+      this.hiscore.innerHTML = this.player.hiscore;
       if (this.explosion != null) this.explosion.draw(ctx);
+    } else if (this.gameState === GAMESTATE.GAMEOVER) {
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#e61ce1";
+      ctx.font = "24px monospace";
+      ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
+      setTimeout(() => {
+        this.initialiseGame();
+      }, 3000);
     }
   }
 }

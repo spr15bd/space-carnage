@@ -17,7 +17,7 @@ canvas {
   font-weight: normal;
   font-size: 20px;
 
-  display: flex;
+  display: none;
 }
 
 div {
@@ -27,4 +27,13 @@ div {
   float: left;
   background-color: black;
   width: 33.333%;
+}
+#score {
+  width: 8%;
+}
+#lives {
+  width: 8%;
+}
+#hiscore {
+  width: 9%;
 }

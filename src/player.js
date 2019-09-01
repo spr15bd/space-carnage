@@ -2,12 +2,18 @@ import Sprite from "./sprite.js";
 
 //import Input from "./input.js";
 export default class Player {
-  constructor(screenWidth, screenHeight) {
+  constructor(screenWidth, screenHeight, game) {
     // declare player properties
     this.width = 24;
     this.height = 30;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
+    this.game = game;
+    this.hiscore = this.score;
+    this.reset();
+  }
+
+  reset() {
     this.speed = {
       x: 0,
       y: 0
@@ -41,6 +47,19 @@ export default class Player {
     this.lives = 3;
   }
 
+  incrementScore(enemyType) {
+    switch (enemyType) {
+      case 0:
+        this.score += 10;
+        break;
+      case 1:
+        this.score += 20;
+        break;
+      default:
+        this.score += 10;
+    }
+  }
+
   left() {
     this.speed.x = -25; // -25 pixels per second
   }
@@ -63,9 +82,19 @@ export default class Player {
 
   playerHit() {
     this.hit = true;
-    setTimeout(() => {
-      this.hit = false;
-    }, 3000);
+    this.lives -= 1;
+    if (this.lives <= 0) {
+      // game over
+      setTimeout(() => {
+        this.reset();
+        this.game.gameOver();
+      }, 2000);
+    } else {
+      // lose a life routine
+      setTimeout(() => {
+        this.hit = false;
+      }, 3000);
+    }
   }
 
   draw(ctx) {
