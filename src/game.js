@@ -251,6 +251,7 @@ export default class Game {
         this.screenWidth / 2,
         this.screenHeight / 2 + 80
       );
+      document.getElementById("gameScreen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
       this.player.draw(ctx);
