@@ -11,6 +11,9 @@ const GAMESTATE = {
 };
 export default class Game {
   constructor(screenWidth, screenHeight) {
+    this.image = new Image();
+    this.image.src = "/starbackground.png";
+    this.image.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight, this);
@@ -215,13 +218,28 @@ export default class Game {
       this.bulletPool = [];
       this.screen++;
       this.level = new Level(this.screen);
-      setTimeout(() => {
+      this.image.yPos += 2;
+      /*setTimeout(() => {
         //this.explosion = null;
         this.enemies = this.level.getEnemies();
         //this.bulletFiredAtTicks = 0;
         this.enemyCharging = false;
         this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-      }, 4000);
+      }, 4000);*/
+      if (this.image.yPos >= 0) {
+        //this.enemies = this.level.getEnemies();
+        //this.enemyCharging = false;
+        //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+        this.image.yPos = -600;
+
+        setTimeout(() => {
+          //this.explosion = null;
+          this.enemies = this.level.getEnemies();
+          //this.bulletFiredAtTicks = 0;
+          this.enemyCharging = false;
+          this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+        }, 1000);
+      }
     }
   }
   draw(ctx) {
@@ -254,6 +272,17 @@ export default class Game {
       document.getElementById("gameScreen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
+      ctx.drawImage(
+        this.image,
+        0, // source x
+        0, // source y
+        800,
+        1200,
+        0,
+        this.image.yPos,
+        this.screenWidth,
+        this.screenHeight * 2
+      );
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
