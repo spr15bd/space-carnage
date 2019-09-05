@@ -11,9 +11,9 @@ const GAMESTATE = {
 };
 export default class Game {
   constructor(screenWidth, screenHeight) {
-    this.image = new Image();
-    this.image.src = "/starbackground.png";
-    this.image.yPos = -600;
+    this.backgroundImage = new Image();
+    this.backgroundImage.src = "/starbackground.png";
+    this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.player = new Player(this.screenWidth, this.screenHeight, this);
@@ -27,6 +27,7 @@ export default class Game {
     this.enemies = this.level.getEnemies();
     this.blocks = this.level.getBlocks();
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
+    this.waiting = false;
     this.now = this.ticks;
     this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false; //true whenver an alien swoops towards the player
@@ -76,14 +77,144 @@ export default class Game {
   }
 
   update(delta) {
-    //console.log(this.ticks);
     this.ticks++;
-    //console.log(this.ticks);
+    // update player
     if (this.player != null) this.player.update(delta);
+    // update blocks
     this.blocks.forEach(block => {
       block.update(delta);
       //block.speed.x = 0;
     });
+    // update enemies
+    this.moveEnemies(delta);
+    // update collisions
+    this.checkForCollisions(delta);
+    // update explosions
+    this.checkForExplosions(delta);
+
+    // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
+    if (this.enemies.length <= 0) {
+      if (this.backgroundImage.yPos >= 0) {
+        //  do the player thrust upwards routine
+        this.backgroundImage.yPos += 2;
+      } else {
+        if (!this.waiting) {
+          this.now = this.ticks;
+          this.waiting = true;
+        }
+        if (this.ticks - this.now > 120) {
+          this.backgroundImage.yPos = -600;
+          //this.wait(200);
+          //this.now = this.ticks;
+          //this.enemies = this.level.getEnemies();
+          //this.enemyCharging = false;
+          //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+          this.bulletPool = [];
+          this.screen++;
+          this.level = new Level(this.screen);
+
+          this.enemies = this.level.getEnemies();
+          //this.bulletFiredAtTicks = 0;
+          this.enemyCharging = false;
+          this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+          this.waiting = false;
+        }
+        // then move to the next level
+        // move the background image back above the screen ready for the end of the next level
+        // (top and bottom half of the background image are the same so the change is unnoticeable)
+
+        /*setTimeout(() => {
+          //this.explosion = null;
+          
+        }, 2000);*/
+      }
+    }
+  }
+
+  draw(ctx) {
+    if (this.gameState === GAMESTATE.MENU) {
+      this.stats.style.display = "none";
+
+      ctx.rect(0, 0, this.screenWidth, this.screenHeight);
+      ctx.fillStyle = "black";
+      ctx.fill();
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#e61ce1";
+      ctx.font = "18px monospace";
+      ctx.fillText(
+        "Controls",
+        this.screenWidth / 2,
+        this.screenHeight / 2 - 40
+      );
+      ctx.fillStyle = "#a21ce6";
+      ctx.fillText(
+        "Use keyboard arrows to move left and right, and <ctrl> to fire.",
+        this.screenWidth / 2,
+        this.screenHeight / 2 + 20
+      );
+      ctx.fillStyle = "#741ce6";
+      ctx.fillText(
+        "Press <space> to start. Good luck an' go ahead!",
+        this.screenWidth / 2,
+        this.screenHeight / 2 + 80
+      );
+      document.getElementById("gameScreen").focus();
+    } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+      this.stats.style.display = "flex";
+      ctx.drawImage(
+        this.backgroundImage,
+        0, // source (spritesheet file) x
+        0, // source (spritesheet file) y
+        800, // source (spritesheet file) width
+        1200, // source (spritesheet file) height
+        0, // gamescreen x
+        this.backgroundImage.yPos, // gamescreen y
+        this.screenWidth, // gamescreen width
+        this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
+      );
+      this.player.draw(ctx);
+
+      if (this.blocks.length > 0) {
+        this.blocks.forEach(block => {
+          block.draw(ctx);
+        });
+      }
+      this.enemies.forEach(enemy => {
+        enemy.draw(ctx);
+      });
+
+      if (this.bulletPool.length > 0) {
+        this.bulletPool.forEach(bullet => {
+          bullet.draw(ctx);
+        });
+      }
+      this.lives.innerHTML = this.player.lives;
+      this.score.innerHTML = this.player.score;
+      this.hiscore.innerHTML = this.player.hiscore;
+      if (this.explosion != null) this.explosion.draw(ctx);
+    } else if (this.gameState === GAMESTATE.GAMEOVER) {
+      ctx.drawImage(
+        this.backgroundImage,
+        0, // source (spritesheet file) x
+        0, // source (spritesheet file) y
+        800, // source (spritesheet file) width
+        1200, // source (spritesheet file) height
+        0, // gamescreen x
+        this.backgroundImage.yPos, // gamescreen y
+        this.screenWidth, // gamescreen width
+        this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
+      );
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#e61ce1";
+      ctx.font = "24px monospace";
+      ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
+      setTimeout(() => {
+        this.initialiseGame();
+      }, 3000);
+    }
+  }
+
+  moveEnemies(delta) {
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
         enemy.position.x =
@@ -163,6 +294,9 @@ export default class Game {
 
       enemy.update(delta);
     });
+  }
+  checkForCollisions(delta) {
+    // check for and handle any player, enemy or screen boundary collisions with bullets
     if (this.bulletPool.length > 0) {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
@@ -204,113 +338,14 @@ export default class Game {
         });
       });
     }
-
+  }
+  checkForExplosions(delta) {
     if (this.explosion != null) {
       if (this.explosion.readyForDeletion === true) {
         this.explosion = null;
       } else {
         this.explosion.update(delta);
       }
-    }
-
-    // when all enemies defeated, pause a few seconds, move onto next level and reset variables
-    if (this.enemies.length <= 0) {
-      this.bulletPool = [];
-      this.screen++;
-      this.level = new Level(this.screen);
-      this.image.yPos += 2;
-      /*setTimeout(() => {
-        //this.explosion = null;
-        this.enemies = this.level.getEnemies();
-        //this.bulletFiredAtTicks = 0;
-        this.enemyCharging = false;
-        this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-      }, 4000);*/
-      if (this.image.yPos >= 0) {
-        //this.enemies = this.level.getEnemies();
-        //this.enemyCharging = false;
-        //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-        this.image.yPos = -600;
-
-        setTimeout(() => {
-          //this.explosion = null;
-          this.enemies = this.level.getEnemies();
-          //this.bulletFiredAtTicks = 0;
-          this.enemyCharging = false;
-          this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-        }, 1000);
-      }
-    }
-  }
-  draw(ctx) {
-    if (this.gameState === GAMESTATE.MENU) {
-      this.stats.style.display = "none";
-
-      ctx.rect(0, 0, this.screenWidth, this.screenHeight);
-      ctx.fillStyle = "black";
-      ctx.fill();
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#e61ce1";
-      ctx.font = "18px monospace";
-      ctx.fillText(
-        "Controls",
-        this.screenWidth / 2,
-        this.screenHeight / 2 - 40
-      );
-      ctx.fillStyle = "#a21ce6";
-      ctx.fillText(
-        "Use keyboard arrows to move left and right, and <ctrl> to fire.",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 20
-      );
-      ctx.fillStyle = "#741ce6";
-      ctx.fillText(
-        "Press <space> to start. Good luck an' go ahead!",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 80
-      );
-      document.getElementById("gameScreen").focus();
-    } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      this.stats.style.display = "flex";
-      ctx.drawImage(
-        this.image,
-        0, // source x
-        0, // source y
-        800,
-        1200,
-        0,
-        this.image.yPos,
-        this.screenWidth,
-        this.screenHeight * 2
-      );
-      this.player.draw(ctx);
-
-      if (this.blocks.length > 0) {
-        this.blocks.forEach(block => {
-          block.draw(ctx);
-        });
-      }
-      this.enemies.forEach(enemy => {
-        enemy.draw(ctx);
-      });
-
-      if (this.bulletPool.length > 0) {
-        this.bulletPool.forEach(bullet => {
-          bullet.draw(ctx);
-        });
-      }
-      this.lives.innerHTML = this.player.lives;
-      this.score.innerHTML = this.player.score;
-      this.hiscore.innerHTML = this.player.hiscore;
-      if (this.explosion != null) this.explosion.draw(ctx);
-    } else if (this.gameState === GAMESTATE.GAMEOVER) {
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#e61ce1";
-      ctx.font = "24px monospace";
-      ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
-      setTimeout(() => {
-        this.initialiseGame();
-      }, 3000);
     }
   }
 }
