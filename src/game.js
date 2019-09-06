@@ -1,3 +1,4 @@
+
 import Player from "./player.js";
 import Bullet from "./bullet.js";
 import Explosion from "./explosion.js";
@@ -24,18 +25,19 @@ export default class Game {
   initialiseGame() {
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
-    this.enemies = this.level.getEnemies();
-    this.blocks = this.level.getBlocks();
-    this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility & limiting bullets
+    this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
+    this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
+    this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.waiting = false;
+    this.playerHit = false;
     this.now = this.ticks;
-    this.bulletFiredAtTicks = 0; // will be used to limit the number of bullets fired
+    this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false; //true whenver an alien swoops towards the player
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
-    this.gameState = GAMESTATE.MENU;
+    this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
 
-    this.bulletPool = [];
+    this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
@@ -53,7 +55,7 @@ export default class Game {
   shootBullet(entity) {
     // do not allow a player bullet to be fired until 14 ticks have elapsed
     if (entity === this.player) {
-      if (this.ticks - this.bulletFiredAtTicks > 14) {
+      if (this.ticks - this.now > 14) {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
@@ -62,7 +64,7 @@ export default class Game {
             entity.bulletImage
           )
         );
-        this.bulletFiredAtTicks = this.ticks;
+        this.now = this.ticks;
       }
     } else {
       this.bulletPool.push(
@@ -94,39 +96,28 @@ export default class Game {
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
     if (this.enemies.length <= 0) {
-      if (this.backgroundImage.yPos >= 0) {
-        //  do the player thrust upwards routine
+      if (this.backgroundImage.yPos < 0) {
+        //  do the between levels player thrust upwards routine
         this.backgroundImage.yPos += 2;
       } else {
+        // wait a couple of seconds....
         if (!this.waiting) {
           this.now = this.ticks;
           this.waiting = true;
         }
+        // ....then reset variables and start a new level
         if (this.ticks - this.now > 120) {
+          // move the background image back above the screen ready for the end of the next level
+          // (top and bottom half of the background image are the same so the change is unnoticeable)
           this.backgroundImage.yPos = -600;
-          //this.wait(200);
-          //this.now = this.ticks;
-          //this.enemies = this.level.getEnemies();
-          //this.enemyCharging = false;
-          //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
           this.bulletPool = [];
           this.screen++;
           this.level = new Level(this.screen);
-
           this.enemies = this.level.getEnemies();
-          //this.bulletFiredAtTicks = 0;
           this.enemyCharging = false;
           this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
           this.waiting = false;
         }
-        // then move to the next level
-        // move the background image back above the screen ready for the end of the next level
-        // (top and bottom half of the background image are the same so the change is unnoticeable)
-
-        /*setTimeout(() => {
-          //this.explosion = null;
-          
-        }, 2000);*/
       }
     }
   }
@@ -208,9 +199,18 @@ export default class Game {
       ctx.fillStyle = "#e61ce1";
       ctx.font = "24px monospace";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
-      setTimeout(() => {
+      // wait a couple of seconds....
+      if (!this.waiting) {
+        this.now = this.ticks;
+        this.waiting = true;
+      }
+      // ...then start the game again
+      if (this.ticks - this.now > 200) {
         this.initialiseGame();
-      }, 3000);
+      }
+      //setTimeout(() => {
+      //  this.initialiseGame();
+      //}, 3000);
     }
   }
 
@@ -310,7 +310,7 @@ export default class Game {
         if (
           bullet.collidesWith(this.player) &&
           bullet.speed.y === 60 &&
-          !this.player.hit
+          !this.playerHit
         ) {
           this.bulletPool.splice(i, 1);
 
@@ -320,8 +320,35 @@ export default class Game {
             "./explosion.png"
           );
 
-          this.player.playerHit();
+          //this.player.playerHit();
+
+          this.playerHit = true;
+          this.player.lives -= 1;
+          if (this.player.lives <= 0) {
+            // game over
+            setTimeout(() => {
+              this.player.reset();
+              this.gameOver();
+            }, 2000);
+          } else {
+            // lose a life routine
+            setTimeout(() => {
+              this.playerHit = false;
+            }, 3000);
+          }
         }
+
+        this.blocks.forEach((block, k) => {
+          
+          if (bullet.collidesWith(block) && bullet.speed.y === -80) {
+            this.bulletPool.splice(i, 1);
+            //this.player.incrementScore(enemy.enemyType);
+            //console.log("collision");
+            this.blocks.splice(k, 1);
+            
+          }
+        });
+
         this.enemies.forEach((enemy, j) => {
           if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
             this.bulletPool.splice(i, 1);
@@ -333,9 +360,9 @@ export default class Game {
             );
 
             this.enemies.splice(j, 1);
-            console.log(this.enemies.length);
           }
         });
+        
       });
     }
   }

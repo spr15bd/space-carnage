@@ -1,6 +1,4 @@
 import Sprite from "./sprite.js";
-
-//import Input from "./input.js";
 export default class Player {
   constructor(screenWidth, screenHeight, game) {
     // declare player properties
@@ -42,7 +40,7 @@ export default class Player {
       this.frameDuration,
       this.repeatAnimation
     );
-    this.hit = false;
+    //this.hit = false;
     this.score = 0;
     this.lives = 3;
   }
@@ -80,26 +78,9 @@ export default class Player {
     }
   }
 
-  playerHit() {
-    this.hit = true;
-    this.lives -= 1;
-    if (this.lives <= 0) {
-      // game over
-      setTimeout(() => {
-        this.reset();
-        this.game.gameOver();
-      }, 2000);
-    } else {
-      // lose a life routine
-      setTimeout(() => {
-        this.hit = false;
-      }, 3000);
-    }
-  }
-
   draw(ctx) {
     //ctx.fillStyle = "red";
-    if (this.hit) {
+    if (this.game.playerHit) {
       return;
     }
     this.playerSprite.draw(ctx);

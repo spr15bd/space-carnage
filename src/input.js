@@ -5,13 +5,13 @@ export default class Input {
 
       switch (key) {
         case 37:
-          if (!player.hit) player.left();
+          if (!game.playerHit) player.left();
           break;
         case 39:
-          if (!player.hit) player.right();
+          if (!game.playerHit) player.right();
           break;
         case 17:
-          if (!player.hit) game.shootBullet(player);
+          if (!game.playerHit) game.shootBullet(player);
           break;
         case 32:
           game.start();

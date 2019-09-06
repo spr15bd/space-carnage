@@ -5,7 +5,7 @@ export default class Block {
     //this.type = bulletType;
     //this.bulletDelay = 100;
     this.width = 8;
-    this.height = 4;
+    this.height = 8;
     this.position = {
       x: xPos,
       y: yPos
