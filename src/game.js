@@ -1,4 +1,3 @@
-
 import Player from "./player.js";
 import Bullet from "./bullet.js";
 import Explosion from "./explosion.js";
@@ -31,7 +30,7 @@ export default class Game {
     this.waiting = false;
     this.playerHit = false;
     this.now = this.ticks;
-    this.now = 0; // will be used to limit the number of bullets fired
+    //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false; //true whenver an alien swoops towards the player
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
@@ -101,14 +100,7 @@ export default class Game {
         this.backgroundImage.yPos += 2;
       } else {
         // wait a couple of seconds....
-        if (!this.waiting) {
-          this.now = this.ticks;
-          this.waiting = true;
-        }
-        // ....then reset variables and start a new level
-        if (this.ticks - this.now > 120) {
-          // move the background image back above the screen ready for the end of the next level
-          // (top and bottom half of the background image are the same so the change is unnoticeable)
+        this.delay(120, () => {
           this.backgroundImage.yPos = -600;
           this.bulletPool = [];
           this.screen++;
@@ -117,7 +109,15 @@ export default class Game {
           this.enemyCharging = false;
           this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
           this.waiting = false;
+        });
+        /*if (!this.waiting) {
+          this.now = this.ticks;
+          this.waiting = true;
         }
+        // ....then reset variables and start a new level
+        if (this.ticks - this.now > 120) {*/
+        // move the background image back above the screen ready for the end of the next level
+        // (top and bottom half of the background image are the same so the change is unnoticeable)
       }
     }
   }
@@ -199,18 +199,10 @@ export default class Game {
       ctx.fillStyle = "#e61ce1";
       ctx.font = "24px monospace";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
-      // wait a couple of seconds....
-      if (!this.waiting) {
-        this.now = this.ticks;
-        this.waiting = true;
-      }
-      // ...then start the game again
-      if (this.ticks - this.now > 200) {
+      // wait a couple of seconds then load a new game
+      this.delay(120, () => {
         this.initialiseGame();
-      }
-      //setTimeout(() => {
-      //  this.initialiseGame();
-      //}, 3000);
+      });
     }
   }
 
@@ -339,13 +331,11 @@ export default class Game {
         }
 
         this.blocks.forEach((block, k) => {
-          
           if (bullet.collidesWith(block) && bullet.speed.y === -80) {
             this.bulletPool.splice(i, 1);
             //this.player.incrementScore(enemy.enemyType);
             //console.log("collision");
             this.blocks.splice(k, 1);
-            
           }
         });
 
@@ -362,7 +352,6 @@ export default class Game {
             this.enemies.splice(j, 1);
           }
         });
-        
       });
     }
   }
@@ -373,6 +362,16 @@ export default class Game {
       } else {
         this.explosion.update(delta);
       }
+    }
+  }
+  delay(time, callback) {
+    if (!this.waiting) {
+      this.now = this.ticks;
+      this.waiting = true;
+    }
+    if (this.ticks - this.now > time) {
+      this.waiting = false;
+      callback();
     }
   }
 }
