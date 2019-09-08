@@ -99,7 +99,9 @@ export default class Game {
         //  do the between levels player thrust upwards routine
         this.backgroundImage.yPos += 2;
       } else {
-        // wait a couple of seconds....
+        // wait a couple of seconds, reset variables and start a new level...
+        // move the background image back above the screen ready for the end of the next level
+        // (top and bottom half of the background image are the same so the change is unnoticeable)
         this.delay(120, () => {
           this.backgroundImage.yPos = -600;
           this.bulletPool = [];
@@ -110,14 +112,6 @@ export default class Game {
           this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
           this.waiting = false;
         });
-        /*if (!this.waiting) {
-          this.now = this.ticks;
-          this.waiting = true;
-        }
-        // ....then reset variables and start a new level
-        if (this.ticks - this.now > 120) {*/
-        // move the background image back above the screen ready for the end of the next level
-        // (top and bottom half of the background image are the same so the change is unnoticeable)
       }
     }
   }
