@@ -3,6 +3,7 @@ export default class Sprite {
     image,
     sourceWidth,
     sourceHeight,
+    sourceY,
     position,
     width,
     height,
@@ -13,6 +14,8 @@ export default class Sprite {
     this.image = image;
     this.sourceWidth = sourceWidth;
     this.sourceHeight = sourceHeight;
+
+    this.sourceY = sourceY;
     this.position = position;
     this.width = width;
     this.height = height;
@@ -41,7 +44,7 @@ export default class Sprite {
     ctx.drawImage(
       this.image,
       this.sourceWidth * this.frameIndex, // source x
-      0, // source y
+      this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
       this.position.x,
@@ -49,6 +52,5 @@ export default class Sprite {
       this.width,
       this.height
     );
-    //console.log("drawn");
   }
 }

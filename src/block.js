@@ -23,6 +23,7 @@ export default class Block {
       this.image,
       this.sourceWidth,
       this.sourceHeight,
+      0,
       this.position,
       this.width,
       this.height,

@@ -26,6 +26,7 @@ export default class Player {
     this.bulletImage.src = "./playerBullet.png";
     this.sourceWidth = 16;
     this.sourceHeight = 16;
+    this.sourceY = 0;
     this.numberOfFrames = 4;
     this.frameDuration = 15;
     this.repeatAnimation = true;
@@ -33,6 +34,7 @@ export default class Player {
       this.playerImage,
       this.sourceWidth,
       this.sourceHeight,
+      this.sourceY,
       this.position,
       this.width,
       this.height,

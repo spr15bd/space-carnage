@@ -10,6 +10,7 @@ export default class Enemy {
       x: 0,
       y: 0
     };
+    this.startXPosition = xPos;
     this.position = {
       x: xPos,
       y: yPos
@@ -20,6 +21,7 @@ export default class Enemy {
     this.bulletImage.src = "./enemyBullet.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
+    this.sourceY = enemyType === 0 ? 0 : 32;
     this.numberOfFrames = 8;
     this.frameDuration = 15;
     this.repeatAnimation = true;
@@ -27,6 +29,7 @@ export default class Enemy {
       this.image,
       this.sourceWidth,
       this.sourceHeight,
+      this.sourceY,
       this.position,
       this.width,
       this.height,

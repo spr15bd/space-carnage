@@ -203,8 +203,10 @@ export default class Game {
   moveEnemies(delta) {
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
-        enemy.position.x =
-          300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+        enemy.position.x = (enemy.startXPosition) + 50 + 270 * Math.sin(this.ticks * 0.02);
+
+        //enemy.position.x =
+        //300 + 270 * Math.sin(this.ticks * 0.02) + (i % 5) * 64; //i* (32 * 2);
         if (Math.random() > 0.98) {
           this.shootBullet(enemy);
         }
@@ -252,8 +254,7 @@ export default class Game {
             );
           }
         } else {
-          enemy.position.x =
-            300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2);
+          enemy.position.x = (enemy.startXPosition) + 50 + 270 * Math.sin(this.ticks * 0.02);
           if (Math.random() > 0.99) {
             this.shootBullet(enemy);
           }
