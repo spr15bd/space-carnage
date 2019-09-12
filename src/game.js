@@ -30,6 +30,7 @@ export default class Game {
     this.waiting = false;
     this.playerHit = false;
     this.now = this.ticks;
+    this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false; //true whenver an alien swoops towards the player
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
@@ -95,24 +96,36 @@ export default class Game {
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
     if (this.enemies.length <= 0) {
-      if (this.backgroundImage.yPos < 0) {
-        //  do the between levels player thrust upwards routine
-        this.backgroundImage.yPos += 2;
+      if (this.delayOver) {
+        this.thrust();
       } else {
-        // wait a couple of seconds, reset variables and start a new level...
-        // move the background image back above the screen ready for the end of the next level
-        // (top and bottom half of the background image are the same so the change is unnoticeable)
-        this.delay(120, () => {
-          this.backgroundImage.yPos = -600;
-          this.bulletPool = [];
-          this.screen++;
-          this.level = new Level(this.screen);
-          this.enemies = this.level.getEnemies();
-          this.enemyCharging = false;
-          this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-          this.waiting = false;
+        this.delay(70, () => {
+          this.delayOver = true;
+          //this.thrust();
         });
       }
+    }
+  }
+
+  thrust() {
+    if (this.backgroundImage.yPos < 0) {
+      //  do the between levels player thrust upwards routine
+      this.backgroundImage.yPos += 2;
+    } else {
+      // wait a couple of seconds, reset variables and start a new level...
+      // move the background image back above the screen ready for the end of the next level
+      // (top and bottom half of the background image are the same so the change is unnoticeable)
+      this.delay(120, () => {
+        this.backgroundImage.yPos = -600;
+        this.bulletPool = [];
+        this.screen++;
+        this.level = new Level(this.screen);
+        this.enemies = this.level.getEnemies();
+        this.enemyCharging = false;
+        this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+        this.waiting = false;
+        this.delayOver = false;
+      });
     }
   }
 
@@ -203,7 +216,8 @@ export default class Game {
   moveEnemies(delta) {
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
-        enemy.position.x = (enemy.startXPosition) + 50 + 270 * Math.sin(this.ticks * 0.02);
+        enemy.position.x =
+          enemy.startXPosition + 50 + 270 * Math.sin(this.ticks * 0.02);
 
         //enemy.position.x =
         //300 + 270 * Math.sin(this.ticks * 0.02) + (i % 5) * 64; //i* (32 * 2);
@@ -254,7 +268,8 @@ export default class Game {
             );
           }
         } else {
-          enemy.position.x = (enemy.startXPosition) + 50 + 270 * Math.sin(this.ticks * 0.02);
+          enemy.position.x =
+            enemy.startXPosition + 50 + 270 * Math.sin(this.ticks * 0.02);
           if (Math.random() > 0.99) {
             this.shootBullet(enemy);
           }
@@ -366,6 +381,7 @@ export default class Game {
     }
     if (this.ticks - this.now > time) {
       this.waiting = false;
+      this.delayOver = true;
       callback();
     }
   }
