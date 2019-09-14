@@ -7,11 +7,15 @@ export default class Player {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
-    this.hiscore = localStorage.getItem("hiscore");
+
     this.reset();
   }
 
   reset() {
+    this.hiscore = localStorage.getItem("hiscore");
+    if (this.hiscore == null) {
+      this.hiscore = 0;
+    }
     this.speed = {
       x: 0,
       y: 0

@@ -329,6 +329,9 @@ export default class Game {
           if (this.player.lives <= 0) {
             // game over
             setTimeout(() => {
+              if (this.player.score > this.player.hiscore) {
+                localStorage.setItem("hiscore", this.player.score);
+              }
               this.player.reset();
               this.gameOver();
             }, 2000);
