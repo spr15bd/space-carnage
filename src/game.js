@@ -138,7 +138,7 @@ export default class Game {
       ctx.fill();
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "18px monospace";
+      ctx.font = "18px dejavu sans mono";
       ctx.fillText(
         "Controls",
         this.screenWidth / 2,
@@ -204,7 +204,7 @@ export default class Game {
       );
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "24px monospace";
+      ctx.font = "24px dejavu sans mono";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
       // wait a couple of seconds then load a new game
       this.delay(120, () => {

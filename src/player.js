@@ -7,7 +7,7 @@ export default class Player {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
-    this.hiscore = 0;
+    this.hiscore = localStorage.getItem("hiscore");
     this.reset();
   }
 
