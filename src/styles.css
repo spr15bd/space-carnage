@@ -31,10 +31,18 @@ div {
 }
 #score {
   width: 8%;
+  color: red;
+}
+.score {
+  color: red;
 }
 #lives {
   width: 8%;
 }
 #hiscore {
   width: 9%;
+  color: purple;
+}
+.hiscore {
+  color: purple;
 }
