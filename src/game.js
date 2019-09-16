@@ -36,7 +36,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-
+    this.angle = 90;
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
@@ -214,6 +214,16 @@ export default class Game {
   }
 
   moveEnemies(delta) {
+    this.enemies.forEach((enemy, i) => {
+      enemy.position.x += 3 * Math.cos((this.angle * Math.PI) / 180);
+      enemy.position.y += 6 * Math.sin((this.angle * Math.PI) / 180);
+      enemy.update(delta);
+      this.angle += 0.1;
+    });
+  }
+  moveEnemies1(delta) {
+    //enemy.x += enemy.speed * Math.cos(this.angle * Math.PI / 180);
+    //this.y += this.speed * Math.sin(angle * Math.PI / 180);
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
         enemy.position.x =
