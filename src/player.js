@@ -44,7 +44,8 @@ export default class Player {
       this.height,
       this.numberOfFrames,
       this.frameDuration,
-      this.repeatAnimation
+      this.repeatAnimation,
+      0
     );
     //this.hit = false;
     this.score = 0;
@@ -89,7 +90,16 @@ export default class Player {
     if (this.game.playerHit) {
       return;
     }
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2
+    );
+
+    ctx.rotate((this.angle * Math.PI) / 180);
     this.playerSprite.draw(ctx);
+
+    ctx.restore();
   }
 
   update(delta) {

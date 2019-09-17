@@ -36,7 +36,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-    this.angle = 90;
+    //this.angle = 90;
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
@@ -170,6 +170,7 @@ export default class Game {
         this.screenWidth, // gamescreen width
         this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
       );
+
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
@@ -215,10 +216,10 @@ export default class Game {
 
   moveEnemies(delta) {
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x += 3 * Math.cos((this.angle * Math.PI) / 180);
-      enemy.position.y += 6 * Math.sin((this.angle * Math.PI) / 180);
+      enemy.position.x += 4 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y += 4 * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.update(delta);
-      this.angle += 0.1;
+      enemy.angle += 0.1;
     });
   }
   moveEnemies1(delta) {
