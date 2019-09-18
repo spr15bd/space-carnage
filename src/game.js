@@ -219,7 +219,13 @@ export default class Game {
       enemy.position.x += 4 * Math.cos((enemy.angle * Math.PI) / 180);
       enemy.position.y += 4 * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.update(delta);
-      enemy.angle += 0.1;
+      enemy.angle += 0.2;
+      if (
+        enemy.position.y > this.screenHeight + 100 ||
+        enemy.position.y < -100
+      ) {
+        enemy.angle += 150;
+      }
     });
   }
   moveEnemies1(delta) {
