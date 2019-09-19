@@ -28,30 +28,29 @@ export default class Level {
       );*/
     } else if (level == 1) {
       this.enemies.push(
-        new Enemy(240, 70, 0, "./enemies.png"),
-        new Enemy(280, 70, 1, "./enemies.png"),
-        new Enemy(320, 70, 0, "./enemies.png"),
-        new Enemy(360, 70, 1, "./enemies.png"),
-        new Enemy(240, 110, 0, "./enemies.png"),
-        new Enemy(280, 110, 1, "./enemies.png"),
-        new Enemy(320, 110, 0, "./enemies.png"),
-        new Enemy(360, 110, 1, "./enemies.png"),
-        new Enemy(280, 150, 0, "./enemies.png"),
-        new Enemy(320, 150, 1, "./enemies.png"),
-        new Enemy(280, 190, 0, "./enemies.png"),
-        new Enemy(320, 190, 1, "./enemies.png")
+        new Enemy(240, 70, 90, 0, "./enemies.png"),
+        new Enemy(280, 70, 90, 1, "./enemies.png"),
+        new Enemy(320, 70, 90, 0, "./enemies.png"),
+        new Enemy(360, 70, 90, 1, "./enemies.png"),
+        new Enemy(240, 110, 90, 0, "./enemies.png"),
+        new Enemy(280, 110, 90, 1, "./enemies.png"),
+        new Enemy(320, 110, 90, 0, "./enemies.png"),
+        new Enemy(360, 110, 90, 1, "./enemies.png"),
+        new Enemy(280, 150, 90, 0, "./enemies.png"),
+        new Enemy(320, 150, 90, 1, "./enemies.png"),
+        new Enemy(280, 190, 90, 0, "./enemies.png"),
+        new Enemy(320, 190, 90, 1, "./enemies.png")
       );
     } else {
       this.enemies.push(
-        new Enemy(300, 30, 0, "./enemies.png"),
-        new Enemy(350, 30, 0, "./enemies.png"),
-        new Enemy(400, 30, 0, "./enemies.png"),
-        new Enemy(450, 30, 0, "./enemies.png"),
-        new Enemy(500, 30, 0, "./enemies.png"),
-        new Enemy(550, 30, 0, "./enemies.png"),
-        new Enemy(325, 80, 0, "./enemies.png"),
-        new Enemy(375, 80, 0, "./enemies.png"),
-        new Enemy(425, 80, 0, "./enemies.png")
+        new Enemy(300, 30, 90, 0, "./enemies.png"),
+        new Enemy(350, 30, 90, 0, "./enemies.png"),
+        new Enemy(400, 30, 90, 0, "./enemies.png"),
+        new Enemy(450, 30, 90, 0, "./enemies.png"),
+        new Enemy(500, 30, 90, 0, "./enemies.png"),
+        new Enemy(550, 30, 90, 0, "./enemies.png"),
+        new Enemy(325, 80, 90, 0, "./enemies.png"),
+        new Enemy(375, 80, 90, 0, "./enemies.png")
       );
     }
   }

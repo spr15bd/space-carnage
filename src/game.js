@@ -222,9 +222,11 @@ export default class Game {
       enemy.angle += 0.2;
       if (
         enemy.position.y > this.screenHeight + 100 ||
-        enemy.position.y < -300
+        enemy.position.y < -300 ||
+        enemy.position.x > this.screenWidth + 100 ||
+        enemy.position.x < -100
       ) {
-        enemy.angle += 150;
+        enemy.angle += 180;
       }
 
       if (Math.random() > 0.99) {
