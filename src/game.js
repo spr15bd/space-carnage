@@ -71,7 +71,7 @@ export default class Game {
         new Bullet(
           entity.position.x + entity.width / 2,
           entity.position.y,
-          60, // speed of bullet, 60 for enemy
+          150, // speed of bullet, 150 for enemy
           entity.bulletImage
         )
       );
@@ -222,9 +222,13 @@ export default class Game {
       enemy.angle += 0.2;
       if (
         enemy.position.y > this.screenHeight + 100 ||
-        enemy.position.y < -100
+        enemy.position.y < -300
       ) {
         enemy.angle += 150;
+      }
+
+      if (Math.random() > 0.99) {
+        this.shootBullet(enemy);
       }
     });
   }
@@ -321,14 +325,14 @@ export default class Game {
         bullet.update(delta);
         if (
           (bullet.speed === -80 && bullet.position.y < 0) ||
-          (bullet.speed === 60 && bullet.position.y > this.screenHeight)
+          (bullet.speed === 150 && bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
         }
         // player and enemy bullet collision
         if (
           bullet.collidesWith(this.player) &&
-          bullet.speed.y === 60 &&
+          bullet.speed.y === 150 &&
           !this.playerHit
         ) {
           this.bulletPool.splice(i, 1);
