@@ -60,7 +60,7 @@ export default class Game {
           new Bullet(
             entity.position.x + entity.width / 2,
             entity.position.y,
-            -80, // speed of bullet, -80 for player
+            -120, // speed of bullet, -120 for player
             entity.bulletImage
           )
         );
@@ -220,15 +220,15 @@ export default class Game {
       enemy.position.y += 4 * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.update(delta);
       enemy.angle += 0.2;
-      if (
-        enemy.position.y > this.screenHeight + 100 ||
-        enemy.position.y < -300 ||
-        enemy.position.x > this.screenWidth + 100 ||
-        enemy.position.x < -100
-      ) {
-        enemy.angle += 180;
+      if (enemy.position.y > this.screenHeight + 75) {
+        enemy.angle = 250;
+      } else if (enemy.position.y < -75) {
+        enemy.angle = 70;
+      } else if (enemy.position.x > this.screenWidth + 75) {
+        enemy.angle = 180;
+      } else if (enemy.position.x < -75) {
+        enemy.angle = 0;
       }
-
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
@@ -326,7 +326,7 @@ export default class Game {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (
-          (bullet.speed === -80 && bullet.position.y < 0) ||
+          (bullet.speed === -120 && bullet.position.y < 0) ||
           (bullet.speed === 150 && bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
@@ -367,7 +367,7 @@ export default class Game {
         }
 
         this.blocks.forEach((block, k) => {
-          if (bullet.collidesWith(block) && bullet.speed.y === -80) {
+          if (bullet.collidesWith(block) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             //this.player.incrementScore(enemy.enemyType);
             //console.log("collision");
@@ -376,7 +376,7 @@ export default class Game {
         });
 
         this.enemies.forEach((enemy, j) => {
-          if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
+          if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             this.player.incrementScore(enemy.enemyType);
             this.explosion = new Explosion(
