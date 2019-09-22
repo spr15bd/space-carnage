@@ -34,16 +34,7 @@ export default class Explosion {
   }
   draw(ctx) {
     //ctx.fillStyle = "red";
-    ctx.save();
-    ctx.translate(
-      this.position.x + this.width / 2,
-      this.position.y + this.height / 2
-    );
-
-    ctx.rotate((this.angle * Math.PI) / 180);
     this.explosionSprite.draw(ctx);
-
-    ctx.restore();
   }
   update(delta) {
     this.explosionSprite.update(delta);

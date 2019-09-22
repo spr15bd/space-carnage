@@ -7,15 +7,11 @@ export default class Player {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
-
+    this.hiscore = 0;
     this.reset();
   }
 
   reset() {
-    this.hiscore = localStorage.getItem("hiscore");
-    if (this.hiscore == null) {
-      this.hiscore = 0;
-    }
     this.speed = {
       x: 0,
       y: 0
@@ -44,8 +40,7 @@ export default class Player {
       this.height,
       this.numberOfFrames,
       this.frameDuration,
-      this.repeatAnimation,
-      0
+      this.repeatAnimation
     );
     //this.hit = false;
     this.score = 0;
@@ -90,16 +85,7 @@ export default class Player {
     if (this.game.playerHit) {
       return;
     }
-    ctx.save();
-    ctx.translate(
-      this.position.x + this.width / 2,
-      this.position.y + this.height / 2
-    );
-
-    ctx.rotate((this.angle * Math.PI) / 180);
     this.playerSprite.draw(ctx);
-
-    ctx.restore();
   }
 
   update(delta) {

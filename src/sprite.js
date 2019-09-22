@@ -9,13 +9,12 @@ export default class Sprite {
     height,
     numFrames,
     frameDuration,
-    repeatAnimation,
-    angle
+    repeatAnimation
   ) {
     this.image = image;
     this.sourceWidth = sourceWidth;
     this.sourceHeight = sourceHeight;
-    this.angle = angle;
+
     this.sourceY = sourceY;
     this.position = position;
     this.width = width;
@@ -48,8 +47,8 @@ export default class Sprite {
       this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
-      -this.width / 2,
-      -this.height / 2,
+      this.position.x,
+      this.position.y,
       this.width,
       this.height
     );
