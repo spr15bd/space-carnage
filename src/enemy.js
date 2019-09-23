@@ -1,7 +1,7 @@
 import Sprite from "./sprite.js";
 
 export default class Enemy {
-  constructor(xPos, yPos, enemyType, imageSrc) {
+  constructor(xPos, yPos, angle, enemyType, imageSrc) {
     // declare enemy properties
     this.enemyType = enemyType;
     this.width = 32;
@@ -25,6 +25,7 @@ export default class Enemy {
     this.numberOfFrames = 8;
     this.frameDuration = 15;
     this.repeatAnimation = true;
+    this.angle = angle;
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
@@ -35,9 +36,11 @@ export default class Enemy {
       this.height,
       this.numberOfFrames, // number of frames in the spritsheet
       this.frameDuration,
-      this.repeatAnimation
+      this.repeatAnimation,
+      this.angle
     );
     this.now = 0;
+
     //this.moving = false;
     //this.bulletPool = [];
   }
@@ -49,7 +52,16 @@ export default class Enemy {
 
   draw(ctx) {
     //ctx.fillStyle = "red";
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2
+    );
+
+    ctx.rotate(((this.angle - 90) * Math.PI) / 180);
     this.enemySprite.draw(ctx);
+
+    ctx.restore();
   }
   update(delta) {
     // every delta milliSeconds

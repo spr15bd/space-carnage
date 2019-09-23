@@ -33,7 +33,16 @@ export default class Block {
   }
 
   draw(ctx) {
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2
+    );
+
+    ctx.rotate((this.angle * Math.PI) / 180);
     this.blockSprite.draw(ctx);
+
+    ctx.restore();
   }
   update(delta) {
     // every delta milliSeconds

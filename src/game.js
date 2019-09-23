@@ -30,13 +30,14 @@ export default class Game {
     this.waiting = false;
     this.playerHit = false;
     this.now = this.ticks;
+    this.lastPlayerBulletTicks = this.ticks;
     this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false; //true whenver an alien swoops towards the player
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-
+    //this.angle = 90;
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
@@ -55,23 +56,23 @@ export default class Game {
   shootBullet(entity) {
     // do not allow a player bullet to be fired until 14 ticks have elapsed
     if (entity === this.player) {
-      if (this.ticks - this.now > 14) {
+      if (this.ticks - this.lastPlayerBulletTicks > 14) {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
             entity.position.y,
-            -80, // speed of bullet, -80 for player
+            -120, // speed of bullet, -120 for player
             entity.bulletImage
           )
         );
-        this.now = this.ticks;
+        this.lastPlayerBulletTicks = this.ticks;
       }
     } else {
       this.bulletPool.push(
         new Bullet(
           entity.position.x + entity.width / 2,
           entity.position.y,
-          60, // speed of bullet, 60 for enemy
+          150, // speed of bullet, 150 for enemy
           entity.bulletImage
         )
       );
@@ -138,7 +139,7 @@ export default class Game {
       ctx.fill();
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "18px monospace";
+      ctx.font = "18px dejavu sans mono";
       ctx.fillText(
         "Controls",
         this.screenWidth / 2,
@@ -170,6 +171,7 @@ export default class Game {
         this.screenWidth, // gamescreen width
         this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
       );
+
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
@@ -204,7 +206,7 @@ export default class Game {
       );
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "24px monospace";
+      ctx.font = "24px dejavu sans mono";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
       // wait a couple of seconds then load a new game
       this.delay(120, () => {
@@ -214,6 +216,28 @@ export default class Game {
   }
 
   moveEnemies(delta) {
+    this.enemies.forEach((enemy, i) => {
+      enemy.position.x += 4 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y += 4 * Math.sin((enemy.angle * Math.PI) / 180);
+      enemy.update(delta);
+      enemy.angle += 0.2;
+      if (enemy.position.y > this.screenHeight + 75) {
+        enemy.angle = 230;
+      } else if (enemy.position.y < -75) {
+        enemy.angle = 110;
+      } else if (enemy.position.x > this.screenWidth + 75) {
+        enemy.angle = 180;
+      } else if (enemy.position.x < -75) {
+        enemy.angle = 0;
+      }
+      if (Math.random() > 0.99) {
+        this.shootBullet(enemy);
+      }
+    });
+  }
+  moveEnemies1(delta) {
+    //enemy.x += enemy.speed * Math.cos(this.angle * Math.PI / 180);
+    //this.y += this.speed * Math.sin(angle * Math.PI / 180);
     this.enemies.forEach((enemy, i) => {
       if (this.enemyCharging === false) {
         enemy.position.x =
@@ -303,15 +327,15 @@ export default class Game {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (
-          (bullet.speed === -80 && bullet.position.y < 0) ||
-          (bullet.speed === 60 && bullet.position.y > this.screenHeight)
+          (bullet.speed === -120 && bullet.position.y < 0) ||
+          (bullet.speed === 150 && bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
         }
         // player and enemy bullet collision
         if (
           bullet.collidesWith(this.player) &&
-          bullet.speed.y === 60 &&
+          bullet.speed.y === 150 &&
           !this.playerHit
         ) {
           this.bulletPool.splice(i, 1);
@@ -329,6 +353,9 @@ export default class Game {
           if (this.player.lives <= 0) {
             // game over
             setTimeout(() => {
+              if (this.player.score > this.player.hiscore) {
+                localStorage.setItem("hiscore", this.player.score);
+              }
               this.player.reset();
               this.gameOver();
             }, 2000);
@@ -341,7 +368,7 @@ export default class Game {
         }
 
         this.blocks.forEach((block, k) => {
-          if (bullet.collidesWith(block) && bullet.speed.y === -80) {
+          if (bullet.collidesWith(block) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             //this.player.incrementScore(enemy.enemyType);
             //console.log("collision");
@@ -350,7 +377,7 @@ export default class Game {
         });
 
         this.enemies.forEach((enemy, j) => {
-          if (bullet.collidesWith(enemy) && bullet.speed.y === -80) {
+          if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             this.player.incrementScore(enemy.enemyType);
             this.explosion = new Explosion(
