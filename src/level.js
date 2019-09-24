@@ -6,6 +6,65 @@ export default class Level {
     this.blocks = [];
     if (level === 0) {
       this.enemies.push(
+        new Enemy(400, 100, 0, 0, "./enemies.png"),
+        new Enemy(
+          400 + 100 * Math.cos((78.75 * Math.PI) / 180),
+          100 * Math.sin((78.75 * Math.PI) / 180),
+          11.25,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((67 * Math.PI) / 180),
+          100 * Math.sin((67 * Math.PI) / 180),
+          22.5,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((56.25 * Math.PI) / 180),
+          100 * Math.sin((56.25 * Math.PI) / 180),
+          33.75,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((45 * Math.PI) / 180),
+          100 * Math.sin((45 * Math.PI) / 180),
+          45,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((33.75 * Math.PI) / 180),
+          100 * Math.sin((33.75 * Math.PI) / 180),
+          56.25,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((22.5 * Math.PI) / 180),
+          100 * Math.sin((22.5 * Math.PI) / 180),
+          67.5,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((11.25 * Math.PI) / 180),
+          100 * Math.sin((11.25 * Math.PI) / 180),
+          78.75,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          400 + 100 * Math.cos((0 * Math.PI) / 180),
+          100 * Math.sin((0 * Math.PI) / 180),
+          90,
+          0,
+          "./enemies.png"
+        )
+      );
+      /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),
         new Enemy(246, -290, 46, 0, "./enemies.png"),
         new Enemy(248, -260, 47, 0, "./enemies.png"),
@@ -15,7 +74,7 @@ export default class Level {
         new Enemy(256, -140, 51, 1, "./enemies.png"),
         new Enemy(256, -110, 52, 0, "./enemies.png"),
         new Enemy(256, -80, 53, 1, "./enemies.png")
-      );
+      );*/
       /*this.blocks.push(
         new Block(300, 300, "./block.png"),
         new Block(308, 300, "./block.png"),

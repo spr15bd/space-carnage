@@ -58,7 +58,7 @@ export default class Enemy {
       this.position.y + this.height / 2
     );
 
-    ctx.rotate(((this.angle - 90) * Math.PI) / 180);
+    ctx.rotate((this.angle * Math.PI) / 180);
     this.enemySprite.draw(ctx);
 
     ctx.restore();

@@ -217,14 +217,14 @@ export default class Game {
 
   moveEnemies(delta) {
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x += 4 * Math.cos((enemy.angle * Math.PI) / 180);
-      enemy.position.y += 4 * Math.sin((enemy.angle * Math.PI) / 180);
+      enemy.position.x = 300 + 150 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y = 100 + 150 * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.update(delta);
-      enemy.angle += 0.2;
+      enemy.angle += 1;
       if (enemy.position.y > this.screenHeight + 75) {
-        enemy.angle = 230;
+        enemy.angle = 250;
       } else if (enemy.position.y < -75) {
-        enemy.angle = 110;
+        enemy.angle = 70;
       } else if (enemy.position.x > this.screenWidth + 75) {
         enemy.angle = 180;
       } else if (enemy.position.x < -75) {
