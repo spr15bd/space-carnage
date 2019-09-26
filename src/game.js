@@ -22,6 +22,7 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.totalTime = 0;
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
@@ -37,7 +38,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-
+    this.angle = 1;
     this.centre = {
       x: 0,
       y: 110
@@ -225,16 +226,30 @@ export default class Game {
   }
 
   moveEnemies(delta) {
+    //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       enemy.position.x =
         this.centre.x + this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
       enemy.position.y =
         this.centre.y + this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.update(delta);
-      enemy.angle += 1.1;
+
+      if (Math.floor(enemy.position.x) >= 700) {
+        //this.angle = -0.2;
+        this.radius.y = 90;
+      }
+      if (Math.floor(enemy.position.x) <= 200) {
+        //this.angle = -0.2;
+        this.radius.x = 150;
+      }
+      enemy.angle += this.angle;
+
+      //console.log(this.accumulatedTime);
+
+      //else enemy.angle -= 0.4;
       this.centre.x += this.waveXDisp;
-      if (enemy.position.x < -10) this.waveXDisp = 0.2;
-      if (enemy.position.x > this.screenWidth + 10) this.waveXDisp = -0.2;
+      if (enemy.position.x < -50) this.waveXDisp = 0.2;
+      if (enemy.position.x > this.screenWidth + 50) this.waveXDisp = -0.2;
 
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
