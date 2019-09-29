@@ -6,42 +6,19 @@ export default class Level {
     this.blocks = [];
     if (level === 0) {
       this.enemies.push(
-        new Enemy(400, 100, 0, 0, "./enemies.png"),
+        new Enemy(0, 0, 0, 0, "./enemies.png"),
         new Enemy(
-          400 + 100 * Math.cos((78.75 * Math.PI) / 180),
-          100 * Math.sin((78.75 * Math.PI) / 180),
+          0, // x position default
+          0, // y position default
           22.5,
           0,
           "./enemies.png"
         ),
-        new Enemy(
-          400 + 100 * Math.cos((67 * Math.PI) / 180),
-          100 * Math.sin((67 * Math.PI) / 180),
-          45,
-          0,
-          "./enemies.png"
-        ),
-        new Enemy(
-          400 + 100 * Math.cos((56.25 * Math.PI) / 180),
-          100 * Math.sin((56.25 * Math.PI) / 180),
-          67.5,
-          0,
-          "./enemies.png"
-        ),
-        new Enemy(
-          400 + 100 * Math.cos((45 * Math.PI) / 180),
-          100 * Math.sin((45 * Math.PI) / 180),
-          90,
-          0,
-          "./enemies.png"
-        ),
-        new Enemy(
-          400 + 100 * Math.cos((33.75 * Math.PI) / 180),
-          100 * Math.sin((33.75 * Math.PI) / 180),
-          112.5,
-          0,
-          "./enemies.png"
-        ),
+        new Enemy(0, 0, 45, 0, "./enemies.png"),
+        new Enemy(0, 0, 67.5, 0, "./enemies.png"),
+        new Enemy(0, 0, 90, 0, "./enemies.png"),
+        new Enemy(0, 0, 90, 0, "./enemies.png"),
+        new Enemy(0, 0, 112.5, 0, "./enemies.png"),
         new Enemy(
           400 + 100 * Math.cos((22.5 * Math.PI) / 180),
           100 * Math.sin((22.5 * Math.PI) / 180),

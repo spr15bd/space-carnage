@@ -38,16 +38,22 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-    this.angle = 1.3;
-    this.centre = {
-      x: 0,
-      y: 110
-    };
+    this.angle = [1.3, -1.3];
+    this.waveCentre = [
+      {
+        x: 0,
+        y: 110
+      },
+      {
+        x: this.screenWidth,
+        y: 110
+      }
+    ];
     this.radius = {
       x: 150,
       y: 150
     };
-    this.waveXDisp = 0.1;
+    this.waveXDisp = [0.2, -0.2];
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
@@ -228,13 +234,65 @@ export default class Game {
   moveEnemies(delta) {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x =
-        this.centre.x + this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
-      enemy.position.y =
-        this.centre.y + this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
+      if (i < this.enemies.length / 2) {
+        enemy.position.x =
+          this.waveCentre[0].x +
+          this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.position.y =
+          this.waveCentre[0].y +
+          this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.angle += this.angle[0];
+        if (enemy.position.x < -(this.radius.x + 100)) {
+          this.waveXDisp[0] = 0.2;
+        } else if (
+          enemy.position.x >
+          this.screenWidth + (this.radius.x + 100)
+        ) {
+          this.waveXDisp[0] = -0.2;
+        }
+
+        if (Math.floor(enemy.position.x) <= 150) {
+          //this.angle = -0.2;
+          this.radius.x += 0.04;
+          this.radius.y += 0.04;
+        }
+        if (Math.floor(enemy.position.x) >= 650) {
+          //this.angle = -0.2;
+          this.radius.x -= 0.02;
+          this.radius.y -= 0.02;
+        }
+      } else {
+        enemy.position.x =
+          this.waveCentre[1].x +
+          this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.position.y =
+          this.waveCentre[1].y +
+          this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.angle += this.angle[1];
+        if (enemy.position.x < -(this.radius.x + 100)) {
+          this.waveXDisp[1] = 0.2;
+        } else if (
+          enemy.position.x >
+          this.screenWidth + (this.radius.x + 100)
+        ) {
+          this.waveXDisp[1] = -0.2;
+        }
+
+        if (Math.floor(enemy.position.x) <= 150) {
+          //this.angle = -0.2;
+          this.radius.x += 0.04;
+          this.radius.y += 0.04;
+        }
+        if (Math.floor(enemy.position.x) >= 650) {
+          //this.angle = -0.2;
+          this.radius.x -= 0.02;
+          this.radius.y -= 0.02;
+        }
+      }
+
       enemy.update(delta);
 
-      if (Math.floor(enemy.position.x) >= 650) {
+      /*if (Math.floor(enemy.position.x) >= 650) {
         //this.angle = -0.2;
         this.radius.x -= 0.02;
         this.radius.y -= 0.02;
@@ -243,16 +301,14 @@ export default class Game {
         //this.angle = -0.2;
         this.radius.x += 0.04;
         this.radius.y += 0.04;
-      }
-      enemy.angle += this.angle;
+      }*/
+      //enemy.angle += this.angle;
 
       //console.log(this.accumulatedTime);
 
       //else enemy.angle -= 0.4;
-      this.centre.x += this.waveXDisp;
-      if (enemy.position.x < -2 * this.radius.x + 100) this.waveXDisp = 0.2;
-      if (enemy.position.x > this.screenWidth + 2 * this.radius.x + 50)
-        this.waveXDisp = -0.2;
+      this.waveCentre[0].x += this.waveXDisp[0];
+      this.waveCentre[1].x += this.waveXDisp[1];
 
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
