@@ -7,39 +7,15 @@ export default class Level {
     if (level === 0) {
       this.enemies.push(
         new Enemy(0, 0, 0, 0, "./enemies.png"),
-        new Enemy(
-          0, // x position default
-          0, // y position default
-          22.5,
-          0,
-          "./enemies.png"
-        ),
-        new Enemy(0, 0, 45, 0, "./enemies.png"),
-        new Enemy(0, 0, 67.5, 0, "./enemies.png"),
-        new Enemy(0, 0, 90, 0, "./enemies.png"),
-        new Enemy(0, 0, 90, 0, "./enemies.png"),
-        new Enemy(0, 0, 112.5, 0, "./enemies.png"),
-        new Enemy(
-          400 + 100 * Math.cos((22.5 * Math.PI) / 180),
-          100 * Math.sin((22.5 * Math.PI) / 180),
-          135,
-          0,
-          "./enemies.png"
-        ),
-        new Enemy(
-          400 + 100 * Math.cos((11.25 * Math.PI) / 180),
-          100 * Math.sin((11.25 * Math.PI) / 180),
-          157.5,
-          1,
-          "./enemies.png"
-        ),
-        new Enemy(
-          400 + 100 * Math.cos((0 * Math.PI) / 180),
-          100 * Math.sin((0 * Math.PI) / 180),
-          180,
-          0,
-          "./enemies.png"
-        )
+        new Enemy(0, 0, 10, 0, "./enemies.png"),
+        new Enemy(0, 0, 20, 0, "./enemies.png"),
+        new Enemy(0, 0, 30, 0, "./enemies.png"),
+        new Enemy(0, 0, 40, 0, "./enemies.png"),
+        new Enemy(0, 0, 180, 0, "./enemies.png"),
+        new Enemy(0, 0, 170, 0, "./enemies.png"),
+        new Enemy(0, 0, 160, 0, "./enemies.png"),
+        new Enemy(0, 0, 150, 1, "./enemies.png"),
+        new Enemy(0, 0, 140, 0, "./enemies.png")
       );
       /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),

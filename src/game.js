@@ -38,7 +38,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-    this.angle = [1.3, -1.3];
+    this.angle = [0, 0];
     this.waveCentre = [
       {
         x: 0,
@@ -53,7 +53,7 @@ export default class Game {
       x: 150,
       y: 150
     };
-    this.waveXDisp = [0.2, -0.2];
+    this.waveXDisp = [0.1, -0.1];
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
