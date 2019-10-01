@@ -38,22 +38,22 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-    this.angle = [0, 0];
+    this.angle = [-1.0, 1.0];
     this.waveCentre = [
       {
-        x: 0,
-        y: 110
+        x: 300,
+        y: -200
       },
       {
-        x: this.screenWidth,
-        y: 110
+        x: this.screenWidth - 300,
+        y: -200
       }
     ];
     this.radius = {
-      x: 150,
-      y: 150
+      x: 300,
+      y: 600
     };
-    this.waveXDisp = [0.1, -0.1];
+    this.waveXDisp = [0, -0];
     this.bulletPool = []; // array for enemy and player bullets
     this.stats = document.getElementById("stats");
     this.score = document.getElementById("score");
@@ -236,12 +236,13 @@ export default class Game {
     this.enemies.forEach((enemy, i) => {
       if (i < this.enemies.length / 2) {
         enemy.position.x =
-          this.waveCentre[0].x +
+          this.waveCentre[0].x -
           this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.position.y =
-          this.waveCentre[0].y +
+          this.waveCentre[0].y -
           this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.angle += this.angle[0];
+
         if (enemy.position.x < -(this.radius.x + 100)) {
           this.waveXDisp[0] = 0.2;
         } else if (
@@ -251,15 +252,21 @@ export default class Game {
           this.waveXDisp[0] = -0.2;
         }
 
-        if (Math.floor(enemy.position.x) <= 150) {
+        if (Math.floor(enemy.position.y) == -450) {
           //this.angle = -0.2;
-          this.radius.x += 0.04;
-          this.radius.y += 0.04;
+          this.radius.x = Math.random() * 400 + 100;
+          this.radius.y -= 0.3;
+          //enemy.position.x +=0.1;
+          //this.waveCentre[0].y += 1;
+          //this.waveCentre[0].x -= 1;
         }
-        if (Math.floor(enemy.position.x) >= 650) {
+        if (Math.floor(enemy.position.y) >= 400) {
           //this.angle = -0.2;
-          this.radius.x -= 0.02;
-          this.radius.y -= 0.02;
+          //this.radius.x += 0.2;
+          this.radius.y += 0.3;
+          //enemy.position.x -=0.1;
+          //this.waveCentre[0].y -= 1;
+          //this.waveCentre[0].x += 1;
         }
       } else {
         enemy.position.x =
@@ -278,15 +285,41 @@ export default class Game {
           this.waveXDisp[1] = -0.2;
         }
 
-        if (Math.floor(enemy.position.x) <= 150) {
+        if (enemy.position.y <= -600) {
           //this.angle = -0.2;
-          this.radius.x += 0.04;
-          this.radius.y += 0.04;
+          //this.radius.x += 0.08;
+          //this.radius.y += 0.04;
+          //this.waveCentre[0].y += 2;
+          //this.angle[0] = 0.6;
+          //this.angle[1] = -0.6;
+          //enemy.angle += 100;
+          //this.radius.x = 800;
         }
-        if (Math.floor(enemy.position.x) >= 650) {
+        if (enemy.position.y >= 1200) {
           //this.angle = -0.2;
-          this.radius.x -= 0.02;
-          this.radius.y -= 0.02;
+          //this.radius.x -= 0.08;
+          //this.radius.y -= 0.02;
+          //this.waveCentre[1].y -= 2;
+          //this.angle[1] = -1.1;
+          //enemy.angle += 100;
+          //this.radius.x -= 400;
+        }
+        if (enemy.position.x <= 0) {
+          //this.angle = -0.2;
+          //this.radius.x -= 0.08;
+          //this.radius.y -= 0.02;
+          //this.waveCentre[1].x += 15;
+          //this.angle[1] = -1.1;
+          //enemy.angle = -130+i*10;
+        } else if (enemy.position.x > 1000) {
+          //this.angle = -0.2;
+          //this.radius.x -= 0.08;
+          //this.radius.y -= 0.02;
+          //this.waveCentre[1].x -= 15;
+          //this.angle[1] = -1.1;
+          //enemy.angle -= 0.10;
+          //this.radius.y = 650;
+        } else {
         }
       }
 
