@@ -16,6 +16,8 @@ export default class Game {
     this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
+    this.playerLaser = new Audio("/laser.m4a");
+    this.playerExplosion = new Audio("/explosion.m4a");
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
     this.initialiseGame();
@@ -67,12 +69,14 @@ export default class Game {
 
   gameOver() {
     this.gameState = GAMESTATE.GAMEOVER;
+    this.playerLaser.pause();
+    this.playerExplosion.pause();
   }
 
   shootBullet(entity) {
     // do not allow a player bullet to be fired until 14 ticks have elapsed
     if (entity === this.player) {
-      if (this.ticks - this.lastPlayerBulletTicks > 14) {
+      if (this.ticks - this.lastPlayerBulletTicks > 18) {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
@@ -81,6 +85,7 @@ export default class Game {
             entity.bulletImage
           )
         );
+        this.playerLaser.play();
         this.lastPlayerBulletTicks = this.ticks;
       }
     } else {
@@ -458,7 +463,9 @@ export default class Game {
             this.player.position.y,
             "./explosion.png"
           );
-
+          if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+            this.playerExplosion.play();
+          }
           //this.player.playerHit();
 
           this.playerHit = true;

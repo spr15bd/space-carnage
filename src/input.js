@@ -4,6 +4,8 @@ export default class Input {
       let key = event.keyCode || event.key;
 
       switch (key) {
+        default:
+          break;
         case 37:
           if (!game.playerHit) player.left();
           break;
