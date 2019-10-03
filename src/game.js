@@ -3,6 +3,7 @@ import Bullet from "./bullet.js";
 import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
+import Sound from "./sound";
 
 const GAMESTATE = {
   MENU: 0,
@@ -16,8 +17,8 @@ export default class Game {
     this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-    this.playerLaser = new Audio("/laser.m4a");
-    this.playerExplosion = new Audio("/explosion.m4a");
+    this.playerLaser = new Sound("/laser.m4a", 3, 0.5);
+    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.5);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
     this.initialiseGame();
@@ -76,7 +77,7 @@ export default class Game {
   shootBullet(entity) {
     // do not allow a player bullet to be fired until 14 ticks have elapsed
     if (entity === this.player) {
-      if (this.ticks - this.lastPlayerBulletTicks > 18) {
+      if (this.ticks - this.lastPlayerBulletTicks > 13) {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
@@ -85,7 +86,8 @@ export default class Game {
             entity.bulletImage
           )
         );
-        this.playerLaser.play();
+        if (this.gameState === GAMESTATE.GAMEINPROGRESS)
+          this.playerLaser.play();
         this.lastPlayerBulletTicks = this.ticks;
       }
     } else {
@@ -239,6 +241,14 @@ export default class Game {
   moveEnemies(delta) {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
+      enemy.position.x += 2 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y += 2 * Math.sin((enemy.angle * Math.PI) / 180);
+      enemy.angle += 1;
+    });
+  }
+  moveEnemies2(delta) {
+    //this.totalTime += delta;
+    this.enemies.forEach((enemy, i) => {
       if (i < this.enemies.length / 2) {
         enemy.position.x =
           this.waveCentre[0].x -
@@ -257,7 +267,7 @@ export default class Game {
           this.waveXDisp[0] = -0.2;
         }
 
-        if (Math.floor(enemy.position.y) == -450) {
+        if (Math.floor(enemy.position.y) === -450) {
           //this.angle = -0.2;
           this.radius.x = Math.random() * 400 + 100;
           this.radius.y -= 0.3;
