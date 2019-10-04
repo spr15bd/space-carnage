@@ -241,9 +241,13 @@ export default class Game {
   moveEnemies(delta) {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x += 2 * Math.cos((enemy.angle * Math.PI) / 180);
-      enemy.position.y += 2 * Math.sin((enemy.angle * Math.PI) / 180);
+      enemy.position.x += 3.5 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y += 3.5 * Math.sin((enemy.angle * Math.PI) / 180);
       enemy.angle += 1;
+
+      if (Math.random() > 0.99) {
+        this.shootBullet(enemy);
+      }
     });
   }
   moveEnemies2(delta) {
