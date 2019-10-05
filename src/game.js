@@ -17,8 +17,9 @@ export default class Game {
     this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-    this.playerLaser = new Sound("/laser.m4a", 3, 0.5);
-    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.5);
+    this.playerLaser = new Sound("/laser.m4a", 3, 0.25);
+    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
+    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.25);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
     this.initialiseGame();
@@ -519,7 +520,9 @@ export default class Game {
               enemy.position.y,
               "./explosion.png"
             );
-
+            if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+              this.enemyExplosion.play();
+            }
             this.enemies.splice(j, 1);
           }
         });
