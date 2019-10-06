@@ -11,7 +11,12 @@ export default class Enemy {
       y: 0
     };
     this.startXPosition = xPos;
+
     this.position = {
+      x: xPos,
+      y: yPos
+    };
+    this.oldPosition = {
       x: xPos,
       y: yPos
     };

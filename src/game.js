@@ -34,7 +34,7 @@ export default class Game {
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.waiting = false;
     this.playerHit = false;
-    this.now = this.ticks;
+    this.now = Date.now();
     this.lastPlayerBulletTicks = this.ticks;
     this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
@@ -240,14 +240,19 @@ export default class Game {
   }
 
   moveEnemies(delta) {
-    //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       enemy.position.x += 3.5 * Math.cos((enemy.angle * Math.PI) / 180);
       enemy.position.y += 3.5 * Math.sin((enemy.angle * Math.PI) / 180);
-      enemy.angle += 1;
-
+      enemy.angle += Math.random() < 0.5 ? -1 : 1;
+      enemy.update(delta);
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
+      }
+      if (enemy.position.y > 500) {
+        enemy.angle = 270;
+      }
+      if (enemy.position.y < 0) {
+        enemy.angle = 90;
       }
     });
   }

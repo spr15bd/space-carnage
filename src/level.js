@@ -6,11 +6,11 @@ export default class Level {
     this.blocks = [];
     if (level === 0) {
       this.enemies.push(
-        new Enemy(452, 190, 90, 0, "./enemies.png"),
-        new Enemy(459, 220, 100, 1, "./enemies.png"),
-        new Enemy(464, 250, 110, 0, "./enemies.png"),
-        new Enemy(459, 280, 120, 0, "./enemies.png"),
-        new Enemy(452, 310, 130, 1, "./enemies.png")
+        new Enemy(452, -200, 90, 0, "./enemies.png"),
+        new Enemy(452, -170, 90, 1, "./enemies.png"),
+        new Enemy(452, -140, 90, 0, "./enemies.png"),
+        new Enemy(452, -110, 90, 0, "./enemies.png"),
+        new Enemy(452, -80, 90, 1, "./enemies.png")
       );
       /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),
