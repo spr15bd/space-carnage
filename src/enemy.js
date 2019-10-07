@@ -45,7 +45,8 @@ export default class Enemy {
       this.angle
     );
     this.now = 0;
-
+    this.onScreen = false;
+    this.turning = false;
     //this.moving = false;
     //this.bulletPool = [];
   }

@@ -26,7 +26,7 @@ export default class Game {
   }
 
   initialiseGame() {
-    this.totalTime = 0;
+    //this.totalTime = 0;
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
@@ -34,7 +34,7 @@ export default class Game {
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.waiting = false;
     this.playerHit = false;
-    this.now = Date.now();
+    //this.now = Date.now();
     this.lastPlayerBulletTicks = this.ticks;
     this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
@@ -240,20 +240,32 @@ export default class Game {
   }
 
   moveEnemies(delta) {
+    //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
-      enemy.position.x += 3.5 * Math.cos((enemy.angle * Math.PI) / 180);
-      enemy.position.y += 3.5 * Math.sin((enemy.angle * Math.PI) / 180);
-      enemy.angle += Math.random() < 0.5 ? -1 : 1;
+      if (enemy.position.y > 0) {
+        enemy.onScreen = true;
+        //console.log(enemy.onScreen);
+      }
+      enemy.position.x += 6 * Math.cos((enemy.angle * Math.PI) / 180);
+      enemy.position.y += 6 * Math.sin((enemy.angle * Math.PI) / 180);
+      //enemy.angle += Math.random() < 0.5 ? -1 : 1;
       enemy.update(delta);
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (enemy.position.y > 500) {
-        enemy.angle = 270;
+      if (
+        enemy.onScreen &&
+        (enemy.position.y < -100 ||
+          enemy.position.y > 550 ||
+          enemy.position.x < 0 ||
+          enemy.position.x > 700)
+      ) {
+        enemy.angle += 5;
       }
-      if (enemy.position.y < 0) {
-        enemy.angle = 90;
-      }
+
+      //this.enemies[i].angle=this.enemies[0].angle;
+
+      //this.enemies[i].angle = this.enemies[0].angle;
     });
   }
   moveEnemies2(delta) {
