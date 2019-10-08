@@ -72,7 +72,10 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-
+    this.speed.x =
+      (50 / delta) * Math.cos((this.angle * Math.PI) / 180).toFixed(1);
+    this.speed.y =
+      (50 / delta) * Math.sin((this.angle * Math.PI) / 180).toFixed(1);
     // movement across screen
     // pixels per milliSecond
 

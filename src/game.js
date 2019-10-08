@@ -26,7 +26,7 @@ export default class Game {
   }
 
   initialiseGame() {
-    //this.totalTime = 0;
+    this.totalTime = 0;
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
     this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
@@ -240,31 +240,33 @@ export default class Game {
   }
 
   moveEnemies(delta) {
+    if (!delta) return;
+    //this.totalTime += delta;
+
     //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
       if (enemy.position.y > 0) {
         enemy.onScreen = true;
         //console.log(enemy.onScreen);
       }
-      enemy.position.x += 6 * Math.cos((enemy.angle * Math.PI) / 180);
-      enemy.position.y += 6 * Math.sin((enemy.angle * Math.PI) / 180);
+
       //enemy.angle += Math.random() < 0.5 ? -1 : 1;
-      enemy.update(delta);
+
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
       if (
         enemy.onScreen &&
-        (enemy.position.y < -100 ||
-          enemy.position.y > 550 ||
-          enemy.position.x < 0 ||
-          enemy.position.x > 700)
+        (enemy.position.x < 0 ||
+          enemy.position.x > 650 ||
+          enemy.position.y < 0 ||
+          enemy.position.y > 600)
       ) {
-        enemy.angle += 5;
+        enemy.angle += 10;
+        //enemy.angle = Math.round(enemy.angle);
       }
-
       //this.enemies[i].angle=this.enemies[0].angle;
-
+      enemy.update(delta);
       //this.enemies[i].angle = this.enemies[0].angle;
     });
   }
