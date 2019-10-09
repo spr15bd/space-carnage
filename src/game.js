@@ -241,7 +241,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    //this.totalTime += delta;
+    this.totalTime += delta;
 
     //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
@@ -255,16 +255,17 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (
-        enemy.onScreen &&
-        (enemy.position.x < 0 ||
-          enemy.position.x > 650 ||
-          enemy.position.y < 0 ||
-          enemy.position.y > 600)
-      ) {
-        enemy.angle += 10;
-        //enemy.angle = Math.round(enemy.angle);
+      if (enemy.onScreen && this.totalTime < 3000) {
+        if (enemy.angle < 135) enemy.angle += 1;
+      } else if (enemy.onScreen && this.totalTime < 8000) {
+        if (enemy.angle < 350) enemy.angle += 1;
+      } else if (enemy.onScreen && this.totalTime < 12000) {
+        if (enemy.angle > 120) enemy.angle -= 2;
+      } else if (enemy.onScreen && this.totalTime < 15000) {
+        if (enemy.angle < 285) enemy.angle += 2;
       }
+      //enemy.angle = Math.round(enemy.angle);
+
       //this.enemies[i].angle=this.enemies[0].angle;
       enemy.update(delta);
       //this.enemies[i].angle = this.enemies[0].angle;
