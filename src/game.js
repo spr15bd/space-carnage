@@ -17,6 +17,7 @@ export default class Game {
     this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
+
     this.playerLaser = new Sound("/laser.m4a", 3, 0.25);
     this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
     this.playerExplosion = new Sound("/explosion.m4a", 3, 0.25);
@@ -255,14 +256,22 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (enemy.onScreen && this.totalTime < 3000) {
+      if (enemy.onScreen && this.totalTime < 2500) {
         if (enemy.angle < 135) enemy.angle += 1;
-      } else if (enemy.onScreen && this.totalTime < 8000) {
-        if (enemy.angle < 350) enemy.angle += 1;
-      } else if (enemy.onScreen && this.totalTime < 12000) {
-        if (enemy.angle > 120) enemy.angle -= 2;
-      } else if (enemy.onScreen && this.totalTime < 15000) {
+      } else if (enemy.onScreen && this.totalTime < 4000) {
+        if (enemy.angle < 330) enemy.angle += 1.5;
+      }
+      if (enemy.onScreen && this.totalTime > 5000 && this.totalTime < 7000) {
+        if (enemy.angle <= 450) enemy.angle += 2;
+      }
+      if (enemy.onScreen && this.totalTime > 7000 && this.totalTime < 9000) {
+        if (enemy.angle > 160) enemy.angle -= 2;
+      }
+      if (enemy.onScreen && this.totalTime > 9000 && this.totalTime < 11000) {
         if (enemy.angle < 285) enemy.angle += 2;
+      }
+      if (enemy.onScreen && this.totalTime > 11000 && this.totalTime < 13000) {
+        if (enemy.angle <= 465) enemy.angle += 2;
       }
       //enemy.angle = Math.round(enemy.angle);
 
