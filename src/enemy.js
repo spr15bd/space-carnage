@@ -44,10 +44,11 @@ export default class Enemy {
       this.repeatAnimation,
       this.angle
     );
-    this.stop = false;
+    this.start = true;
+    this.move = 0;
     this.now = 0;
     this.onScreen = false;
-    this.turning = false;
+    //this.turning = false;
     //this.moving = false;
     //this.bulletPool = [];
   }
@@ -68,12 +69,10 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    this.speed.x = this.stop
-      ? 0
-      : (50 / delta) * Math.cos((this.angle * Math.PI) / 180);
-    this.speed.y = this.stop
-      ? 0
-      : (50 / delta) * Math.sin((this.angle * Math.PI) / 180);
+    this.speed.x =
+      (60 / delta).toFixed(6) * Math.cos((this.angle * Math.PI) / 180);
+    this.speed.y =
+      (60 / delta).toFixed(6) * Math.sin((this.angle * Math.PI) / 180);
     // movement across screen
     // pixels per milliSecond
 

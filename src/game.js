@@ -135,7 +135,7 @@ export default class Game {
 
   thrust() {
     if (this.backgroundImage.yPos < 0) {
-      //  do the between levels player thrust upwards routine
+      // do the between levels player thrust upwards routine
       this.backgroundImage.yPos += 2;
     } else {
       // wait a couple of seconds, reset variables and start a new level...
@@ -242,7 +242,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    this.totalTime += delta;
+    //this.totalTime += delta;
 
     //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
@@ -256,23 +256,167 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (enemy.onScreen && this.totalTime < 2500) {
-        if (enemy.angle < 135) enemy.angle += 1;
-      } else if (enemy.onScreen && this.totalTime < 4000) {
-        if (enemy.angle < 330) enemy.angle += 1.5;
+      if (enemy.move === 0 && enemy.onScreen) {
+        enemy.lastX = enemy.position.x;
+        enemy.move++;
       }
-      if (enemy.onScreen && this.totalTime > 5000 && this.totalTime < 7000) {
-        if (enemy.angle <= 450) enemy.angle += 2;
+      if (enemy.move === 1 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
+          enemy.move++;
+        }
       }
-      if (enemy.onScreen && this.totalTime > 7000 && this.totalTime < 9000) {
-        if (enemy.angle > 160) enemy.angle -= 2;
+      if (enemy.move === 2 && enemy.onScreen) {
+        if (enemy.angle <= 200) {
+          enemy.angle += 2;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
       }
-      if (enemy.onScreen && this.totalTime > 9000 && this.totalTime < 11000) {
-        if (enemy.angle < 285) enemy.angle += 2;
+      if (enemy.move === 3 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 160) {
+          enemy.move++;
+        }
       }
-      if (enemy.onScreen && this.totalTime > 11000 && this.totalTime < 13000) {
-        if (enemy.angle <= 465) enemy.angle += 2;
+      if (enemy.move === 4 && enemy.onScreen) {
+        if (enemy.angle <= 380) {
+          enemy.angle += 2;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
       }
+      if (enemy.move === 5 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 200) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 6 && enemy.onScreen) {
+        if (enemy.angle <= 530) {
+          enemy.angle += 2;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 7 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 8 && enemy.onScreen) {
+        if (enemy.angle <= 730) {
+          enemy.angle += 2;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 9 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 10 && enemy.onScreen) {
+        if (enemy.angle <= 930) {
+          enemy.angle += 3;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 11 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 12 && enemy.onScreen) {
+        if (enemy.angle <= 1130) {
+          enemy.angle += 4;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 13 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 14 && enemy.onScreen) {
+        if (enemy.angle <= 1330) {
+          enemy.angle += 4;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 15 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 16 && enemy.onScreen) {
+        if (enemy.angle <= 1510) {
+          enemy.angle += 4;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 17 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 18 && enemy.onScreen) {
+        if (enemy.angle >= 1330) {
+          enemy.angle -= 5;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 19 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 20 && enemy.onScreen) {
+        if (enemy.angle >= 1170) {
+          enemy.angle -= 3;
+        } else {
+          enemy.lastY = enemy.position.y;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 21 && enemy.onScreen) {
+        if (Math.abs(enemy.position.y - enemy.lastY) > 100) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 22 && enemy.onScreen) {
+        if (enemy.angle >= 1080) {
+          enemy.angle -= 2;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 23 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 600) {
+          enemy.move++;
+        }
+      }
+      if (enemy.move === 24 && enemy.onScreen) {
+        if (enemy.angle >= 900) {
+          enemy.angle -= 4;
+        } else {
+          enemy.lastX = enemy.position.x;
+          enemy.move = 1;
+        }
+      }
+
       //enemy.angle = Math.round(enemy.angle);
 
       //this.enemies[i].angle=this.enemies[0].angle;
@@ -375,15 +519,15 @@ export default class Game {
       enemy.update(delta);
 
       /*if (Math.floor(enemy.position.x) >= 650) {
-        //this.angle = -0.2;
-        this.radius.x -= 0.02;
-        this.radius.y -= 0.02;
-      }
-      if (Math.floor(enemy.position.x) <= 150) {
-        //this.angle = -0.2;
-        this.radius.x += 0.04;
-        this.radius.y += 0.04;
-      }*/
+//this.angle = -0.2;
+this.radius.x -= 0.02;
+this.radius.y -= 0.02;
+}
+if (Math.floor(enemy.position.x) <= 150) {
+//this.angle = -0.2;
+this.radius.x += 0.04;
+this.radius.y += 0.04;
+}*/
       //enemy.angle += this.angle;
 
       //console.log(this.accumulatedTime);
