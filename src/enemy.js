@@ -47,6 +47,7 @@ export default class Enemy {
     this.start = true;
     this.move = 0;
     this.now = 0;
+    this.inPlay = false;
     this.onScreen = false;
     //this.turning = false;
     //this.moving = false;
@@ -69,10 +70,13 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
+
     this.speed.x =
-      (60 / delta) * Math.cos((Math.round(this.angle) * Math.PI) / 180);
+      (60 / delta) *
+      Math.cos((this.angle.toFixed(1) * Math.PI).toFixed(1) / 180);
     this.speed.y =
-      (60 / delta) * Math.sin((Math.round(this.angle) * Math.PI) / 180);
+      (60 / delta) *
+      Math.sin((this.angle.toFixed(1) * Math.PI).toFixed(1) / 180);
 
     // movement across screen
     // pixels per milliSecond

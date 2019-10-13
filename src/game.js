@@ -4,6 +4,7 @@ import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
 import Sound from "./sound";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 const GAMESTATE = {
   MENU: 0,
@@ -43,7 +44,8 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
-    this.angle = [-1.0, 1.0];
+    this.exitAngle = 0;
+
     this.waveCentre = [
       {
         x: 300,
@@ -246,33 +248,52 @@ export default class Game {
 
     //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
-      if (enemy.position.y > 0) {
-        enemy.onScreen = true;
+      if (enemy.position.y >= 50) {
+        enemy.inPlay = true;
+
         //console.log(enemy.onScreen);
       }
-
-      //enemy.angle += Math.random() < 0.5 ? -1 : 1;
-
+      if (
+        enemy.position.y >= 50 &&
+        enemy.position.y <= this.screenHeight - 40 &&
+        enemy.position.x >= 50 &&
+        enemy.position.x <= this.screenWidth - 200
+      ) {
+        enemy.onScreen = true;
+      } else {
+        enemy.onScreen = false;
+      }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (enemy.move === 0 && enemy.onScreen) {
-        enemy.lastX = enemy.position.x;
-        enemy.move++;
+      if (enemy.move === 0 && enemy.inPlay && !enemy.onScreen) {
+        this.exitAngle = enemy.angle;
+        enemy.move = 1;
       }
-      if (enemy.move === 1 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
-          enemy.move++;
+      if (enemy.move === 1 && enemy.inPlay) {
+        enemy.angle += 2;
+        if (enemy.angle >= this.exitAngle + 130) {
+          enemy.move = 2;
         }
       }
-      if (enemy.move === 2 && enemy.onScreen) {
+
+      if (enemy.move === 2) {
+        enemy.move = 0;
+      }
+
+      //) {
+      //  enemy.move++;
+      //enemy.angle += Math.random() < 0.5 ? -1 : 1;
+      //}
+      //}
+      /*if (enemy.move === 2 && enemy.inPlay) {
         if (enemy.angle <= 200) {
           enemy.angle += 2;
         } else {
           enemy.lastX = enemy.position.x;
           enemy.move++;
         }
-      }
+      }*/
       if (enemy.move === 3 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 160) {
           enemy.move++;

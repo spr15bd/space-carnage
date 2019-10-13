@@ -12,8 +12,7 @@ export default class Level {
         new Enemy(260, -140, 45, 0, "./enemies.png"),
         new Enemy(290, -110, 45, 0, "./enemies.png"),
         new Enemy(320, -80, 45, 1, "./enemies.png"),
-        new Enemy(350, -50, 45, 1, "./enemies.png"),
-        new Enemy(380, -20, 45, 0, "./enemies.png")
+        new Enemy(350, -50, 45, 1, "./enemies.png")
       );
       /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),
