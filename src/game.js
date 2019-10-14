@@ -247,15 +247,17 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    this.totalTime += delta;
-    //this.totalTime += delta;
 
-    //if (delta>25) console.log(delta/1000);
+    //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
+      if (enemy.position.y > 0) {
+        enemy.onScreen = true;
+        //console.log(enemy.onScreen);
+      }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      
+
       if (enemy.move === 0 && enemy.onScreen) {
         enemy.lastX = enemy.position.x;
         enemy.move++;
@@ -304,8 +306,7 @@ export default class Game {
           enemy.move++;
         }
       }
-      if (enemy.onScreen && this.totalTime > 5000 && this.totalTime < 7000) {
-        if (enemy.angle <= 450) enemy.angle += 2;
+
       if (enemy.move === 8 && enemy.onScreen) {
         if (enemy.angle <= 730) {
           enemy.angle += 2;
@@ -314,15 +315,13 @@ export default class Game {
           enemy.move++;
         }
       }
-      if (enemy.onScreen && this.totalTime > 7000 && this.totalTime < 9000) {
-        if (enemy.angle > 160) enemy.angle -= 2;
+
       if (enemy.move === 9 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
           enemy.move++;
         }
       }
-      if (enemy.onScreen && this.totalTime > 9000 && this.totalTime < 11000) {
-        if (enemy.angle < 285) enemy.angle += 2;
+
       if (enemy.move === 10 && enemy.onScreen) {
         if (enemy.angle <= 930) {
           enemy.angle += 3;
@@ -331,8 +330,7 @@ export default class Game {
           enemy.move++;
         }
       }
-      if (enemy.onScreen && this.totalTime > 11000 && this.totalTime < 13000) {
-        if (enemy.angle <= 465) enemy.angle += 2;
+
       if (enemy.move === 11 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
           enemy.move++;
