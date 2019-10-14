@@ -4,7 +4,6 @@ import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
 import Sound from "./sound";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 const GAMESTATE = {
   MENU: 0,
@@ -45,6 +44,10 @@ export default class Game {
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
     this.exitAngle = 0;
+    this.exitPos = {
+      x: 0,
+      y: 0
+    };
 
     this.waveCentre = [
       {
@@ -244,56 +247,32 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
+    this.totalTime += delta;
     //this.totalTime += delta;
 
     //if (delta>25) console.log(delta/1000);
     this.enemies.forEach((enemy, i) => {
-      if (enemy.position.y >= 50) {
-        enemy.inPlay = true;
-
-        //console.log(enemy.onScreen);
-      }
-      if (
-        enemy.position.y >= 50 &&
-        enemy.position.y <= this.screenHeight - 40 &&
-        enemy.position.x >= 50 &&
-        enemy.position.x <= this.screenWidth - 200
-      ) {
-        enemy.onScreen = true;
-      } else {
-        enemy.onScreen = false;
-      }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      if (enemy.move === 0 && enemy.inPlay && !enemy.onScreen) {
-        this.exitAngle = enemy.angle;
-        enemy.move = 1;
+      
+      if (enemy.move === 0 && enemy.onScreen) {
+        enemy.lastX = enemy.position.x;
+        enemy.move++;
       }
-      if (enemy.move === 1 && enemy.inPlay) {
-        enemy.angle += 2;
-        if (enemy.angle >= this.exitAngle + 130) {
-          enemy.move = 2;
+      if (enemy.move === 1 && enemy.onScreen) {
+        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
+          enemy.move++;
         }
       }
-
-      if (enemy.move === 2) {
-        enemy.move = 0;
-      }
-
-      //) {
-      //  enemy.move++;
-      //enemy.angle += Math.random() < 0.5 ? -1 : 1;
-      //}
-      //}
-      /*if (enemy.move === 2 && enemy.inPlay) {
+      if (enemy.move === 2 && enemy.onScreen) {
         if (enemy.angle <= 200) {
           enemy.angle += 2;
         } else {
           enemy.lastX = enemy.position.x;
           enemy.move++;
         }
-      }*/
+      }
       if (enemy.move === 3 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 160) {
           enemy.move++;
@@ -325,6 +304,8 @@ export default class Game {
           enemy.move++;
         }
       }
+      if (enemy.onScreen && this.totalTime > 5000 && this.totalTime < 7000) {
+        if (enemy.angle <= 450) enemy.angle += 2;
       if (enemy.move === 8 && enemy.onScreen) {
         if (enemy.angle <= 730) {
           enemy.angle += 2;
@@ -333,11 +314,15 @@ export default class Game {
           enemy.move++;
         }
       }
+      if (enemy.onScreen && this.totalTime > 7000 && this.totalTime < 9000) {
+        if (enemy.angle > 160) enemy.angle -= 2;
       if (enemy.move === 9 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
           enemy.move++;
         }
       }
+      if (enemy.onScreen && this.totalTime > 9000 && this.totalTime < 11000) {
+        if (enemy.angle < 285) enemy.angle += 2;
       if (enemy.move === 10 && enemy.onScreen) {
         if (enemy.angle <= 930) {
           enemy.angle += 3;
@@ -346,6 +331,8 @@ export default class Game {
           enemy.move++;
         }
       }
+      if (enemy.onScreen && this.totalTime > 11000 && this.totalTime < 13000) {
+        if (enemy.angle <= 465) enemy.angle += 2;
       if (enemy.move === 11 && enemy.onScreen) {
         if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
           enemy.move++;
