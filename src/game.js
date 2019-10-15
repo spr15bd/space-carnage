@@ -48,7 +48,7 @@ export default class Game {
       x: 0,
       y: 0
     };
-
+    this.nextDistance = 0;
     this.waveCentre = [
       {
         x: 300,
@@ -251,36 +251,32 @@ export default class Game {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       if (enemy.position.y > 0) {
-        enemy.onScreen = true;
+        enemy.inPlay = true;
+
         //console.log(enemy.onScreen);
       }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
 
-      if (enemy.move === 0 && enemy.onScreen) {
-        enemy.lastX = enemy.position.x;
-        enemy.move++;
+      if (enemy.movement === 0 && enemy.inPlay) {
+        enemy.move(0, 140, 300);
+        //enemy.movement++;
       }
-      if (enemy.move === 1 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
-          enemy.move++;
-        }
+      if (enemy.movement === 1 && enemy.inPlay) {
+        enemy.move(0, 300, 270);
+        //enemy.movement++;
       }
-      if (enemy.move === 2 && enemy.onScreen) {
-        if (enemy.angle <= 200) {
-          enemy.angle += 2;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
+      if (enemy.movement === 2 && enemy.inPlay) {
+        enemy.move(0, 420, 80);
+        //enemy.movement++;
       }
-      if (enemy.move === 3 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 160) {
-          enemy.move++;
-        }
+
+      if (enemy.movement === 3 && enemy.inPlay) {
+        enemy.move(0, 520, 200);
+        //enemy.move++;
       }
-      if (enemy.move === 4 && enemy.onScreen) {
+      if (enemy.move === 4 && enemy.inPlay) {
         if (enemy.angle <= 380) {
           enemy.angle += 2;
         } else {

@@ -16,10 +16,11 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
-    this.oldPosition = {
+    this.last = {
       x: xPos,
       y: yPos
     };
+
     this.image = new Image();
     this.image.src = imageSrc;
     this.bulletImage = new Image();
@@ -31,6 +32,7 @@ export default class Enemy {
     this.frameDuration = 15;
     this.repeatAnimation = true;
     this.angle = angle;
+    this.nextAngle = 0;
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
@@ -45,10 +47,10 @@ export default class Enemy {
       this.angle
     );
     this.start = true;
-    this.move = 0;
+    this.movement = 0;
     this.now = 0;
     this.inPlay = false;
-    this.onScreen = false;
+
     //this.turning = false;
     //this.moving = false;
     //this.bulletPool = [];
@@ -84,5 +86,25 @@ export default class Enemy {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
     this.enemySprite.update(delta);
+  }
+
+  move(step, angle, distance) {
+    if (step === 0 && this.inPlay) {
+      this.last.x = this.position.x;
+
+      this.move(1, angle, distance);
+    }
+    if (step === 1 && this.inPlay) {
+      if (Math.abs(this.position.x - this.last.x) > distance) {
+        this.move(2, angle, distance);
+      }
+    }
+    if (step === 2 && this.inPlay) {
+      if (this.angle <= angle) {
+        this.angle += 2;
+      } else {
+        this.movement++;
+      }
+    }
   }
 }
