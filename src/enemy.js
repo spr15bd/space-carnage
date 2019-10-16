@@ -48,6 +48,7 @@ export default class Enemy {
     );
     this.start = true;
     this.movement = 0;
+    this.movementStep = 0;
     this.now = 0;
     this.inPlay = false;
 
@@ -88,21 +89,23 @@ export default class Enemy {
     this.enemySprite.update(delta);
   }
 
-  move(step, angle, distance) {
-    if (step === 0 && this.inPlay) {
+  move(angle, angle2, distance) {
+    if (this.movementStep === 0 && this.inPlay) {
       this.last.x = this.position.x;
 
-      this.move(1, angle, distance);
+      this.movementStep++;
     }
-    if (step === 1 && this.inPlay) {
+    if (this.movementStep === 1 && this.inPlay) {
+      this.angle += angle2;
       if (Math.abs(this.position.x - this.last.x) > distance) {
-        this.move(2, angle, distance);
+        this.movementStep++;
       }
     }
-    if (step === 2 && this.inPlay) {
+    if (this.movementStep === 2 && this.inPlay) {
       if (this.angle <= angle) {
         this.angle += 2;
       } else {
+        this.movementStep = 0;
         this.movement++;
       }
     }
