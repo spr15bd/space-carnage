@@ -102,9 +102,11 @@ export default class Enemy {
       }
     }
     if (this.movementStep === 2 && this.inPlay) {
-      if (this.angle <= angle) {
+      if (this.angle <= angle-2) {
         this.angle += 2;
-      } else {
+      } else if (this.angle > angle+2) {
+        this.angle += 2;
+      }else {
         this.movementStep = 0;
         this.movement++;
       }

@@ -260,11 +260,11 @@ export default class Game {
       }
 
       if (enemy.movement === 0 && enemy.inPlay) {
-        enemy.move(140, 0.3, 200);
+        enemy.move(160, 0.3, 200);
         //enemy.movement++;
       }
       if (enemy.movement === 1) {
-        enemy.move(300, -0.4, 170);
+        enemy.move(280, 0, 200);
         //enemy.movement++;
       }
       if (enemy.movement === 2) {
@@ -279,6 +279,10 @@ export default class Game {
 
       if (enemy.movement === 4) {
         enemy.move(870, 0.4, 100);
+        //enemy.move++;
+      }
+      if (enemy.movement === 5) {
+        enemy.move(670, 0, 600);
         //enemy.move++;
       }
       if (enemy.move === 4 && enemy.inPlay) {
