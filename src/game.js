@@ -258,17 +258,17 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-
+      
       if (enemy.movement === 0 && enemy.inPlay) {
-        enemy.move(160, 0.3, 200);
+        enemy.move(160, 0.2, 200);
         //enemy.movement++;
       }
       if (enemy.movement === 1) {
-        enemy.move(280, 0, 200);
+        enemy.move(320, 0, 220);
         //enemy.movement++;
       }
       if (enemy.movement === 2) {
-        enemy.move(420, 0, 80);
+        enemy.move(20, 0, 130);
         //enemy.movement++;
       }
 
@@ -282,7 +282,15 @@ export default class Game {
         //enemy.move++;
       }
       if (enemy.movement === 5) {
-        enemy.move(670, 0, 600);
+        enemy.move(670, 0, 200);
+        //enemy.move++;
+      }
+      if (enemy.movement === 6) {
+        enemy.move(490, -0.1, 300);
+        //enemy.move++;
+      }
+      if (enemy.movement === 6) {
+        enemy.move(700, 0, 200);
         //enemy.move++;
       }
       if (enemy.move === 4 && enemy.inPlay) {
