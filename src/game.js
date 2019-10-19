@@ -258,182 +258,60 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
-      
-      if (enemy.movement === 0 && enemy.inPlay) {
-        enemy.move(160, 0.2, 200);
-        //enemy.movement++;
-      }
-      if (enemy.movement === 1) {
-        enemy.move(320, 0, 220);
-        //enemy.movement++;
-      }
-      if (enemy.movement === 2) {
-        enemy.move(20, 0, 130);
-        //enemy.movement++;
+
+      // if outside circle radius 400 & 300, centre 400,300
+      if (
+        (enemy.position.x - 400) * (enemy.position.x - 400) +
+          (enemy.position.y - 300) * (enemy.position.x - 300) >=
+        160000
+      ) {
+        enemy.movement += 1;
+        enemy.movementStep = 1;
+        //enemy.movementStep = 1;
+      } else {
+        enemy.movementStep = 0;
       }
 
-      if (enemy.movement === 3) {
-        enemy.move(670, -0.5, 100);
-        //enemy.move++;
-      }
-
-      if (enemy.movement === 4) {
-        enemy.move(870, 0.4, 100);
-        //enemy.move++;
-      }
-      if (enemy.movement === 5) {
-        enemy.move(670, 0, 200);
-        //enemy.move++;
-      }
-      if (enemy.movement === 6) {
-        enemy.move(490, -0.1, 300);
-        //enemy.move++;
-      }
-      if (enemy.movement === 6) {
-        enemy.move(700, 0, 200);
-        //enemy.move++;
-      }
-      if (enemy.move === 4 && enemy.inPlay) {
-        if (enemy.angle <= 380) {
-          enemy.angle += 2;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
+      if (enemy.movementStep === 1) {
+        switch (enemy.movement) {
+          case 1:
+            enemy.angle += 80;
+            break;
+          case 2:
+            enemy.angle += 80;
+            break;
+          case 3:
+            enemy.angle += 80;
+            break;
+          case 4:
+            enemy.angle += 80;
+            break;
+          case 5:
+            enemy.angle += 80;
+            break;
+          case 6:
+            enemy.angle += 80;
+            break;
+          case 7:
+            enemy.angle += 80;
+            break;
+          case 8:
+            enemy.angle += 80;
+            break;
+          case 9:
+            enemy.angle += 80;
+            break;
+          case 10:
+            enemy.angle += 80;
+            break;
+          case 11:
+            enemy.angle += 80;
+            break;
+          case 12:
+            enemy.angle += 80;
+            break;
         }
-      }
-      if (enemy.move === 5 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 200) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 6 && enemy.onScreen) {
-        if (enemy.angle <= 530) {
-          enemy.angle += 2;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 7 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-
-      if (enemy.move === 8 && enemy.onScreen) {
-        if (enemy.angle <= 730) {
-          enemy.angle += 2;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-
-      if (enemy.move === 9 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-
-      if (enemy.move === 10 && enemy.onScreen) {
-        if (enemy.angle <= 930) {
-          enemy.angle += 3;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-
-      if (enemy.move === 11 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 12 && enemy.onScreen) {
-        if (enemy.angle <= 1130) {
-          enemy.angle += 4;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 13 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 14 && enemy.onScreen) {
-        if (enemy.angle <= 1330) {
-          enemy.angle += 4;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 15 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 16 && enemy.onScreen) {
-        if (enemy.angle <= 1510) {
-          enemy.angle += 4;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 17 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 150) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 18 && enemy.onScreen) {
-        if (enemy.angle >= 1330) {
-          enemy.angle -= 5;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 19 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 100) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 20 && enemy.onScreen) {
-        if (enemy.angle >= 1170) {
-          enemy.angle -= 3;
-        } else {
-          enemy.lastY = enemy.position.y;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 21 && enemy.onScreen) {
-        if (Math.abs(enemy.position.y - enemy.lastY) > 100) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 22 && enemy.onScreen) {
-        if (enemy.angle >= 1080) {
-          enemy.angle -= 2;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 23 && enemy.onScreen) {
-        if (Math.abs(enemy.position.x - enemy.lastX) > 600) {
-          enemy.move++;
-        }
-      }
-      if (enemy.move === 24 && enemy.onScreen) {
-        if (enemy.angle >= 900) {
-          enemy.angle -= 4;
-        } else {
-          enemy.lastX = enemy.position.x;
-          enemy.move = 1;
-        }
+        enemy.movementStep = 0;
       }
 
       //enemy.angle = Math.round(enemy.angle);
