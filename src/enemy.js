@@ -48,7 +48,8 @@ export default class Enemy {
     );
     this.start = true;
     this.movement = 0;
-    this.movementStep = 0;
+    this.bounced = 0;
+    this.outsideViewPort = false;
     this.now = 0;
     this.inPlay = false;
 

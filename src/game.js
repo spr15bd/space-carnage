@@ -261,58 +261,46 @@ export default class Game {
 
       // if outside circle radius 400 & 300, centre 400,300
       if (
+        enemy.inPlay &&
+        !enemy.outsideViewPort &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
-          (enemy.position.y - 300) * (enemy.position.x - 300) >=
-        160000
+          (enemy.position.y - 400) * (enemy.position.y - 400) >=
+          160000
       ) {
-        enemy.movement += 1;
-        enemy.movementStep = 1;
-        //enemy.movementStep = 1;
+        //enemy.movement += 1;
+        enemy.outsideViewPort = true;
+        if (Math.random() < 0.5) {
+          this.nextAngle = 100;
+        } else {
+          this.nextAngle = 260;
+        }
       } else {
-        enemy.movementStep = 0;
+        //enemy.movementStep = 0;
       }
 
-      if (enemy.movementStep === 1) {
-        switch (enemy.movement) {
-          case 1:
-            enemy.angle += 80;
-            break;
-          case 2:
-            enemy.angle += 80;
-            break;
-          case 3:
-            enemy.angle += 80;
-            break;
-          case 4:
-            enemy.angle += 80;
-            break;
-          case 5:
-            enemy.angle += 80;
-            break;
-          case 6:
-            enemy.angle += 80;
-            break;
-          case 7:
-            enemy.angle += 80;
-            break;
-          case 8:
-            enemy.angle += 80;
-            break;
-          case 9:
-            enemy.angle += 80;
-            break;
-          case 10:
-            enemy.angle += 80;
-            break;
-          case 11:
-            enemy.angle += 80;
-            break;
-          case 12:
-            enemy.angle += 80;
-            break;
+      //if (enemy.movementStep === 0) {
+      if (enemy.outsideViewPort) {
+        if (enemy.angle < this.nextAngle) {
+          enemy.movement = 1;
+        } else if (enemy.angle >= this.nextAngle) {
+          enemy.movement = 2;
         }
-        enemy.movementStep = 0;
       }
+      //enemy.bounced = true;
+
+      if (enemy.movement === 1) {
+        this.angle += 2;
+        if (enemy.angle > this.nextAngle) {
+          enemy.outsideViewPort = false;
+        }
+      }
+      if (enemy.movement === 2) {
+        this.angle -= 2;
+        if (enemy.angle < this.nextAngle) {
+          enemy.outsideViewPort = false;
+        }
+      }
+      //}
 
       //enemy.angle = Math.round(enemy.angle);
 
