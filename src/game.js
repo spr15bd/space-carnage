@@ -262,45 +262,21 @@ export default class Game {
       // if outside circle radius 400 & 300, centre 400,300
       if (
         enemy.inPlay &&
-        !enemy.outsideViewPort &&
+        !enemy.turning &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
-          (enemy.position.y - 400) * (enemy.position.y - 400) >=
-          160000
+          (enemy.position.y - 300) * (enemy.position.y - 300) >=
+          90000
       ) {
-        //enemy.movement += 1;
-        enemy.outsideViewPort = true;
-        if (Math.random() < 0.5) {
-          this.nextAngle = 100;
-        } else {
-          this.nextAngle = 260;
-        }
+        enemy.nextAngle = Math.floor(enemy.angle + 130);
+        enemy.turning = true;
+      }
+
+      if (enemy.angle < enemy.nextAngle) {
+        enemy.angle += 1.6;
       } else {
-        //enemy.movementStep = 0;
+        enemy.angle = enemy.nextAngle;
+        enemy.turning = false;
       }
-
-      //if (enemy.movementStep === 0) {
-      if (enemy.outsideViewPort) {
-        if (enemy.angle < this.nextAngle) {
-          enemy.movement = 1;
-        } else if (enemy.angle >= this.nextAngle) {
-          enemy.movement = 2;
-        }
-      }
-      //enemy.bounced = true;
-
-      if (enemy.movement === 1) {
-        this.angle += 2;
-        if (enemy.angle > this.nextAngle) {
-          enemy.outsideViewPort = false;
-        }
-      }
-      if (enemy.movement === 2) {
-        this.angle -= 2;
-        if (enemy.angle < this.nextAngle) {
-          enemy.outsideViewPort = false;
-        }
-      }
-      //}
 
       //enemy.angle = Math.round(enemy.angle);
 

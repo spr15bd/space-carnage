@@ -32,7 +32,7 @@ export default class Enemy {
     this.frameDuration = 15;
     this.repeatAnimation = true;
     this.angle = angle;
-    this.nextAngle = 0;
+    this.nextAngle = 45;
     this.enemySprite = new Sprite(
       this.image,
       this.sourceWidth,
@@ -53,7 +53,7 @@ export default class Enemy {
     this.now = 0;
     this.inPlay = false;
 
-    //this.turning = false;
+    this.turning = false;
     //this.moving = false;
     //this.bulletPool = [];
   }
@@ -75,12 +75,8 @@ export default class Enemy {
     // every delta milliSeconds
     if (!delta) return;
 
-    this.speed.x =
-      (60 / delta) *
-      Math.cos((this.angle.toFixed(1) * Math.PI).toFixed(1) / 180);
-    this.speed.y =
-      (60 / delta) *
-      Math.sin((this.angle.toFixed(1) * Math.PI).toFixed(1) / 180);
+    this.speed.x = (50 / delta) * Math.cos((this.angle * Math.PI) / 180);
+    this.speed.y = (50 / delta) * Math.sin((this.angle * Math.PI) / 180);
 
     // movement across screen
     // pixels per milliSecond
