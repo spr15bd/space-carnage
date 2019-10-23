@@ -264,18 +264,33 @@ export default class Game {
         enemy.inPlay &&
         !enemy.turning &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
-          (enemy.position.y - 300) * (enemy.position.y - 300) >=
+          (enemy.position.y - 300) * (enemy.position.y - 300) >
           90000
       ) {
-        enemy.nextAngle = Math.floor(enemy.angle + 130);
+        enemy.nextAngle = Math.floor(
+          enemy.angle +
+            180 -
+            Math.atan(
+              ((300 - enemy.position.y) / (400 - enemy.position.x) / Math.PI) *
+                180
+            )
+        );
         enemy.turning = true;
       }
 
       if (enemy.angle < enemy.nextAngle) {
-        enemy.angle += 1.6;
+        enemy.angle += 2;
       } else {
         enemy.angle = enemy.nextAngle;
-        enemy.turning = false;
+        if (
+          (enemy.position.x - 400) * (enemy.position.x - 400) +
+            (enemy.position.y - 300) * (enemy.position.y - 300) <=
+          90000
+        ) {
+          enemy.turning = false;
+        }
+
+        //enemy.turning = false;
       }
 
       //enemy.angle = Math.round(enemy.angle);
