@@ -27,6 +27,7 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.nextAngle = 160;
     this.totalTime = 0;
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
@@ -265,16 +266,9 @@ export default class Game {
         !enemy.turning &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) >
-          90000
+          120000
       ) {
-        enemy.nextAngle = Math.floor(
-          enemy.angle +
-            180 -
-            Math.atan(
-              ((300 - enemy.position.y) / (400 - enemy.position.x) / Math.PI) *
-                180
-            )
-        );
+        enemy.nextAngle = Math.floor(enemy.angle + 20);
         enemy.turning = true;
       }
 
@@ -282,13 +276,10 @@ export default class Game {
         enemy.angle += 2;
       } else {
         enemy.angle = enemy.nextAngle;
-        if (
-          (enemy.position.x - 400) * (enemy.position.x - 400) +
-            (enemy.position.y - 300) * (enemy.position.y - 300) <=
-          90000
-        ) {
-          enemy.turning = false;
+        if (enemy.angle > 150 && enemy.angle < 210) {
+          enemy.angle += 5;
         }
+        enemy.turning = false;
 
         //enemy.turning = false;
       }
