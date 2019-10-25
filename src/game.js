@@ -276,8 +276,12 @@ export default class Game {
         enemy.angle += 2;
       } else {
         enemy.angle = enemy.nextAngle;
-        if (enemy.angle > 150 && enemy.angle < 210) {
-          enemy.angle += 5;
+        if (
+          enemy.angle > 150 &&
+          enemy.angle < 210 &&
+          this.enemies[0].position.y < 100
+        ) {
+          enemy.position.y = 120;
         }
         enemy.turning = false;
 
