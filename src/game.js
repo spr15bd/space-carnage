@@ -10,6 +10,7 @@ const GAMESTATE = {
   GAMEINPROGRESS: 1,
   GAMEOVER: 2
 };
+
 export default class Game {
   constructor(screenWidth, screenHeight) {
     this.backgroundImage = new Image();
@@ -27,7 +28,8 @@ export default class Game {
   }
 
   initialiseGame() {
-    this.nextAngle = 160;
+    this.nextAngle = [90, 120, 70, 50];
+    this.angleIndex = 0;
     this.totalTime = 0;
     this.screen = 0;
     this.level = new Level(this.screen); // initialise the first level
@@ -248,7 +250,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-
+    //this.angleIndex += 1;
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       if (enemy.position.y > 0) {
@@ -263,29 +265,14 @@ export default class Game {
       // if outside circle radius 400 & 300, centre 400,300
       if (
         enemy.inPlay &&
-        !enemy.turning &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) >
-          120000
+          16000
       ) {
-        enemy.nextAngle = Math.floor(enemy.angle + 20);
+        enemy.angle += 1.3;
         enemy.turning = true;
-      }
-
-      if (enemy.angle < enemy.nextAngle) {
-        enemy.angle += 2;
       } else {
-        enemy.angle = enemy.nextAngle;
-        if (
-          enemy.angle > 150 &&
-          enemy.angle < 210 &&
-          this.enemies[0].position.y < 100
-        ) {
-          enemy.position.y = 120;
-        }
-        enemy.turning = false;
-
-        //enemy.turning = false;
+        //enemy.turning =false;
       }
 
       //enemy.angle = Math.round(enemy.angle);
@@ -295,6 +282,7 @@ export default class Game {
       //this.enemies[i].angle = this.enemies[0].angle;
     });
   }
+
   moveEnemies2(delta) {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
