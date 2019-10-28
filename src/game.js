@@ -267,12 +267,17 @@ export default class Game {
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) >
-          16000
+          100000
       ) {
-        enemy.angle += 1.3;
         enemy.turning = true;
-      } else {
-        //enemy.turning =false;
+        enemy.angle = Math.floor(enemy.angle) + 1.2;
+      } else if (
+        enemy.inPlay &&
+        (enemy.position.x - 400) * (enemy.position.x - 400) +
+          (enemy.position.y - 300) * (enemy.position.y - 300) <=
+          100000
+      ) {
+        enemy.turning = false;
       }
 
       //enemy.angle = Math.round(enemy.angle);
