@@ -253,7 +253,8 @@ export default class Game {
     //this.angleIndex += 1;
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
-      if (enemy.position.y > 0) {
+      //if (Math.floor(enemy.angle) >= 360) enemy.angle = 0;
+      if (enemy.position.y >= 0) {
         enemy.inPlay = true;
 
         //console.log(enemy.onScreen);
@@ -267,15 +268,15 @@ export default class Game {
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) >
-          100000
+          140000
       ) {
         enemy.turning = true;
-        enemy.angle = Math.floor(enemy.angle) + 1.2;
+        enemy.angle += 2;
       } else if (
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) <=
-          100000
+          140000
       ) {
         enemy.turning = false;
       }
