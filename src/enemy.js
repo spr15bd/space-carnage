@@ -75,14 +75,14 @@ export default class Enemy {
     // every delta milliSeconds
     if (!delta) return;
     //if (this.angle >= 360) this.angle = 0;
-    this.speed.x = (40 / 16) * Math.cos((this.angle * Math.PI) / 180);
-    this.speed.y = (40 / 16) * Math.sin((this.angle * Math.PI) / 180);
+    this.speed.x = 4 * Math.cos((this.angle * Math.PI) / 180);
+    this.speed.y = 4 * Math.sin((this.angle * Math.PI) / 180);
 
     // movement across screen
     // pixels per milliSecond
 
-    this.position.x += this.speed.x;
-    this.position.y += this.speed.y;
+    this.position.x = Math.floor(this.position.x) + this.speed.x*delta/17;
+    this.position.y = Math.floor(this.position.y) + this.speed.y*delta/17;
     this.enemySprite.update(delta);
   }
 

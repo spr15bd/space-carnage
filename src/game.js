@@ -268,7 +268,7 @@ export default class Game {
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) >
-          140000
+          180000
       ) {
         enemy.turning = true;
         enemy.angle += 2;
@@ -276,7 +276,7 @@ export default class Game {
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) <=
-          140000
+          180000
       ) {
         enemy.turning = false;
       }

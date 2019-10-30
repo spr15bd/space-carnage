@@ -28,6 +28,7 @@ export default class Sprite {
     this.terminateSprite = false;
   }
   update(delta) {
+    if (!delta) return;
     this.ticks++;
     if (this.ticks >= this.ticksPerFrame) {
       this.frameIndex++;
