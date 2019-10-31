@@ -16,7 +16,9 @@ function gameLoop(timestamp) {
 
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
   game.update(progress);
+
   game.draw(ctx);
   lastRender = timestamp;
   requestAnimationFrame(gameLoop);
