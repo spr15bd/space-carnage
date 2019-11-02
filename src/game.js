@@ -28,11 +28,11 @@ export default class Game {
   }
 
   initialiseGame() {
-    this.nextAngle = [90, 120, 70, 50];
-    this.angleIndex = 0;
-    this.totalTime = 0;
+    //this.nextAngle = [90, 120, 70, 50];
+    //this.angleIndex = 0;
+    //this.totalTime = 0;
     this.screen = 0;
-    this.level = new Level(this.screen); // initialise the first level
+    this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
     this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
@@ -264,22 +264,39 @@ export default class Game {
       }
 
       // if outside circle radius 400 & 300, centre 400,300
-      if (
-        enemy.inPlay &&
-        (enemy.position.x - 400) * (enemy.position.x - 400) +
-          (enemy.position.y - 300) * (enemy.position.y - 300) >
-          140000
-      ) {
-        enemy.turning = true;
-        enemy.angle += 2.4;
-      } else if (
+
+      //enemy.turning = true;
+      if (enemy.enemyType === 0) {
+        if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            140000
+        ) {
+          enemy.angle -= 2.4;
+        }
+      } else {
+        if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            140000
+        ) {
+          enemy.angle += 2.4;
+        }
+      }
+      /*else if (
         enemy.inPlay &&
         (enemy.position.x - 400) * (enemy.position.x - 400) +
           (enemy.position.y - 300) * (enemy.position.y - 300) <=
           140000
       ) {
         enemy.turning = false;
-      }
+      }*/
 
       //enemy.angle = Math.round(enemy.angle);
 

@@ -1,18 +1,25 @@
 import Block from "./block.js";
 import Enemy from "./enemy.js";
 export default class Level {
-  constructor(level) {
+  constructor(level, width, height) {
     this.enemies = [];
     this.blocks = [];
     if (level === 0) {
       this.enemies.push(
-        new Enemy(170, -230, 45, 0, "./enemies.png"),
-        new Enemy(200, -200, 45, 0, "./enemies.png"),
-        new Enemy(230, -170, 45, 1, "./enemies.png"),
-        new Enemy(260, -140, 45, 0, "./enemies.png"),
-        new Enemy(290, -110, 45, 0, "./enemies.png"),
-        new Enemy(320, -80, 45, 1, "./enemies.png"),
-        new Enemy(350, -50, 45, 1, "./enemies.png")
+        new Enemy(width / 2 - 230, -230, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 200, -200, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 170, -170, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 140, -140, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 110, -110, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 80, -80, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 - 50, -50, 45, 1, "./enemies.png"),
+        new Enemy(width / 2 + 230, -230, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 200, -200, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 170, -170, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 140, -140, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 110, -110, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 80, -80, 135, 0, "./enemies.png"),
+        new Enemy(width / 2 + 50, -50, 135, 0, "./enemies.png")
       );
       /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),
