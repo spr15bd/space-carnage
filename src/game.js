@@ -254,10 +254,16 @@ export default class Game {
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       //if (Math.floor(enemy.angle) >= 360) enemy.angle = 0;
-      if (enemy.position.y >= 0) {
+      if (
+        (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+          (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) <=
+        60000
+      ) {
         enemy.inPlay = true;
-
-        //console.log(enemy.onScreen);
+        enemy.turning = false;
+        enemy.turned180 = false;
       }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
@@ -273,9 +279,9 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            140000
+            80000
         ) {
-          enemy.angle -= 2.4;
+          enemy.angle -= 2;
         }
       } else {
         if (
@@ -284,25 +290,12 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            140000
+            80000
         ) {
-          enemy.angle += 2.4;
+          enemy.angle += 2;
         }
       }
-      /*else if (
-        enemy.inPlay &&
-        (enemy.position.x - 400) * (enemy.position.x - 400) +
-          (enemy.position.y - 300) * (enemy.position.y - 300) <=
-          140000
-      ) {
-        enemy.turning = false;
-      }*/
-
-      //enemy.angle = Math.round(enemy.angle);
-
-      //this.enemies[i].angle=this.enemies[0].angle;
       enemy.update(delta);
-      //this.enemies[i].angle = this.enemies[0].angle;
     });
   }
 

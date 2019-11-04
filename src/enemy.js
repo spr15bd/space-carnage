@@ -20,7 +20,7 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
-
+    this.maxTurn = 180;
     this.image = new Image();
     this.image.src = imageSrc;
     this.bulletImage = new Image();
@@ -52,7 +52,7 @@ export default class Enemy {
     this.outsideViewPort = false;
     this.now = 0;
     this.inPlay = false;
-
+    this.turned180 = false;
     this.turning = false;
     //this.moving = false;
     //this.bulletPool = [];
