@@ -10,7 +10,10 @@ export default class Enemy {
       x: 0,
       y: 0
     };
-    this.startXPosition = xPos;
+    this.start = {
+      x: xPos,
+      y: yPos
+    };
 
     this.position = {
       x: xPos,
@@ -27,7 +30,14 @@ export default class Enemy {
     this.bulletImage.src = "./enemyBullet.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
-    this.sourceY = enemyType === 0 ? 0 : 32;
+    if (this.enemyType === 0) {
+      this.sourceY = 0;
+    } else if (this.enemyType === 1) {
+      this.sourceY = 32;
+    } else if (this.enemyType === 2) {
+      this.sourceY = 64;
+    }
+
     this.numberOfFrames = 8;
     this.frameDuration = 15;
     this.repeatAnimation = true;
@@ -46,7 +56,7 @@ export default class Enemy {
       this.repeatAnimation,
       this.angle
     );
-    this.start = true;
+    //this.start = true;
     this.movement = 0;
     this.bounced = 0;
     this.outsideViewPort = false;
@@ -75,17 +85,24 @@ export default class Enemy {
     // every delta milliSeconds
     if (!delta) return;
     //if (this.angle >= 360) this.angle = 0;
-    this.speed.x = 5 * Math.cos((this.angle * Math.PI) / 180);
-    this.speed.y = 5 * Math.sin((this.angle * Math.PI) / 180);
+
+    if (this.enemyType === 0 || this.enemyType === 1) {
+      this.speed.x = 5 * Math.cos((this.angle * Math.PI) / 180);
+      this.speed.y = 5 * Math.sin((this.angle * Math.PI) / 180);
+
+      this.position.x =
+        this.enemyType === 0
+          ? Math.ceil(this.position.x) + this.speed.x
+          : Math.floor(this.position.x) + this.speed.x;
+      this.position.y = Math.floor(this.position.y) + this.speed.y;
+    } else if (this.enemyType === 2) {
+      this.position.x = 400 * Math.sin(Date.now() * 0.0005) + this.start.x;
+      //this.position.y = 100;
+    }
 
     // movement across screen
     // pixels per milliSecond
 
-    this.position.x =
-      this.enemyType === 0
-        ? Math.ceil(this.position.x) + this.speed.x
-        : Math.floor(this.position.x) + this.speed.x;
-    this.position.y = Math.floor(this.position.y) + this.speed.y;
     this.enemySprite.update(delta);
   }
 

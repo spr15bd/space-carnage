@@ -51,19 +51,19 @@ export default class Level {
       );*/
     } else if (level === 0) {
       this.enemies.push(
-        new Enemy(20, 300, 0, 1, "./enemies.png"),
-        new Enemy(50, 300, 0, 1, "./enemies.png"),
-        new Enemy(80, 300, 0, 1, "./enemies.png"),
-        new Enemy(110, 300, 0, 1, "./enemies.png"),
-        new Enemy(140, 300, 0, 1, "./enemies.png"),
-        new Enemy(170, 300, 0, 1, "./enemies.png"),
+        new Enemy(300, 300, 270, 2, "./enemies.png"),
+        new Enemy(340, 300, 270, 2, "./enemies.png"),
+        new Enemy(380, 300, 270, 2, "./enemies.png"),
+        new Enemy(420, 300, 270, 2, "./enemies.png"),
+        new Enemy(460, 300, 270, 2, "./enemies.png"),
+        new Enemy(500, 300, 270, 2, "./enemies.png"),
         new Enemy(width - 20, 300, 180, 0, "./enemies.png"),
         new Enemy(width - 50, 300, 180, 0, "./enemies.png"),
         new Enemy(width - 80, 300, 180, 0, "./enemies.png"),
         new Enemy(width - 110, 300, 180, 0, "./enemies.png"),
-        new Enemy(width - 140, 300, 180, 0, "./enemies.png"),
-        new Enemy(140, 315, 0, 0, "./enemies.png"),
-        new Enemy(140, 345, 0, 0, "./enemies.png")
+        new Enemy(width - 140, 300, 180, 0, "./enemies.png")
+        //new Enemy(140, 315, 0, 0, "./enemies.png"),
+        //new Enemy(140, 345, 0, 0, "./enemies.png")
       );
     } else {
       this.enemies.push(

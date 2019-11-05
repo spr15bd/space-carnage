@@ -283,7 +283,7 @@ export default class Game {
         ) {
           enemy.angle -= 2;
         }
-      } else {
+      } else if (enemy.enemyType === 1) {
         if (
           enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
