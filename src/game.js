@@ -293,6 +293,7 @@ export default class Game {
             80000
         ) {
           enemy.angle += 2;
+        } else if (enemy.enemyType === 2) {
         }
       }
       enemy.update(delta);

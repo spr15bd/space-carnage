@@ -10,6 +10,7 @@ export default class Enemy {
       x: 0,
       y: 0
     };
+    this.state = 0;
     this.start = {
       x: xPos,
       y: yPos
@@ -96,8 +97,11 @@ export default class Enemy {
           : Math.floor(this.position.x) + this.speed.x;
       this.position.y = Math.floor(this.position.y) + this.speed.y;
     } else if (this.enemyType === 2) {
-      this.position.x = 400 * Math.sin(Date.now() * 0.0005) + this.start.x;
-      //this.position.y = 100;
+      if (this.state === 0) {
+        this.position.x = 400 * Math.sin(Date.now() * 0.0015) + this.start.x;
+      } else if (this.state === 1) {
+        this.position.y += this.change;
+      }
     }
 
     // movement across screen
