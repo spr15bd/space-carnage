@@ -250,7 +250,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    //this.angleIndex += 1;
+    this.now = Date.now();
     //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       //if (Math.floor(enemy.angle) >= 360) enemy.angle = 0;
@@ -259,11 +259,11 @@ export default class Game {
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
           (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) <=
-        60000
+        100000
       ) {
         enemy.inPlay = true;
-        enemy.turning = false;
-        enemy.turned180 = false;
+        //enemy.turning = false;
+        //enemy.turned180 = false;
       }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
@@ -274,14 +274,21 @@ export default class Game {
       //enemy.turning = true;
       if (enemy.enemyType === 0) {
         if (
-          enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            80000
+          100000
         ) {
-          enemy.angle -= 2;
+          if (enemy.inPlay) {
+            enemy.exitAngle = enemy.angle;
+            enemy.inPlay = false;
+          }
+          if (enemy.angle > enemy.exitAngle - 180) {
+            enemy.angle -= 2;
+          } else {
+            enemy.angle = enemy.exitAngle - 180;
+          }
         }
       } else if (enemy.enemyType === 1) {
         if (
@@ -290,10 +297,15 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            80000
+            100000
         ) {
           enemy.angle += 2;
         } else if (enemy.enemyType === 2) {
+          if (this.now - this.level.start < 1000) {
+            this.state = 0;
+          } else if (this.now - this.level.start < 2000) {
+            this.state = 1;
+          }
         }
       }
       enemy.update(delta);

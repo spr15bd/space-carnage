@@ -2,6 +2,7 @@ import Block from "./block.js";
 import Enemy from "./enemy.js";
 export default class Level {
   constructor(level, width, height) {
+    this.start = Date.now();
     this.enemies = [];
     this.blocks = [];
     if (level === 1) {
@@ -57,11 +58,11 @@ export default class Level {
         new Enemy(420, 300, 270, 2, "./enemies.png"),
         new Enemy(460, 300, 270, 2, "./enemies.png"),
         new Enemy(500, 300, 270, 2, "./enemies.png"),
-        new Enemy(width - 20, 300, 180, 0, "./enemies.png"),
-        new Enemy(width - 50, 300, 180, 0, "./enemies.png"),
-        new Enemy(width - 80, 300, 180, 0, "./enemies.png"),
-        new Enemy(width - 110, 300, 180, 0, "./enemies.png"),
-        new Enemy(width - 140, 300, 180, 0, "./enemies.png")
+        new Enemy(width - 130, 300, 180, 0, "./enemies.png"),
+        new Enemy(width - 160, 300, 180, 0, "./enemies.png"),
+        new Enemy(width - 190, 300, 180, 0, "./enemies.png"),
+        new Enemy(width - 220, 300, 180, 0, "./enemies.png"),
+        new Enemy(width - 250, 300, 180, 0, "./enemies.png")
         //new Enemy(140, 315, 0, 0, "./enemies.png"),
         //new Enemy(140, 345, 0, 0, "./enemies.png")
       );
