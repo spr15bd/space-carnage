@@ -100,7 +100,8 @@ export default class Enemy {
       if (this.state === 0) {
         this.position.x = 400 * Math.sin(Date.now() * 0.0015) + this.start.x;
       } else if (this.state === 1) {
-        this.position.y += 10;
+        this.position.y += 1;
+        //console.log("state 1");
       }
     }
 

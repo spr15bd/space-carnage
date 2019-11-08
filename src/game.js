@@ -300,12 +300,15 @@ export default class Game {
             100000
         ) {
           enemy.angle += 2;
-        } else if (enemy.enemyType === 2) {
-          if (this.now - this.level.start < 1000) {
-            this.state = 0;
-          } else if (this.now - this.level.start < 2000) {
-            this.state = 1;
-          }
+        }
+      } else if (enemy.enemyType === 2) {
+        if (this.now - this.level.getStartTime() < 3000) {
+          enemy.state = 0;
+          //console.log("3");
+        } else if (this.now - this.level.getStartTime() < 20000) {
+          enemy.state = 1;
+        } else {
+          //console.log("3");
         }
       }
       enemy.update(delta);

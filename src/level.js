@@ -88,4 +88,8 @@ export default class Level {
   getEnemies() {
     return this.enemies;
   }
+
+  getStartTime() {
+    return this.start;
+  }
 }
