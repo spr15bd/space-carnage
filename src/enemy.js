@@ -100,8 +100,8 @@ export default class Enemy {
       if (this.state === 0) {
         this.position.x = 400 * Math.sin(Date.now() * 0.0015) + this.start.x;
       } else if (this.state === 1) {
-        this.position.y += 1;
-        //console.log("state 1");
+        this.moveTo(30, 600, delta);
+        this.position.x += this.speed.x;
       }
     }
 
@@ -110,7 +110,11 @@ export default class Enemy {
 
     this.enemySprite.update(delta);
   }
-
+  moveTo(x, y, delta) {
+    if (this.position.x !== x) {
+      this.speed.x = (x - this.position.x) * (delta / 1000);
+    }
+  }
   move(angle, angle2, distance) {
     if (this.movementStep === 0 && this.inPlay) {
       this.last.x = this.position.x;
