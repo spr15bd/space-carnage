@@ -42,7 +42,7 @@ export default class Game {
     this.lastPlayerBulletTicks = this.ticks;
     this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
-    this.enemyCharging = false; //true whenver an alien swoops towards the player
+    this.enemyCharging = false;
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
@@ -51,6 +51,7 @@ export default class Game {
       x: 0,
       y: 0
     };
+    this.enemyAttacking = null;
     this.nextDistance = 0;
     this.waveCentre = [
       {
@@ -251,9 +252,7 @@ export default class Game {
   moveEnemies(delta) {
     if (!delta) return;
     this.now = Date.now();
-    //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
-      //if (Math.floor(enemy.angle) >= 360) enemy.angle = 0;
       if (
         (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
@@ -262,16 +261,11 @@ export default class Game {
         100000
       ) {
         enemy.inPlay = true;
-        //enemy.turning = false;
-        //enemy.turned180 = false;
       }
       if (Math.random() > 0.99) {
         this.shootBullet(enemy);
       }
 
-      // if outside circle radius 400 & 300, centre 400,300
-
-      //enemy.turning = true;
       if (enemy.enemyType === 0) {
         if (
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -303,12 +297,26 @@ export default class Game {
         }
       } else if (enemy.enemyType === 2) {
         if (this.now - this.level.getStartTime() < 3000) {
-          enemy.state = 0;
-          //console.log("3");
+          enemy.position.x =
+            400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
         } else if (this.now - this.level.getStartTime() < 20000) {
-          enemy.state = 1;
-        } else {
-          //console.log("3");
+          if (!this.enemyCharging) {
+            this.enemyCharging = true;
+            this.enemyAttacking = Math.floor(
+              Math.random() *
+                this.enemies.filter(item => item.enemyType === 2).length
+            );
+          }
+          if (i === this.enemyAttacking)
+            enemy.moveTo(30 + enemy.start.x, 550, delta);
+          if (Math.round(enemy.position.y) === 550) {
+            this.enemyCharging = false;
+          } else {
+            enemy.position.x =
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          }
+          enemy.position.x += enemy.speed.x;
+          enemy.position.y += enemy.speed.y;
         }
       }
       enemy.update(delta);
@@ -316,7 +324,6 @@ export default class Game {
   }
 
   moveEnemies2(delta) {
-    //this.totalTime += delta;
     this.enemies.forEach((enemy, i) => {
       if (i < this.enemies.length / 2) {
         enemy.position.x =

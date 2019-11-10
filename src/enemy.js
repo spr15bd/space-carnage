@@ -60,7 +60,7 @@ export default class Enemy {
     //this.start = true;
     this.movement = 0;
     this.bounced = 0;
-    this.outsideViewPort = false;
+    this.attack = false;
     this.now = 0;
     this.inPlay = false;
     this.turned180 = false;
@@ -85,8 +85,6 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    //if (this.angle >= 360) this.angle = 0;
-
     if (this.enemyType === 0 || this.enemyType === 1) {
       this.speed.x = 5 * Math.cos((this.angle * Math.PI) / 180);
       this.speed.y = 5 * Math.sin((this.angle * Math.PI) / 180);
@@ -98,10 +96,7 @@ export default class Enemy {
       this.position.y = Math.floor(this.position.y) + this.speed.y;
     } else if (this.enemyType === 2) {
       if (this.state === 0) {
-        this.position.x = 400 * Math.sin(Date.now() * 0.0015) + this.start.x;
       } else if (this.state === 1) {
-        this.moveTo(30, 600, delta);
-        this.position.x += this.speed.x;
       }
     }
 
@@ -113,6 +108,9 @@ export default class Enemy {
   moveTo(x, y, delta) {
     if (this.position.x !== x) {
       this.speed.x = (x - this.position.x) * (delta / 1000);
+    }
+    if (this.position.y !== y) {
+      this.speed.y = (y - this.position.y) * (delta / 1000);
     }
   }
   move(angle, angle2, distance) {
