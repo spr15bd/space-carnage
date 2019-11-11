@@ -301,22 +301,51 @@ export default class Game {
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
         } else if (this.now - this.level.getStartTime() < 20000) {
           if (!this.enemyCharging) {
+            //console.log("enemy not charging");
             this.enemyCharging = true;
             this.enemyAttacking = Math.floor(
               Math.random() *
                 this.enemies.filter(item => item.enemyType === 2).length
             );
           }
-          if (i === this.enemyAttacking)
-            enemy.moveTo(30 + enemy.start.x, 550, delta);
-          if (Math.round(enemy.position.y) === 550) {
-            this.enemyCharging = false;
+          if (i === this.enemyAttacking) {
+            if (
+              Math.round(enemy.position.x) ===
+                Math.round(
+                  400 * Math.sin(Date.now() * 0.0015) + enemy.start.x
+                ) &&
+              Math.round(enemy.position.y) === Math.round(enemy.start.y)
+            ) {
+              //console.log("enemy no longer charging");
+              this.enemyCharging = false;
+              enemy.movement = 0;
+            } else if (
+              Math.round(enemy.position.x) === 30 + enemy.start.x &&
+              Math.round(enemy.position.y) === this.player.position.y - 50
+            ) {
+              enemy.movement = 1;
+            }
+
+            if (enemy.movement === 0) {
+              enemy.moveTo(
+                30 + enemy.start.x,
+                this.player.position.y - 50,
+                delta
+              );
+            } else if (enemy.movement === 1) {
+              enemy.moveTo(
+                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+                enemy.start.y,
+                delta * 5
+              );
+
+              //enemy.position.x =400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+              //enemy.position.y = enemy.start.y;
+            }
           } else {
             enemy.position.x =
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
           }
-          enemy.position.x += enemy.speed.x;
-          enemy.position.y += enemy.speed.y;
         }
       }
       enemy.update(delta);
