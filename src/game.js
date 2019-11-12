@@ -34,6 +34,7 @@ export default class Game {
     this.screen = 0;
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
+    this.enemies[0].swoop = true;
     this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.waiting = false;
@@ -299,52 +300,45 @@ export default class Game {
         if (this.now - this.level.getStartTime() < 3000) {
           enemy.position.x =
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-        } else if (this.now - this.level.getStartTime() < 20000) {
-          if (!this.enemyCharging) {
-            //console.log("enemy not charging");
-            this.enemyCharging = true;
-            this.enemyAttacking = Math.floor(
-              Math.random() *
-                this.enemies.filter(item => item.enemyType === 2).length
-            );
-          }
-          if (i === this.enemyAttacking) {
-            if (
-              Math.round(enemy.position.x) ===
-                Math.round(
-                  400 * Math.sin(Date.now() * 0.0015) + enemy.start.x
-                ) &&
-              Math.round(enemy.position.y) === Math.round(enemy.start.y)
-            ) {
-              //console.log("enemy no longer charging");
-              this.enemyCharging = false;
-              enemy.movement = 0;
-            } else if (
-              Math.round(enemy.position.x) === 30 + enemy.start.x &&
-              Math.round(enemy.position.y) === this.player.position.y - 50
-            ) {
-              enemy.movement = 1;
-            }
-
+        } else if (this.now - this.level.getStartTime() < 30000) {
+          //this.enemyAttacking = Math.floor(Math.random() * this.enemies.filter(item => item.enemyType === 2).length);
+          //this.enemyAttacking+=1;
+          //if (this.enemyAttacking)
+          if (!enemy.swoop) {
+            enemy.position.x =
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          } else {
+            // enemy swoop
             if (enemy.movement === 0) {
               enemy.moveTo(
                 30 + enemy.start.x,
                 this.player.position.y - 50,
                 delta
               );
+              if (
+                Math.round(enemy.position.x) === 30 + enemy.start.x &&
+                Math.round(enemy.position.y) === this.player.position.y - 50
+              ) {
+                enemy.movement = 1;
+              }
             } else if (enemy.movement === 1) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta * 5
               );
+              if (
+                Math.round(enemy.position.x) ===
+                  Math.round(
+                    400 * Math.sin(Date.now() * 0.0015) + enemy.start.x
+                  ) &&
+                Math.round(enemy.position.y) === Math.round(enemy.start.y)
+              ) {
+                enemy.swoop = false;
 
-              //enemy.position.x =400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-              //enemy.position.y = enemy.start.y;
+                enemy.movement = 0;
+              }
             }
-          } else {
-            enemy.position.x =
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
           }
         }
       }
@@ -352,208 +346,6 @@ export default class Game {
     });
   }
 
-  moveEnemies2(delta) {
-    this.enemies.forEach((enemy, i) => {
-      if (i < this.enemies.length / 2) {
-        enemy.position.x =
-          this.waveCentre[0].x -
-          this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
-        enemy.position.y =
-          this.waveCentre[0].y -
-          this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
-        enemy.angle += this.angle[0];
-
-        if (enemy.position.x < -(this.radius.x + 100)) {
-          this.waveXDisp[0] = 0.2;
-        } else if (
-          enemy.position.x >
-          this.screenWidth + (this.radius.x + 100)
-        ) {
-          this.waveXDisp[0] = -0.2;
-        }
-
-        if (Math.floor(enemy.position.y) === -450) {
-          //this.angle = -0.2;
-          this.radius.x = Math.random() * 400 + 100;
-          this.radius.y -= 0.3;
-          //enemy.position.x +=0.1;
-          //this.waveCentre[0].y += 1;
-          //this.waveCentre[0].x -= 1;
-        }
-        if (Math.floor(enemy.position.y) >= 400) {
-          //this.angle = -0.2;
-          //this.radius.x += 0.2;
-          this.radius.y += 0.3;
-          //enemy.position.x -=0.1;
-          //this.waveCentre[0].y -= 1;
-          //this.waveCentre[0].x += 1;
-        }
-      } else {
-        enemy.position.x =
-          this.waveCentre[1].x +
-          this.radius.x * Math.cos((enemy.angle * Math.PI) / 180);
-        enemy.position.y =
-          this.waveCentre[1].y +
-          this.radius.y * Math.sin((enemy.angle * Math.PI) / 180);
-        enemy.angle += this.angle[1];
-        if (enemy.position.x < -(this.radius.x + 100)) {
-          this.waveXDisp[1] = 0.2;
-        } else if (
-          enemy.position.x >
-          this.screenWidth + (this.radius.x + 100)
-        ) {
-          this.waveXDisp[1] = -0.2;
-        }
-
-        if (enemy.position.y <= -600) {
-          //this.angle = -0.2;
-          //this.radius.x += 0.08;
-          //this.radius.y += 0.04;
-          //this.waveCentre[0].y += 2;
-          //this.angle[0] = 0.6;
-          //this.angle[1] = -0.6;
-          //enemy.angle += 100;
-          //this.radius.x = 800;
-        }
-        if (enemy.position.y >= 1200) {
-          //this.angle = -0.2;
-          //this.radius.x -= 0.08;
-          //this.radius.y -= 0.02;
-          //this.waveCentre[1].y -= 2;
-          //this.angle[1] = -1.1;
-          //enemy.angle += 100;
-          //this.radius.x -= 400;
-        }
-        if (enemy.position.x <= 0) {
-          //this.angle = -0.2;
-          //this.radius.x -= 0.08;
-          //this.radius.y -= 0.02;
-          //this.waveCentre[1].x += 15;
-          //this.angle[1] = -1.1;
-          //enemy.angle = -130+i*10;
-        } else if (enemy.position.x > 1000) {
-          //this.angle = -0.2;
-          //this.radius.x -= 0.08;
-          //this.radius.y -= 0.02;
-          //this.waveCentre[1].x -= 15;
-          //this.angle[1] = -1.1;
-          //enemy.angle -= 0.10;
-          //this.radius.y = 650;
-        } else {
-        }
-      }
-
-      enemy.update(delta);
-
-      /*if (Math.floor(enemy.position.x) >= 650) {
-//this.angle = -0.2;
-this.radius.x -= 0.02;
-this.radius.y -= 0.02;
-}
-if (Math.floor(enemy.position.x) <= 150) {
-//this.angle = -0.2;
-this.radius.x += 0.04;
-this.radius.y += 0.04;
-}*/
-      //enemy.angle += this.angle;
-
-      //console.log(this.accumulatedTime);
-
-      //else enemy.angle -= 0.4;
-      this.waveCentre[0].x += this.waveXDisp[0];
-      this.waveCentre[1].x += this.waveXDisp[1];
-
-      if (Math.random() > 0.99) {
-        this.shootBullet(enemy);
-      }
-    });
-  }
-  moveEnemies1(delta) {
-    //enemy.x += enemy.speed * Math.cos(this.angle * Math.PI / 180);
-    //this.y += this.speed * Math.sin(angle * Math.PI / 180);
-    this.enemies.forEach((enemy, i) => {
-      if (this.enemyCharging === false) {
-        enemy.position.x =
-          enemy.startXPosition + 50 + 270 * Math.sin(this.ticks * 0.02);
-
-        //enemy.position.x =
-        //300 + 270 * Math.sin(this.ticks * 0.02) + (i % 5) * 64; //i* (32 * 2);
-        if (Math.random() > 0.98) {
-          this.shootBullet(enemy);
-        }
-      } else {
-        if (i === this.chargingEnemy) {
-          if (this.ticks - this.now < 80) {
-            // move (1/7)th of the screen height over a period of 0.35 seconds
-            enemy.speed.y = 3;
-            enemy.speed.x = 0;
-          } else if (this.ticks - this.now < 160) {
-            enemy.speed.x = 4;
-            enemy.speed.y = 0;
-            if (Math.random() > 0.9) {
-              this.shootBullet(enemy);
-            }
-          } else if (this.ticks - this.now < 240) {
-            enemy.speed.y = 0;
-            enemy.speed.x = -4;
-            if (Math.random() > 0.9) {
-              this.shootBullet(enemy);
-            }
-          } else if (this.ticks - this.now < 250) {
-            enemy.speed.y = -3;
-            enemy.speed.x = -1;
-          } else if (this.ticks - this.now < 290) {
-            // once the charge is over move the enemy back into formation
-            enemy.stop();
-            if (
-              enemy.position.x !==
-              300 + 270 * Math.sin(this.ticks * 0.02) + i * (32 * 2)
-            ) {
-              enemy.speed.x =
-                (300 +
-                  270 * Math.sin(this.ticks * 0.02) +
-                  i * (32 * 2) -
-                  enemy.position.x) /
-                delta;
-            }
-            enemy.speed.y = -enemy.position.y / delta;
-          } else {
-            enemy.stop();
-            this.enemyCharging = false;
-            this.chargingEnemy = Math.floor(
-              Math.random() * this.enemies.length
-            );
-          }
-        } else {
-          enemy.position.x =
-            enemy.startXPosition + 50 + 270 * Math.sin(this.ticks * 0.02);
-          if (Math.random() > 0.99) {
-            this.shootBullet(enemy);
-          }
-        }
-      }
-
-      if (enemy.position.y < 30) {
-        enemy.position.y = 30;
-      }
-      if (
-        this.ticks - this.now > 550 &&
-        Math.abs(this.player.position.x - enemy.position.x) <
-          100 /*&& enemy.speed.y === 0*/
-      ) {
-        this.now = this.ticks;
-        this.enemyCharging = true;
-        //enemy.speed.y = this.screenHeight / 3000;
-      }
-
-      if (enemy.position.y > this.screenHeight - 48) {
-        enemy.speed.y = -this.screenHeight / 2000;
-        this.randomHalt = 300 * Math.floor(Math.random() * 3 + 1);
-      }
-
-      enemy.update(delta);
-    });
-  }
   checkForCollisions(delta) {
     // check for and handle any player, enemy or screen boundary collisions with bullets
     if (this.bulletPool.length > 0) {

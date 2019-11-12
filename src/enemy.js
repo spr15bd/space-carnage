@@ -60,7 +60,7 @@ export default class Enemy {
     //this.start = true;
     this.movement = 0;
     this.bounced = 0;
-    this.attack = false;
+    this.swoop = false;
     this.now = 0;
     this.inPlay = false;
     this.turned180 = false;
