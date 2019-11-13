@@ -113,7 +113,7 @@ export default class Enemy {
       return;
     }
     if (this.position.x !== x) {
-      this.speed.x = (x - this.position.x) * (delta / 1000);
+      this.speed.x = (x - this.position.x) * ((1 * delta) / 1000);
     }
     if (this.position.y !== y) {
       this.speed.y = (y - this.position.y) * (delta / 1000);

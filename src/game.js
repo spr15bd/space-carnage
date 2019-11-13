@@ -52,7 +52,7 @@ export default class Game {
       x: 0,
       y: 0
     };
-    this.enemyAttacking = null;
+    this.enemyAttacking = 0;
     this.nextDistance = 0;
     this.waveCentre = [
       {
@@ -300,11 +300,16 @@ export default class Game {
         if (this.now - this.level.getStartTime() < 3000) {
           enemy.position.x =
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-        } else if (this.now - this.level.getStartTime() < 30000) {
+        } /*if (this.now - this.level.getStartTime() < 17000)*/ else {
           //this.enemyAttacking = Math.floor(Math.random() * this.enemies.filter(item => item.enemyType === 2).length);
           //this.enemyAttacking+=1;
           //if (this.enemyAttacking)
-          if (!enemy.swoop) {
+          if (
+            enemy !==
+            this.enemies.filter(item => item.enemyType === 2)[
+              this.enemyAttacking
+            ]
+          ) {
             enemy.position.x =
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
           } else {
@@ -325,18 +330,26 @@ export default class Game {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta * 5
+                delta * 4
               );
               if (
-                Math.round(enemy.position.x) ===
-                  Math.round(
-                    400 * Math.sin(Date.now() * 0.0015) + enemy.start.x
-                  ) &&
-                Math.round(enemy.position.y) === Math.round(enemy.start.y)
+                Math.abs(
+                  enemy.position.x -
+                    (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
+                ) < 15 &&
+                Math.abs(enemy.position.y - enemy.start.y) < 50
               ) {
-                enemy.swoop = false;
-
+                enemy.position.x =
+                  400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+                enemy.position.y = enemy.start.y;
                 enemy.movement = 0;
+                this.enemyAttacking += 1;
+                if (
+                  this.enemyAttacking >=
+                  this.enemies.filter(item => item.enemyType === 2).length
+                ) {
+                  this.enemyAttacking = 0;
+                }
               }
             }
           }
