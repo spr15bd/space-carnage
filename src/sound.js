@@ -6,7 +6,7 @@ export default class Sound {
     let i = 0;
     while (i < maxStreams) {
       this.sounds.push(new Audio(src));
-      this.sounds[i].volume = 0.5;
+      this.sounds[i].volume = 0.2;
       i++;
     }
   }

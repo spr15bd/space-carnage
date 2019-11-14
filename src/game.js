@@ -135,7 +135,7 @@ export default class Game {
       if (this.delayOver) {
         this.thrust();
       } else {
-        this.delay(70, () => {
+        this.delay(2000, () => {
           this.delayOver = true;
           //this.thrust();
         });
@@ -244,7 +244,7 @@ export default class Game {
       ctx.font = "24px dejavu sans mono";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
       // wait a couple of seconds then load a new game
-      this.delay(120, () => {
+      this.delay(3000, () => {
         this.initialiseGame();
       });
     }
@@ -263,7 +263,7 @@ export default class Game {
       ) {
         enemy.inPlay = true;
       }
-      if (Math.random() > 0.99) {
+      if (Math.random() > 0.995) {
         this.shootBullet(enemy);
       }
 
@@ -316,28 +316,47 @@ export default class Game {
             // enemy swoop
             if (enemy.movement === 0) {
               enemy.moveTo(
-                30 + enemy.start.x,
-                this.player.position.y - 50,
-                delta
+                this.player.position.x - 150,
+                this.player.position.y - 125,
+                delta * 1.5
               );
               if (
-                Math.round(enemy.position.x) === 30 + enemy.start.x &&
-                Math.round(enemy.position.y) === this.player.position.y - 50
+                Math.abs(enemy.position.x - (this.player.position.x - 150)) <
+                  20 &&
+                Math.abs(enemy.position.y - (this.player.position.y - 125)) < 20
               ) {
+                //enemy.position.x = this.player.position.x - 150;
+                //enemy.position.y = this.player.position.y - 125;
                 enemy.movement = 1;
               }
             } else if (enemy.movement === 1) {
               enemy.moveTo(
+                this.player.position.x + 150,
+                this.player.position.y - 125,
+                delta
+              );
+              if (Math.random() > 0.85) {
+                this.shootBullet(enemy);
+              }
+              if (
+                Math.abs(enemy.position.x - (this.player.position.x + 150)) <
+                  30 &&
+                Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
+              ) {
+                enemy.movement = 2;
+              }
+            } else if (enemy.movement === 2) {
+              enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta * 4
+                delta * 6
               );
               if (
                 Math.abs(
                   enemy.position.x -
                     (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
-                ) < 15 &&
-                Math.abs(enemy.position.y - enemy.start.y) < 50
+                ) < 30 &&
+                Math.abs(enemy.position.y - enemy.start.y) < 30
               ) {
                 enemy.position.x =
                   400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
@@ -429,6 +448,7 @@ export default class Game {
               this.enemyExplosion.play();
             }
             this.enemies.splice(j, 1);
+            console.log(this.enemies.length);
           }
         });
       });
@@ -445,10 +465,10 @@ export default class Game {
   }
   delay(time, callback) {
     if (!this.waiting) {
-      this.now = this.ticks;
+      this.present = Date.now();
       this.waiting = true;
     }
-    if (this.ticks - this.now > time) {
+    if (Date.now() - this.present > time) {
       this.waiting = false;
       this.delayOver = true;
       callback();
