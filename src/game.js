@@ -318,7 +318,8 @@ export default class Game {
               enemy.moveTo(
                 this.player.position.x - 150,
                 this.player.position.y - 125,
-                delta * 1.5
+                delta * 2,
+                delta * 2
               );
               if (
                 Math.abs(enemy.position.x - (this.player.position.x - 150)) <
@@ -333,7 +334,8 @@ export default class Game {
               enemy.moveTo(
                 this.player.position.x + 150,
                 this.player.position.y - 125,
-                delta
+                delta * 2,
+                delta * 2
               );
               if (Math.random() > 0.85) {
                 this.shootBullet(enemy);
@@ -349,14 +351,15 @@ export default class Game {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta * 6
+                delta * 12,
+                delta * 2.5
               );
               if (
                 Math.abs(
                   enemy.position.x -
                     (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
-                ) < 30 &&
-                Math.abs(enemy.position.y - enemy.start.y) < 30
+                ) < 20 &&
+                Math.abs(enemy.position.y - enemy.start.y) < 20
               ) {
                 enemy.position.x =
                   400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;

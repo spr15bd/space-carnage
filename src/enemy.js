@@ -105,18 +105,18 @@ export default class Enemy {
 
     this.enemySprite.update(delta);
   }
-  moveTo(x, y, delta) {
-    if (
+  moveTo(x, y, deltaX, deltaY) {
+    /*if (
       Math.round(this.position.x) === x &&
       Math.round(this.position.y) === y
     ) {
       return;
-    }
+    }*/
     if (this.position.x !== x) {
-      this.speed.x = (x - this.position.x) * ((1 * delta) / 1000);
+      this.speed.x = (x - this.position.x) * (deltaX / 1000);
     }
     if (this.position.y !== y) {
-      this.speed.y = (y - this.position.y) * (delta / 1000);
+      this.speed.y = (y - this.position.y) * (deltaY / 1000);
     }
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
