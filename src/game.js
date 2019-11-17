@@ -351,8 +351,8 @@ export default class Game {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta * 12,
-                delta * 2.5
+                delta * 10,
+                delta * 1.8
               );
               if (
                 Math.abs(
@@ -376,6 +376,8 @@ export default class Game {
             }
           }
         }
+      } else if (enemy.enemyType === 3) {
+        enemy.position.x = 400 * Math.sin(Date.now() * 0.002) + enemy.start.x;
       }
       enemy.update(delta);
     });
