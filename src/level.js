@@ -2,7 +2,7 @@ import Block from "./block.js";
 import Enemy from "./enemy.js";
 export default class Level {
   constructor(level, width, height) {
-    this.start = Date.now();
+    this.startEnemyWaveCycle = Date.now();
     this.enemies = [];
     this.blocks = [];
     if (level === 1) {

@@ -252,7 +252,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    this.now = Date.now();
+    //this.now = Date.now();
     this.enemies.forEach((enemy, i) => {
       if (
         (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -297,13 +297,14 @@ export default class Game {
           enemy.angle += 2;
         }
       } else if (enemy.enemyType === 2) {
-        if (this.now - this.level.getStartTime() < 3000) {
+        if (enemy.movement === 0) {
           enemy.position.x =
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-        } /*if (this.now - this.level.getStartTime() < 17000)*/ else {
-          //this.enemyAttacking = Math.floor(Math.random() * this.enemies.filter(item => item.enemyType === 2).length);
-          //this.enemyAttacking+=1;
-          //if (this.enemyAttacking)
+          if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          //console.log("movement 1");
           if (
             enemy !==
             this.enemies.filter(item => item.enemyType === 2)[
@@ -313,65 +314,84 @@ export default class Game {
             enemy.position.x =
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
           } else {
-            // enemy swoop
-            if (enemy.movement === 0) {
-              enemy.moveTo(
-                this.player.position.x - 150,
-                this.player.position.y - 125,
-                delta * 2,
-                delta * 2
-              );
+            // enemy swoop...
+            enemy.moveTo(
+              this.player.position.x - 150,
+              this.player.position.y - 125,
+              delta * 2,
+              delta * 2
+            );
+            if (
+              Math.abs(enemy.position.x - (this.player.position.x - 150)) <
+                20 &&
+              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 20
+            ) {
+              //enemy.position.x = this.player.position.x - 150;
+              //enemy.position.y = this.player.position.y - 125;
+              enemy.movement = 2;
+            }
+          }
+        } else if (enemy.movement === 2) {
+          if (
+            enemy !==
+            this.enemies.filter(item => item.enemyType === 2)[
+              this.enemyAttacking
+            ]
+          ) {
+            enemy.position.x =
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          } else {
+            enemy.moveTo(
+              this.player.position.x + 150,
+              this.player.position.y - 125,
+              delta * 2,
+              delta * 2
+            );
+            if (Math.random() > 0.85) {
+              this.shootBullet(enemy);
+            }
+            if (
+              Math.abs(enemy.position.x - (this.player.position.x + 150)) <
+                30 &&
+              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
+            ) {
+              enemy.movement = 3;
+            }
+          }
+        } else if (enemy.movement === 3) {
+          if (
+            enemy !==
+            this.enemies.filter(item => item.enemyType === 2)[
+              this.enemyAttacking
+            ]
+          ) {
+            enemy.position.x =
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          } else {
+            enemy.moveTo(
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              enemy.start.y,
+              delta * 10,
+              delta * 1.8
+            );
+            if (
+              Math.abs(
+                enemy.position.x -
+                  (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
+              ) < 20 &&
+              Math.abs(enemy.position.y - enemy.start.y) < 20
+            ) {
+              enemy.position.x =
+                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+              enemy.position.y = enemy.start.y;
+              enemy.movement = 0;
+              this.level.startEnemyWaveCycle = Date.now();
+              this.enemyAttacking += 1;
               if (
-                Math.abs(enemy.position.x - (this.player.position.x - 150)) <
-                  20 &&
-                Math.abs(enemy.position.y - (this.player.position.y - 125)) < 20
+                this.enemyAttacking >=
+                this.enemies.filter(item => item.enemyType === 2).length
               ) {
-                //enemy.position.x = this.player.position.x - 150;
-                //enemy.position.y = this.player.position.y - 125;
-                enemy.movement = 1;
-              }
-            } else if (enemy.movement === 1) {
-              enemy.moveTo(
-                this.player.position.x + 150,
-                this.player.position.y - 125,
-                delta * 2,
-                delta * 2
-              );
-              if (Math.random() > 0.85) {
-                this.shootBullet(enemy);
-              }
-              if (
-                Math.abs(enemy.position.x - (this.player.position.x + 150)) <
-                  30 &&
-                Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
-              ) {
-                enemy.movement = 2;
-              }
-            } else if (enemy.movement === 2) {
-              enemy.moveTo(
-                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-                enemy.start.y,
-                delta * 10,
-                delta * 1.8
-              );
-              if (
-                Math.abs(
-                  enemy.position.x -
-                    (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
-                ) < 20 &&
-                Math.abs(enemy.position.y - enemy.start.y) < 20
-              ) {
-                enemy.position.x =
-                  400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-                enemy.position.y = enemy.start.y;
-                enemy.movement = 0;
-                this.enemyAttacking += 1;
-                if (
-                  this.enemyAttacking >=
-                  this.enemies.filter(item => item.enemyType === 2).length
-                ) {
-                  this.enemyAttacking = 0;
-                }
+                this.enemyAttacking = 0;
               }
             }
           }
@@ -452,8 +472,11 @@ export default class Game {
             if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
               this.enemyExplosion.play();
             }
+            if (j < this.enemyAttacking) {
+              this.enemyAttacking -= 1;
+            }
             this.enemies.splice(j, 1);
-            console.log(this.enemies.length);
+            //console.log(this.enemies.length);
           }
         });
       });
