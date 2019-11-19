@@ -304,7 +304,6 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          //console.log("movement 1");
           if (
             enemy !==
             this.enemies.filter(item => item.enemyType === 2)[
@@ -315,23 +314,48 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
           } else {
             // enemy swoop...
+            enemy.position.y += 20 * (delta / 1000);
+            enemy.moveTo(
+              260 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              this.player.position.y - 125,
+              delta,
+              delta
+            );
+            if (Math.random() > 0.85) {
+              this.shootBullet(enemy);
+            }
+            if (enemy.position.y >= this.player.position.y - 125) {
+              enemy.movement = 2;
+            }
+          }
+        } else if (enemy.movement === 2) {
+          if (
+            enemy !==
+            this.enemies.filter(item => item.enemyType === 2)[
+              this.enemyAttacking
+            ]
+          ) {
+            enemy.position.x =
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          } else {
             enemy.moveTo(
               this.player.position.x - 150,
               this.player.position.y - 125,
               delta * 2,
               delta * 2
             );
+            if (Math.random() > 0.85) {
+              this.shootBullet(enemy);
+            }
             if (
               Math.abs(enemy.position.x - (this.player.position.x - 150)) <
-                20 &&
-              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 20
+                30 &&
+              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
             ) {
-              //enemy.position.x = this.player.position.x - 150;
-              //enemy.position.y = this.player.position.y - 125;
-              enemy.movement = 2;
+              enemy.movement = 3;
             }
           }
-        } else if (enemy.movement === 2) {
+        } else if (enemy.movement === 3) {
           if (
             enemy !==
             this.enemies.filter(item => item.enemyType === 2)[
@@ -347,7 +371,7 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.85) {
+            if (Math.random() > 0.9) {
               this.shootBullet(enemy);
             }
             if (
@@ -355,10 +379,10 @@ export default class Game {
                 30 &&
               Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
             ) {
-              enemy.movement = 3;
+              enemy.movement = 4;
             }
           }
-        } else if (enemy.movement === 3) {
+        } else if (enemy.movement === 4) {
           if (
             enemy !==
             this.enemies.filter(item => item.enemyType === 2)[
@@ -397,7 +421,7 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 3) {
-        enemy.position.x = 400 * Math.sin(Date.now() * 0.002) + enemy.start.x;
+        enemy.position.x = 450 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
       }
       enemy.update(delta);
     });
