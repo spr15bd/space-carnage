@@ -421,7 +421,45 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 3) {
-        enemy.position.x = 450 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+        if (enemy.movement === 0) {
+          enemy.position.x =
+            410 * Math.sin(Date.now() * 0.00145) + enemy.start.x;
+          if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.position.x += delta / 1000;
+          enemy.position.y += delta / 1000;
+          if (Math.abs(enemy.position.x - enemy.start.x) > 24) {
+            enemy.position.x -= 25;
+            enemy.position.y -= 25;
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.position.x -= delta / 1000;
+          enemy.position.y -= delta / 1000;
+          if (Math.abs(enemy.position.x - enemy.start.x) > 24) {
+            enemy.position.x -= 25;
+            enemy.position.y -= 25;
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 3) {
+          enemy.position.x += delta / 1000;
+          enemy.position.y -= delta / 1000;
+          if (Math.abs(enemy.position.x - enemy.start.x) > 24) {
+            enemy.position.x -= 25;
+            enemy.position.y += 25;
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 4) {
+          enemy.position.x -= delta / 1000;
+          enemy.position.y += delta / 1000;
+          if (Math.abs(enemy.position.x - enemy.start.x) > 24) {
+            enemy.position.x += 25;
+            enemy.position.y -= 25;
+            enemy.movement = 0;
+          }
+        }
       }
       enemy.update(delta);
     });
