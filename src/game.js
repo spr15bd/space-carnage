@@ -424,28 +424,26 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.position.x =
             414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-          if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
+          if (
+            Date.now() - this.level.startEnemyWaveCycle >= 10000 &&
+            enemy.position.x >= enemy.start.x
+          ) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          //enemy.position.x += 0.4;
           enemy.position.y += 130 * (delta / 1000);
-          if (Math.abs(enemy.position.y - enemy.start.y) > 200) {
-            //enemy.position.x -= 200;
-            //enemy.position.y -= 200;
+          if (Math.abs(enemy.position.y - enemy.start.y) > 150) {
             enemy.movement = 2;
           }
         } else if (enemy.movement === 2) {
           enemy.angle = 0;
-          enemy.position.x -= 200 * (delta / 1000);
-          //enemy.position.y -= 0.4;
+          enemy.position.x -= 250 * (delta / 1000);
           if (enemy.position.x < 0) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
           enemy.angle = 180;
-          enemy.position.x += 200 * (delta / 1000);
-          //enemy.position.y -= 1;
+          enemy.position.x += 250 * (delta / 1000);
           if (enemy.position.x > this.screenWidth) {
             enemy.movement += 1;
           }
@@ -454,16 +452,16 @@ export default class Game {
           enemy.moveTo(
             414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y,
-            delta * 2,
-            delta
+            delta * 15,
+            delta * 3
           );
           if (
-            Math.abs(enemy.position.x - enemy.start.x) < 14 &&
-            Math.abs(enemy.position.y - enemy.start.y) < 14
+            Math.abs(enemy.position.x - enemy.start.x) <= 3 &&
+            Math.abs(enemy.position.y - enemy.start.y) <= 3
           ) {
             enemy.position.x =
               414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-            enemy.position.y = enemy.start.y;
+            //enemy.position.y = enemy.start.y;
             enemy.movement = 0;
           }
         }
