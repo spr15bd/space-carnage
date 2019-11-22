@@ -429,7 +429,7 @@ export default class Game {
           }
         } else if (enemy.movement === 1) {
           //enemy.position.x += 0.4;
-          enemy.position.y += 2;
+          enemy.position.y += 130 * (delta / 1000);
           if (Math.abs(enemy.position.y - enemy.start.y) > 200) {
             //enemy.position.x -= 200;
             //enemy.position.y -= 200;
@@ -437,22 +437,33 @@ export default class Game {
           }
         } else if (enemy.movement === 2) {
           enemy.angle = 0;
-          enemy.position.x -= 4;
+          enemy.position.x -= 200 * (delta / 1000);
           //enemy.position.y -= 0.4;
           if (enemy.position.x < 0) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
           enemy.angle = 180;
-          enemy.position.x += 4;
+          enemy.position.x += 200 * (delta / 1000);
           //enemy.position.y -= 1;
           if (enemy.position.x > this.screenWidth) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 4) {
-          enemy.angle = 90;
-          enemy.moveTo(enemy.start.x, enemy.start.y);
-          if (Math.abs(enemy.position.x - enemy.start.x) < 24) {
+          enemy.angle = 270;
+          enemy.moveTo(
+            414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+            enemy.start.y,
+            delta * 2,
+            delta
+          );
+          if (
+            Math.abs(enemy.position.x - enemy.start.x) < 14 &&
+            Math.abs(enemy.position.y - enemy.start.y) < 14
+          ) {
+            enemy.position.x =
+              414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            enemy.position.y = enemy.start.y;
             enemy.movement = 0;
           }
         }
