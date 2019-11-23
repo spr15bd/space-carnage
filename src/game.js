@@ -40,7 +40,7 @@ export default class Game {
     this.waiting = false;
     this.playerHit = false;
     //this.now = Date.now();
-    this.lastPlayerBulletTicks = this.ticks;
+    this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = false; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false;
@@ -87,30 +87,31 @@ export default class Game {
   }
 
   shootBullet(entity) {
-    // do not allow a player bullet to be fired until 14 ticks have elapsed
-    if (entity === this.player) {
-      if (this.ticks - this.lastPlayerBulletTicks > 13) {
+    if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+      if (entity === this.player) {
+        // do not allow a player bullet to be fired until a specified time has elapsed
+        if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
+          this.bulletPool.push(
+            new Bullet(
+              entity.position.x + entity.width / 2,
+              entity.position.y,
+              -120, // speed of bullet, -120 for player
+              entity.bulletImage
+            )
+          );
+          this.playerLaser.play();
+          this.lastPlayerBulletTimeStamp = Date.now();
+        }
+      } else {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
             entity.position.y,
-            -120, // speed of bullet, -120 for player
+            150, // speed of bullet, 150 for enemy
             entity.bulletImage
           )
         );
-        if (this.gameState === GAMESTATE.GAMEINPROGRESS)
-          this.playerLaser.play();
-        this.lastPlayerBulletTicks = this.ticks;
       }
-    } else {
-      this.bulletPool.push(
-        new Bullet(
-          entity.position.x + entity.width / 2,
-          entity.position.y,
-          150, // speed of bullet, 150 for enemy
-          entity.bulletImage
-        )
-      );
     }
   }
 
