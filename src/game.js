@@ -28,23 +28,22 @@ export default class Game {
   }
 
   initialiseGame() {
-    //this.nextAngle = [90, 120, 70, 50];
-    //this.angleIndex = 0;
-    //this.totalTime = 0;
-    this.screen = 0;
-    this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
-    this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
-    this.enemies[0].swoop = true;
-    this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
+    this.screen = -1;
+    this.enemies = [];
+    this.blocks = [];
+    //this.level = new Level(0, this.screenWidth, this.screenHeight); // initialise the first level
+    //this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
+    //this.enemies[0].swoop = true;
+    //this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
-    this.waiting = false;
+    //this.waiting = false;
     this.playerHit = false;
     //this.now = Date.now();
     this.lastPlayerBulletTimeStamp = 0;
-    this.delayOver = false; // set to true whenever a delay is over
+    this.delayOver = true; // set to true whenever a delay is over
     //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false;
-    this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
+    //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.explosion = null;
     this.exitAngle = 0;
@@ -146,8 +145,10 @@ export default class Game {
 
   thrust() {
     if (this.backgroundImage.yPos < 0) {
+      //console.log("thrust "+this.backgroundImage.yPos);
+
       // do the between levels player thrust upwards routine
-      this.backgroundImage.yPos += 2;
+      this.backgroundImage.yPos += 4;
     } else {
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
@@ -156,8 +157,13 @@ export default class Game {
         this.backgroundImage.yPos = -600;
         this.bulletPool = [];
         this.screen++;
-        this.level = new Level(this.screen);
+        this.level = new Level(
+          this.screen,
+          this.screenWidth,
+          this.screenHeight
+        ); // initialise the first level
         this.enemies = this.level.getEnemies();
+        this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
         this.enemyCharging = false;
         this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
         this.waiting = false;
