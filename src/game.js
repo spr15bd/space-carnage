@@ -73,6 +73,21 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
+    //this.delay(120, () => {
+    this.backgroundImage.yPos = -600;
+    this.bulletPool = [];
+    this.screen++;
+    this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
+    this.enemies = this.level.getEnemies();
+    this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
+    this.enemyCharging = false;
+    this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
+    this.waiting = false;
+    this.delayOver = false;
+    this.levelComplete = true;
+    //});
+
+    //this.thrust();
   }
 
   start() {
@@ -131,7 +146,8 @@ export default class Game {
     this.checkForExplosions(delta);
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
-    if (this.enemies.length <= 0) {
+    if (this.levelComplete) {
+      //console.log("level");
       if (this.delayOver) {
         this.thrust();
       } else {
@@ -153,22 +169,6 @@ export default class Game {
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
       // (top and bottom half of the background image are the same so the change is unnoticeable)
-      this.delay(120, () => {
-        this.backgroundImage.yPos = -600;
-        this.bulletPool = [];
-        this.screen++;
-        this.level = new Level(
-          this.screen,
-          this.screenWidth,
-          this.screenHeight
-        ); // initialise the first level
-        this.enemies = this.level.getEnemies();
-        this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
-        this.enemyCharging = false;
-        this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
-        this.waiting = false;
-        this.delayOver = false;
-      });
     }
   }
 
