@@ -169,7 +169,7 @@ export default class Game {
       this.backgroundImage.yPos += 3;
     } else {
       this.enemies.forEach(enemy => {
-        //enemy.start.y += this.screenHeight;
+        enemy.paused = false;
       });
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
@@ -281,21 +281,14 @@ export default class Game {
 
       if (enemy.enemyType === 0) {
         if (
+          enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-          100000
+            100000
         ) {
-          if (enemy.inPlay) {
-            enemy.exitAngle = enemy.angle;
-            enemy.inPlay = false;
-          }
-          if (enemy.angle > enemy.exitAngle - 180) {
-            enemy.angle -= 2;
-          } else {
-            enemy.angle = enemy.exitAngle - 180;
-          }
+          enemy.angle -= 2;
         }
       } else if (enemy.enemyType === 1) {
         if (
@@ -310,8 +303,12 @@ export default class Game {
         }
       } else if (enemy.enemyType === 2) {
         if (enemy.movement === 0) {
-          enemy.position.x =
-            400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          enemy.moveTo(
+            400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+            enemy.start.y + 600,
+            delta,
+            delta
+          );
           if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
             enemy.movement += 1;
           }
@@ -322,8 +319,12 @@ export default class Game {
               this.enemyAttacking
             ]
           ) {
-            enemy.position.x =
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            enemy.moveTo(
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              enemy.position.y,
+              delta,
+              delta
+            );
           } else {
             // enemy swoop...
             enemy.position.y += 20 * (delta / 1000);
@@ -347,8 +348,12 @@ export default class Game {
               this.enemyAttacking
             ]
           ) {
-            enemy.position.x =
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            enemy.moveTo(
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              enemy.position.y,
+              delta,
+              delta
+            );
           } else {
             enemy.moveTo(
               this.player.position.x - 150,
@@ -374,8 +379,12 @@ export default class Game {
               this.enemyAttacking
             ]
           ) {
-            enemy.position.x =
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            enemy.moveTo(
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              enemy.position.y,
+              delta,
+              delta
+            );
           } else {
             enemy.moveTo(
               this.player.position.x + 150,
@@ -401,14 +410,18 @@ export default class Game {
               this.enemyAttacking
             ]
           ) {
-            enemy.position.x =
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            enemy.moveTo(
+              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+              enemy.start.y + 600,
+              delta,
+              delta
+            );
           } else {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y + 600,
-              delta * 10,
-              delta * 1.8
+              delta,
+              delta * 2
             );
             if (
               Math.abs(
@@ -434,8 +447,12 @@ export default class Game {
         }
       } else if (enemy.enemyType === 3) {
         if (enemy.movement === 0) {
-          enemy.position.x =
-            414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+          enemy.moveTo(
+            414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+            enemy.start.y + 600,
+            delta,
+            delta
+          );
           if (
             Date.now() - this.level.startEnemyWaveCycle >= 10000 &&
             enemy.position.x >= enemy.start.x
@@ -464,18 +481,18 @@ export default class Game {
           enemy.moveTo(
             414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y + 600,
-            delta * 15,
-            delta * 3
+            delta,
+            delta * 2
           );
-          if (
-            Math.abs(enemy.position.x - enemy.start.x) <= 3 &&
-            Math.abs(enemy.position.y - (600 + enemy.start.y)) <= 3
+          /*if (
+            Math.abs(enemy.position.x - enemy.start.x) <= 20 &&
+            Math.abs(enemy.position.y - (600 + enemy.start.y)) <= 20
           ) {
             enemy.position.x =
               414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
             //enemy.position.y = enemy.start.y;
             enemy.movement = 0;
-          }
+          }*/
         }
       }
       enemy.update(delta);

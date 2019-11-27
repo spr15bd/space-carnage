@@ -59,7 +59,7 @@ export default class Enemy {
       this.repeatAnimation,
       this.angle
     );
-    //this.start = true;
+    this.paused = true;
     this.movement = 0;
     this.bounced = 0;
     this.swoop = false;
@@ -86,7 +86,7 @@ export default class Enemy {
   }
   update(delta) {
     // every delta milliSeconds
-    if (!delta) return;
+    if (!delta || this.paused) return;
     if (this.enemyType === 0 || this.enemyType === 1) {
       this.speed.x = 5 * Math.cos((this.angle * Math.PI) / 180);
       this.speed.y = 5 * Math.sin((this.angle * Math.PI) / 180);
@@ -108,6 +108,7 @@ export default class Enemy {
     this.enemySprite.update(delta);
   }
   moveTo(x, y, deltaX, deltaY) {
+    if (!deltaX || !deltaY || this.paused) return;
     /*if (
       Math.round(this.position.x) === x &&
       Math.round(this.position.y) === y
