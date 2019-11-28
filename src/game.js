@@ -24,13 +24,22 @@ export default class Game {
     this.playerExplosion = new Sound("/explosion.m4a", 3, 0.25);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
-    this.initialiseGame();
+    this.enemies = [];
+    this.blocks = [];
+
+    this.screen = -1;
+    this.gameState = GAMESTATE.MENU; // initially show the menu screen
+    this.bulletPool = []; // array for enemy and player bullets
+    this.stats = document.getElementById("stats");
+    this.score = document.getElementById("score");
+    this.lives = document.getElementById("lives");
+    this.hiscore = document.getElementById("hiscore");
+    //this.initialiseGame();
   }
 
   initialiseGame() {
-    this.screen = -1;
-    this.enemies = [];
-    this.blocks = [];
+    this.screen++;
+
     //this.level = new Level(0, this.screenWidth, this.screenHeight); // initialise the first level
     //this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
     //this.enemies[0].swoop = true;
@@ -44,7 +53,7 @@ export default class Game {
     //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false;
     //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
-    this.gameState = GAMESTATE.MENU; // initially show the menu screen
+
     this.explosion = null;
     this.exitAngle = 0;
     this.exitPos = {
@@ -68,15 +77,11 @@ export default class Game {
       y: 600
     };
     this.waveXDisp = [0, -0];
-    this.bulletPool = []; // array for enemy and player bullets
-    this.stats = document.getElementById("stats");
-    this.score = document.getElementById("score");
-    this.lives = document.getElementById("lives");
-    this.hiscore = document.getElementById("hiscore");
+
     //this.delay(120, () => {
     this.backgroundImage.yPos = -600;
-    this.bulletPool = [];
-    this.screen++;
+
+    //this.screen++;
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies();
     this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
@@ -102,7 +107,7 @@ export default class Game {
 
   shootBullet(entity) {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      if (entity === this.player) {
+      if (entity === this.player && !entity.paused) {
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
@@ -116,7 +121,7 @@ export default class Game {
           this.playerLaser.play();
           this.lastPlayerBulletTimeStamp = Date.now();
         }
-      } else if (entity.inPlay) {
+      } else if (entity.inPlay && !entity.paused) {
         this.bulletPool.push(
           new Bullet(
             entity.position.x + entity.width / 2,
@@ -131,9 +136,13 @@ export default class Game {
 
   update(delta) {
     this.ticks++;
+    if (this.enemies.length <= 0) {
+      this.levelComplete = true;
+    }
     // update player
     if (this.player != null) this.player.update(delta);
     // update blocks
+
     this.blocks.forEach(block => {
       block.update(delta);
       //block.speed.x = 0;
@@ -168,9 +177,18 @@ export default class Game {
       // do the between levels player thrust upwards routine
       this.backgroundImage.yPos += 3;
     } else {
-      this.enemies.forEach(enemy => {
-        enemy.paused = false;
+      // initial player thrust is now over
+
+      this.delay(2020, () => {
+        this.enemies.forEach(enemy => {
+          enemy.paused = false;
+        });
+        this.levelComplete = false;
+        this.player.paused = false;
+        this.backgroundImage.yPos = -600;
+        this.initialiseGame();
       });
+
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
       // (top and bottom half of the background image are the same so the change is unnoticeable)

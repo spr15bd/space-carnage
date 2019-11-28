@@ -7,7 +7,7 @@ export default class Player {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
-
+    this.paused = true;
     this.reset();
   }
 
