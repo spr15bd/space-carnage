@@ -26,7 +26,7 @@ export default class Game {
     new Input(this.player, this);
     this.enemies = [];
     this.blocks = [];
-
+    //this.levelComplete = false;
     this.screen = -1;
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.bulletPool = []; // array for enemy and player bullets
@@ -39,7 +39,7 @@ export default class Game {
 
   initialiseGame() {
     this.screen++;
-
+    //console.log(this.screen);
     //this.level = new Level(0, this.screenWidth, this.screenHeight); // initialise the first level
     //this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
     //this.enemies[0].swoop = true;
@@ -91,11 +91,12 @@ export default class Game {
     this.delayOver = false;
     this.levelComplete = true;
     //});
-
+    //console.log("complete init");
     //this.thrust();
   }
 
   start() {
+    this.initialiseGame();
     this.gameState = GAMESTATE.GAMEINPROGRESS;
   }
 
@@ -136,9 +137,9 @@ export default class Game {
 
   update(delta) {
     this.ticks++;
-    if (this.enemies.length <= 0) {
+    /*if (this.enemies.length <= 0) {
       this.levelComplete = true;
-    }
+    }*/
     // update player
     if (this.player != null) this.player.update(delta);
     // update blocks
@@ -155,14 +156,17 @@ export default class Game {
     this.checkForExplosions(delta);
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
-    if (this.levelComplete) {
+    if (this.levelComplete && this.gameState === GAMESTATE.GAMEINPROGRESS) {
       //console.log("level");
+      //this.levelComplete = false;
+      //this.initialiseGame();
+      //console.log("game init")
       if (this.delayOver) {
         this.thrust();
       } else {
         this.delay(2000, () => {
           this.delayOver = true;
-          //this.thrust();
+          console.log("thrust");
         });
       }
     }
@@ -183,10 +187,10 @@ export default class Game {
         this.enemies.forEach(enemy => {
           enemy.paused = false;
         });
-        this.levelComplete = false;
+
         this.player.paused = false;
         this.backgroundImage.yPos = -600;
-        this.initialiseGame();
+        //this.initialiseGame();
       });
 
       // wait a couple of seconds, reset variables and start a new level...
