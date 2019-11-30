@@ -108,7 +108,9 @@ export default class Game {
 
   shootBullet(entity) {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+      //console.log("shoot bullet");
       if (entity === this.player && !entity.paused) {
+        console.log("player not paused");
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
@@ -119,6 +121,7 @@ export default class Game {
               entity.bulletImage
             )
           );
+          console.log("new bullet");
           this.playerLaser.play();
           this.lastPlayerBulletTimeStamp = Date.now();
         }
@@ -157,7 +160,7 @@ export default class Game {
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
     if (this.levelComplete && this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      //console.log("level");
+      console.log("level complete, thrusting");
       //this.levelComplete = false;
       //this.initialiseGame();
       //console.log("game init")
@@ -182,13 +185,16 @@ export default class Game {
       this.backgroundImage.yPos += 3;
     } else {
       // initial player thrust is now over
+      console.log("thrust over");
 
-      this.delay(2020, () => {
+      this.delay(200, () => {
+        console.log("unpausing entities");
         this.enemies.forEach(enemy => {
           enemy.paused = false;
         });
 
         this.player.paused = false;
+        this.levelComplete = false;
         this.backgroundImage.yPos = -600;
         //this.initialiseGame();
       });
@@ -594,7 +600,9 @@ export default class Game {
               this.enemyAttacking -= 1;
             }
             this.enemies.splice(j, 1);
-            //console.log(this.enemies.length);
+            if (this.enemies.length <= 0) {
+              this.levelComplete = true;
+            }
           }
         });
       });
