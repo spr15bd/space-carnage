@@ -5,7 +5,7 @@ export default class Level {
     this.startEnemyWaveCycle = Date.now();
     this.enemies = [];
     this.blocks = [];
-    if (level === 1) {
+    if (level === 0) {
       this.enemies.push(
         new Enemy(width / 2 - 230, -230, 45, 1, "./enemies.png"),
         new Enemy(width / 2 - 200, -200, 45, 1, "./enemies.png"),
@@ -50,7 +50,7 @@ export default class Level {
         new Block(348, 300, "./block.png"),
         new Block(356, 300, "./block.png")
       );*/
-    } else if (level === 0) {
+    } else if (level === 1) {
       this.enemies.push(
         new Enemy(240, -500, 270, 2, "./enemies.png"),
         new Enemy(300, -500, 270, 2, "./enemies.png"),

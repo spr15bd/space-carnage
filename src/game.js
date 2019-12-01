@@ -19,14 +19,13 @@ export default class Game {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
 
-    this.playerLaser = new Sound("/laser.m4a", 3, 0.25);
-    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
-    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.25);
+    this.playerLaser = new Sound("/laser.m4a", 3, 0.1);
+    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.05);
+    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.15);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
     this.enemies = [];
     this.blocks = [];
-    //this.levelComplete = false;
     this.screen = -1;
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.bulletPool = []; // array for enemy and player bullets
@@ -34,26 +33,17 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-    //this.initialiseGame();
+    //this.levelComplete = true;
   }
 
   initialiseGame() {
+    this.levelComplete = true;
     this.screen++;
-    //console.log(this.screen);
-    //this.level = new Level(0, this.screenWidth, this.screenHeight); // initialise the first level
-    //this.enemies = this.level.getEnemies(); // ...which returns an array of enemies and their positions on screen
-    //this.enemies[0].swoop = true;
-    //this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
-    //this.waiting = false;
     this.playerHit = false;
-    //this.now = Date.now();
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
-    //this.now = 0; // will be used to limit the number of bullets fired
     this.enemyCharging = false;
-    //this.chargingEnemy = Math.floor(Math.random() * this.enemies.length); //randomly chooses an enemy to swoop at the player
-
     this.explosion = null;
     this.exitAngle = 0;
     this.exitPos = {
@@ -77,22 +67,16 @@ export default class Game {
       y: 600
     };
     this.waveXDisp = [0, -0];
-
-    //this.delay(120, () => {
     this.backgroundImage.yPos = -600;
-
-    //this.screen++;
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies();
     this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
     this.enemyCharging = false;
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
     this.waiting = false;
-    this.delayOver = false;
-    this.levelComplete = true;
-    //});
-    //console.log("complete init");
-    //this.thrust();
+    this.delayOver = this.screen === 0 ? true : false;
+
+    //this.delayOver = true;
   }
 
   start() {
@@ -161,6 +145,7 @@ export default class Game {
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
     if (this.levelComplete && this.gameState === GAMESTATE.GAMEINPROGRESS) {
       console.log("level complete, thrusting");
+      console.log(this.delayOver);
       //this.levelComplete = false;
       //this.initialiseGame();
       //console.log("game init")
@@ -186,8 +171,8 @@ export default class Game {
     } else {
       // initial player thrust is now over
       console.log("thrust over");
-
-      this.delay(200, () => {
+      // when the player first meets the enemies they are paused for a short time
+      this.delay(300, () => {
         console.log("unpausing entities");
         this.enemies.forEach(enemy => {
           enemy.paused = false;
@@ -195,6 +180,7 @@ export default class Game {
 
         this.player.paused = false;
         this.levelComplete = false;
+        //this.delayOver = false;
         this.backgroundImage.yPos = -600;
         //this.initialiseGame();
       });
@@ -601,7 +587,8 @@ export default class Game {
             }
             this.enemies.splice(j, 1);
             if (this.enemies.length <= 0) {
-              this.levelComplete = true;
+              //this.levelComplete = true;
+              this.initialiseGame();
             }
           }
         });
