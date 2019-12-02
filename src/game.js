@@ -37,6 +37,8 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.enemies = [];
+    this.blocks = [];
     this.levelComplete = true;
     this.screen++;
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
@@ -77,6 +79,7 @@ export default class Game {
     this.delayOver = this.screen === 0 ? true : false;
 
     //this.delayOver = true;
+    console.log(this.enemies.length);
   }
 
   start() {
@@ -94,7 +97,6 @@ export default class Game {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       //console.log("shoot bullet");
       if (entity === this.player && !entity.paused) {
-        console.log("player not paused");
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
@@ -105,7 +107,7 @@ export default class Game {
               entity.bulletImage
             )
           );
-          console.log("new bullet");
+
           this.playerLaser.play();
           this.lastPlayerBulletTimeStamp = Date.now();
         }
@@ -144,8 +146,6 @@ export default class Game {
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
     if (this.levelComplete && this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      console.log("level complete, thrusting");
-      console.log(this.delayOver);
       //this.levelComplete = false;
       //this.initialiseGame();
       //console.log("game init")
@@ -154,7 +154,6 @@ export default class Game {
       } else {
         this.delay(2000, () => {
           this.delayOver = true;
-          console.log("thrust");
         });
       }
     }
@@ -170,10 +169,9 @@ export default class Game {
       this.backgroundImage.yPos += 3;
     } else {
       // initial player thrust is now over
-      console.log("thrust over");
+
       // when the player first meets the enemies they are paused for a short time
       this.delay(300, () => {
-        console.log("unpausing entities");
         this.enemies.forEach(enemy => {
           enemy.paused = false;
         });
@@ -184,7 +182,7 @@ export default class Game {
         this.backgroundImage.yPos = -600;
         //this.initialiseGame();
       });
-
+      console.log(this.enemies.length); // shows 1 enemy is missing
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
       // (top and bottom half of the background image are the same so the change is unnoticeable)
