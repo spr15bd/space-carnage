@@ -37,9 +37,13 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.bulletPool = []; // array for enemy and player bullets
     this.enemies = [];
     this.blocks = [];
+    this.playerBulletSpeed = -120;
+    this.enemyBulletSpeed = 150;
     this.levelComplete = true;
+    this.player.paused = true;
     this.screen++;
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.playerHit = false;
@@ -103,7 +107,7 @@ export default class Game {
             new Bullet(
               entity.position.x + entity.width / 2,
               entity.position.y,
-              -120, // speed of bullet, -120 for player
+              this.playerBulletSpeed, // speed of player bullets
               entity.bulletImage
             )
           );
@@ -116,7 +120,7 @@ export default class Game {
           new Bullet(
             entity.position.x + entity.width / 2,
             entity.position.y,
-            150, // speed of bullet, 150 for enemy
+            this.enemyBulletSpeed, // speed of enemy bullets
             entity.bulletImage
           )
         );
@@ -165,6 +169,7 @@ export default class Game {
       this.enemies.forEach(enemy => {
         enemy.position.y += 3;
       });
+      console.log(this.enemies.length); // shows 1 enemy is missing
       // do the between levels player thrust upwards routine
       this.backgroundImage.yPos += 3;
     } else {
@@ -172,17 +177,19 @@ export default class Game {
 
       // when the player first meets the enemies they are paused for a short time
       this.delay(300, () => {
+        this.backgroundImage.yPos = -600;
+        this.levelComplete = false;
         this.enemies.forEach(enemy => {
           enemy.paused = false;
         });
 
         this.player.paused = false;
-        this.levelComplete = false;
+
         //this.delayOver = false;
-        this.backgroundImage.yPos = -600;
+
         //this.initialiseGame();
       });
-      console.log(this.enemies.length); // shows 1 enemy is missing
+
       // wait a couple of seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
       // (top and bottom half of the background image are the same so the change is unnoticeable)
@@ -517,15 +524,17 @@ export default class Game {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (
-          (bullet.speed === -120 && bullet.position.y < 0) ||
-          (bullet.speed === 150 && bullet.position.y > this.screenHeight)
+          (bullet.speed === this.playerBulletSpeed &&
+            bullet.position.y < 500) ||
+          (bullet.speed === this.enemyBulletSpeed &&
+            bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
         }
         // player and enemy bullet collision
         if (
           bullet.collidesWith(this.player) &&
-          bullet.speed.y === 150 &&
+          bullet.speed.y === this.enemyBulletSpeed &&
           !this.playerHit
         ) {
           this.bulletPool.splice(i, 1);
@@ -585,8 +594,9 @@ export default class Game {
             }
             this.enemies.splice(j, 1);
             if (this.enemies.length <= 0) {
-              //this.levelComplete = true;
-              this.initialiseGame();
+              setTimeout(() => {
+                this.initialiseGame();
+              }, 1300);
             }
           }
         });
