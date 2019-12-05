@@ -20,7 +20,7 @@ export default class Game {
     this.screenHeight = screenHeight;
 
     this.playerLaser = new Sound("/laser.m4a", 3, 0.1);
-    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.05);
+    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
     this.playerExplosion = new Sound("/explosion.m4a", 3, 0.15);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
@@ -92,9 +92,11 @@ export default class Game {
   }
 
   gameOver() {
+    this.screen = -1;
     this.gameState = GAMESTATE.GAMEOVER;
-    this.playerLaser.pause();
-    this.playerExplosion.pause();
+
+    //this.playerLaser.pause();
+    //this.playerExplosion.pause();
   }
 
   shootBullet(entity) {
@@ -276,7 +278,7 @@ export default class Game {
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
       // wait a couple of seconds then load a new game
       this.delay(3000, () => {
-        this.initialiseGame();
+        this.gameState = GAMESTATE.MENU;
       });
     }
   }
@@ -305,6 +307,18 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            400000
+        ) {
+          enemy.position.x = this.screenWidth;
+          enemy.position.y = this.screenHeight / 2;
+          enemy.angle = 180;
+          enemy.inPlay = false;
+        } else if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
           enemy.angle -= 2;
@@ -316,9 +330,21 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            400000
+        ) {
+          enemy.position.x = this.screenWidth;
+          enemy.position.y = this.screenHeight / 2;
+          enemy.angle = 180;
+          enemy.inPlay = false;
+        } else if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.angle += 2;
+          enemy.angle += 1;
         }
       } else if (enemy.enemyType === 2) {
         if (enemy.movement === 0) {

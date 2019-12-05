@@ -49,7 +49,7 @@ export default class Player {
     );
     //this.hit = false;
     this.score = 0;
-    this.lives = 13;
+    this.lives = 4;
   }
 
   incrementScore(enemyType) {
