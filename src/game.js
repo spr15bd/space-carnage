@@ -81,14 +81,13 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
     this.waiting = false;
     this.delayOver = this.screen === 0 ? true : false;
-
-    //this.delayOver = true;
-    console.log(this.enemies.length);
   }
 
   start() {
-    this.initialiseGame();
-    this.gameState = GAMESTATE.GAMEINPROGRESS;
+    if (this.gameState === GAMESTATE.MENU) {
+      this.initialiseGame();
+      this.gameState = GAMESTATE.GAMEINPROGRESS;
+    }
   }
 
   gameOver() {
@@ -171,7 +170,6 @@ export default class Game {
       this.enemies.forEach(enemy => {
         enemy.position.y += 3;
       });
-      console.log(this.enemies.length); // shows 1 enemy is missing
       // do the between levels player thrust upwards routine
       this.backgroundImage.yPos += 3;
     } else {
@@ -623,6 +621,34 @@ export default class Game {
               setTimeout(() => {
                 this.initialiseGame();
               }, 1300);
+            }
+          } else if (this.player.collidesWith(enemy) && !this.playerHit) {
+            this.explosion = new Explosion(
+              this.player.position.x,
+              this.player.position.y,
+              "./explosion.png"
+            );
+            if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+              this.playerExplosion.play();
+            }
+            //this.player.playerHit();
+
+            this.playerHit = true;
+            this.player.lives -= 1;
+            if (this.player.lives <= 0) {
+              // game over
+              setTimeout(() => {
+                if (this.player.score > this.player.hiscore) {
+                  localStorage.setItem("hiscore", this.player.score);
+                }
+                this.player.reset();
+                this.gameOver();
+              }, 2000);
+            } else {
+              // lose a life routine
+              setTimeout(() => {
+                this.playerHit = false;
+              }, 3000);
             }
           }
         });
