@@ -102,6 +102,18 @@ export default class Player {
     ctx.restore();
   }
 
+  collidesWith(entity) {
+    if (
+      this.position.x >= entity.position.x &&
+      this.position.x <= entity.position.x + entity.width &&
+      this.position.y >= entity.position.y &&
+      this.position.y <= entity.position.y + entity.height
+    ) {
+      //console.log(entity);
+      return true;
+    }
+  }
+
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;

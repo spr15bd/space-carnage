@@ -130,10 +130,11 @@ export default class Game {
   }
 
   update(delta) {
-    this.ticks++;
-    /*if (this.enemies.length <= 0) {
-      this.levelComplete = true;
-    }*/
+    if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
+      return;
+    }
+    //this.ticks++;
+
     // update player
     if (this.player != null) this.player.update(delta);
     // update blocks
@@ -150,7 +151,7 @@ export default class Game {
     this.checkForExplosions(delta);
 
     // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
-    if (this.levelComplete && this.gameState === GAMESTATE.GAMEINPROGRESS) {
+    if (this.levelComplete) {
       //this.levelComplete = false;
       //this.initialiseGame();
       //console.log("game init")
@@ -226,18 +227,7 @@ export default class Game {
       document.getElementById("gameScreen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
-      ctx.drawImage(
-        this.backgroundImage,
-        0, // source (spritesheet file) x
-        0, // source (spritesheet file) y
-        800, // source (spritesheet file) width
-        1200, // source (spritesheet file) height
-        0, // gamescreen x
-        this.backgroundImage.yPos, // gamescreen y
-        this.screenWidth, // gamescreen width
-        this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
-      );
-
+      this.drawBackground(ctx);
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
@@ -259,17 +249,7 @@ export default class Game {
       this.hiscore.innerHTML = this.player.hiscore;
       if (this.explosion != null) this.explosion.draw(ctx);
     } else if (this.gameState === GAMESTATE.GAMEOVER) {
-      ctx.drawImage(
-        this.backgroundImage,
-        0, // source (spritesheet file) x
-        0, // source (spritesheet file) y
-        800, // source (spritesheet file) width
-        1200, // source (spritesheet file) height
-        0, // gamescreen x
-        this.backgroundImage.yPos, // gamescreen y
-        this.screenWidth, // gamescreen width
-        this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
-      );
+      this.drawBackground(ctx);
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
       ctx.font = "24px dejavu sans mono";
@@ -674,5 +654,18 @@ export default class Game {
       this.delayOver = true;
       callback();
     }
+  }
+  drawBackground(ctx) {
+    ctx.drawImage(
+      this.backgroundImage,
+      0, // source (spritesheet file) x
+      0, // source (spritesheet file) y
+      800, // source (spritesheet file) width
+      1200, // source (spritesheet file) height
+      0, // gamescreen x
+      this.backgroundImage.yPos, // gamescreen y
+      this.screenWidth, // gamescreen width
+      this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
+    );
   }
 }
