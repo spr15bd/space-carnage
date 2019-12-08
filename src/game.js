@@ -322,7 +322,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.angle += 1;
+          enemy.angle += 1.5;
         }
       } else if (enemy.enemyType === 2) {
         if (enemy.movement === 0) {
@@ -542,41 +542,13 @@ export default class Game {
           !this.playerHit
         ) {
           this.bulletPool.splice(i, 1);
-
-          this.explosion = new Explosion(
-            this.player.position.x,
-            this.player.position.y,
-            "./explosion.png"
-          );
-          if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-            this.playerExplosion.play();
-          }
-          //this.player.playerHit();
-
-          this.playerHit = true;
-          this.player.lives -= 1;
-          if (this.player.lives <= 0) {
-            // game over
-            setTimeout(() => {
-              if (this.player.score > this.player.hiscore) {
-                localStorage.setItem("hiscore", this.player.score);
-              }
-              this.player.reset();
-              this.gameOver();
-            }, 2000);
-          } else {
-            // lose a life routine
-            setTimeout(() => {
-              this.playerHit = false;
-            }, 3000);
-          }
+          this.playerLoseLife();
         }
 
         this.blocks.forEach((block, k) => {
           if (bullet.collidesWith(block) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             //this.player.incrementScore(enemy.enemyType);
-            //console.log("collision");
             this.blocks.splice(k, 1);
           }
         });
@@ -603,33 +575,7 @@ export default class Game {
               }, 1300);
             }
           } else if (this.player.collidesWith(enemy) && !this.playerHit) {
-            this.explosion = new Explosion(
-              this.player.position.x,
-              this.player.position.y,
-              "./explosion.png"
-            );
-            if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-              this.playerExplosion.play();
-            }
-            //this.player.playerHit();
-
-            this.playerHit = true;
-            this.player.lives -= 1;
-            if (this.player.lives <= 0) {
-              // game over
-              setTimeout(() => {
-                if (this.player.score > this.player.hiscore) {
-                  localStorage.setItem("hiscore", this.player.score);
-                }
-                this.player.reset();
-                this.gameOver();
-              }, 2000);
-            } else {
-              // lose a life routine
-              setTimeout(() => {
-                this.playerHit = false;
-              }, 3000);
-            }
+            this.playerLoseLife();
           }
         });
       });
@@ -667,5 +613,34 @@ export default class Game {
       this.screenWidth, // gamescreen width
       this.screenHeight * 2 // gamescreen height (twice screen height as it's a scrolling background)
     );
+  }
+  playerLoseLife() {
+    this.explosion = new Explosion(
+      this.player.position.x,
+      this.player.position.y,
+      "./explosion.png"
+    );
+    //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+    this.playerExplosion.play();
+    //}
+    //this.player.playerHit();
+
+    this.playerHit = true;
+    this.player.lives -= 1;
+    if (this.player.lives <= 0) {
+      // game over
+      setTimeout(() => {
+        if (this.player.score > this.player.hiscore) {
+          localStorage.setItem("hiscore", this.player.score);
+        }
+        this.player.reset();
+        this.gameOver();
+      }, 2000);
+    } else {
+      // lose a life routine
+      setTimeout(() => {
+        this.playerHit = false;
+      }, 3000);
+    }
   }
 }
