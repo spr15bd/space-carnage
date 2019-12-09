@@ -562,9 +562,9 @@ export default class Game {
               enemy.position.y,
               "./explosion.png"
             );
-            if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-              this.enemyExplosion.play();
-            }
+            //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+            this.enemyExplosion.play();
+            //}
             if (j < this.enemyAttacking) {
               this.enemyAttacking -= 1;
             }
@@ -639,7 +639,13 @@ export default class Game {
     } else {
       // lose a life routine
       setTimeout(() => {
-        this.playerHit = false;
+        console.log("start invulnerable pd");
+
+        //do 3 second countdown
+        setTimeout(() => {
+          this.playerHit = false;
+          console.log("end invulnerable pd");
+        }, 3000);
       }, 3000);
     }
   }

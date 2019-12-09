@@ -86,7 +86,7 @@ export default class Player {
   }
 
   draw(ctx) {
-    //ctx.fillStyle = "red";
+    //do not display the player if player has just been hit
     if (this.game.playerHit) {
       return;
     }
