@@ -44,9 +44,9 @@ export default class Game {
     this.enemyBulletSpeed = 150;
     this.levelComplete = true;
     this.player.paused = true;
+    this.player.isVisible = true;
     this.screen++;
     this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
-    this.playerHit = false;
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
     this.enemyCharging = false;
@@ -101,7 +101,12 @@ export default class Game {
   shootBullet(entity) {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       //console.log("shoot bullet");
-      if (entity === this.player && !entity.paused) {
+      if (
+        entity === this.player &&
+        !entity.paused &&
+        entity.isVisible &&
+        !entity.isInvincible
+      ) {
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
@@ -539,7 +544,8 @@ export default class Game {
         if (
           bullet.collidesWith(this.player) &&
           bullet.speed.y === this.enemyBulletSpeed &&
-          !this.playerHit
+          this.player.isVisible &&
+          !this.player.isInvincible
         ) {
           this.bulletPool.splice(i, 1);
           this.playerLoseLife();
@@ -574,7 +580,11 @@ export default class Game {
                 this.initialiseGame();
               }, 1300);
             }
-          } else if (this.player.collidesWith(enemy) && !this.playerHit) {
+          } else if (
+            this.player.collidesWith(enemy) &&
+            this.player.isVisible &&
+            !this.player.isInvincible
+          ) {
             this.playerLoseLife();
           }
         });
@@ -623,9 +633,9 @@ export default class Game {
     //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
     this.playerExplosion.play();
     //}
-    //this.player.playerHit();
+    //this.player.isVisible();
 
-    this.playerHit = true;
+    this.player.isVisible = false;
     this.player.lives -= 1;
     if (this.player.lives <= 0) {
       // game over
@@ -640,12 +650,13 @@ export default class Game {
       // lose a life routine
       setTimeout(() => {
         console.log("start invulnerable pd");
-
+        this.player.isVisible = true;
+        this.player.isInvincible = true;
         //do 3 second countdown
         setTimeout(() => {
-          this.playerHit = false;
           console.log("end invulnerable pd");
-        }, 3000);
+          this.player.isInvincible = false;
+        }, 2000);
       }, 3000);
     }
   }

@@ -8,6 +8,8 @@ export default class Player {
     this.screenHeight = screenHeight;
     this.game = game;
     this.paused = true;
+    this.isVisible = true;
+    this.isInvincible = false;
     this.reset();
   }
 
@@ -87,7 +89,7 @@ export default class Player {
 
   draw(ctx) {
     //do not display the player if player has just been hit
-    if (this.game.playerHit) {
+    if (!this.isVisible) {
       return;
     }
     ctx.save();
