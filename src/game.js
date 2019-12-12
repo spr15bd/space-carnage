@@ -652,12 +652,12 @@ export default class Game {
         console.log("start invulnerable pd");
         this.player.isVisible = true;
         this.player.isInvincible = true;
-        this.player.playerSprite.sourceY = 32;
+        //this.player.playerSprite.sourceY = 32;
         //do 3 second countdown
         setTimeout(() => {
           console.log("end invulnerable pd");
           this.player.isInvincible = false;
-          this.player.playerSprite.sourceY = 0;
+          //this.player.playerSprite.sourceY = 0;
         }, 2000);
       }, 3000);
     }
