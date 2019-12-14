@@ -1,6 +1,6 @@
 import "./styles.css";
 import Game from "./game.js";
-let canvas = document.getElementById("gameScreen");
+let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");
 
 const SCREEN_WIDTH = 800;

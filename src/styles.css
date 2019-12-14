@@ -10,11 +10,16 @@ canvas {
   vertical-align: baseline;
   /*background-image: url("/betelguese.png");*/
 }
-#stats {
-  background-color: rgb(0, 0, 0);
-  color: rgb(83, 80, 255);
+#container {
+  font-weight: normal;
+  font-size: 20px;
   width: 800px;
-  text-align: center;
+  background-color: rgb(0, 0, 0);
+}
+#stats {
+  color: rgb(83, 80, 255);
+  width: 45%;
+
   font-weight: normal;
   font-size: 20px;
   margin-left: auto;
@@ -25,19 +30,20 @@ div {
   margin: 0;
   padding: 0;
   border: 0;
-  float: left;
-  background-color: black;
-  display: inline-block;
+
+  /*background-color: black;*/
 }
 #score {
-  width: 10%;
+  width: 16.66%;
   color: red;
 }
 .score {
   color: red;
+  width: 30%;
+  float: left;
 }
 #lives {
-  width: 8%;
+  width: 16.66%;
   color: green;
 }
 #hiscore {
@@ -46,4 +52,5 @@ div {
 }
 .hiscore {
   color: purple;
+  width: 25%;
 }

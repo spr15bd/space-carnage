@@ -229,7 +229,7 @@ export default class Game {
         this.screenWidth / 2,
         this.screenHeight / 2 + 80
       );
-      document.getElementById("gameScreen").focus();
+      document.getElementById("game-screen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
       this.drawBackground(ctx);
