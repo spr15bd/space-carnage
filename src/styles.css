@@ -18,7 +18,7 @@ canvas {
 }
 #stats {
   color: rgb(83, 80, 255);
-  width: 45%;
+  width: 33.3%;
 
   font-weight: normal;
   font-size: 20px;
@@ -34,23 +34,24 @@ div {
   /*background-color: black;*/
 }
 #score {
-  width: 16.66%;
+  width: 28%;
   color: red;
+  float: left;
 }
 .score {
   color: red;
-  width: 30%;
-  float: left;
+  width: 14%;
 }
 #lives {
-  width: 16.66%;
+  width: 20%;
   color: green;
 }
 #hiscore {
-  width: 10%;
+  width: 16.66%;
   color: purple;
+  float: left;
 }
 .hiscore {
   color: purple;
-  width: 25%;
+  width: 14%;
 }
