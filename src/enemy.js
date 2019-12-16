@@ -39,6 +39,8 @@ export default class Enemy {
       this.sourceY = 64;
     } else if (this.enemyType === 3) {
       this.sourceY = 96;
+    } else if (this.enemyType === 4) {
+      this.sourceY = 128;
     }
 
     this.numberOfFrames = 8;
@@ -96,10 +98,15 @@ export default class Enemy {
           ? Math.ceil(this.position.x) + this.speed.x
           : Math.floor(this.position.x) + this.speed.x;
       this.position.y = Math.floor(this.position.y) + this.speed.y;
-    } else if (this.enemyType === 2) {
-      if (this.state === 0) {
-      } else if (this.state === 1) {
-      }
+    } else if (this.enemyType === 4) {
+      this.speed.x = 7 * Math.cos((this.angle * Math.PI) / 180);
+      this.speed.y = 7 * Math.sin((this.angle * Math.PI) / 180);
+
+      this.position.x =
+        this.enemyType === 0
+          ? Math.ceil(this.position.x) + this.speed.x
+          : Math.floor(this.position.x) + this.speed.x;
+      this.position.y = Math.floor(this.position.y) + this.speed.y;
     }
 
     // movement across screen

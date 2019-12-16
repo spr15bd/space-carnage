@@ -50,7 +50,7 @@ export default class Level {
         new Block(348, 300, "./block.png"),
         new Block(356, 300, "./block.png")
       );*/
-    } else if (level === 0) {
+    } else if (level === 2) {
       this.enemies.push(
         new Enemy(240, -500, 270, 2, "./enemies.png"),
         new Enemy(300, -500, 270, 2, "./enemies.png"),
@@ -84,19 +84,7 @@ export default class Level {
         //new Enemy(140, 345, 0, 0, "./enemies.png")
       );
     } else {
-      this.enemies.push(
-        new Enemy(300, 30, 90, 0, "./enemies.png"),
-        new Enemy(350, 30, 90, 0, "./enemies.png"),
-        new Enemy(400, 30, 90, 0, "./enemies.png"),
-        new Enemy(450, 30, 90, 0, "./enemies.png"),
-        new Enemy(500, 30, 90, 0, "./enemies.png"),
-        new Enemy(550, 30, 90, 0, "./enemies.png"),
-        new Enemy(325, 80, 90, 0, "./enemies.png"),
-        new Enemy(375, 80, 90, 0, "./enemies.png"),
-        new Enemy(550, 30, 90, 0, "./enemies.png"),
-        new Enemy(325, 80, 90, 0, "./enemies.png"),
-        new Enemy(375, 80, 90, 0, "./enemies.png")
-      );
+      this.enemies.push(new Enemy(400, -400, 90, 4, "./enemies.png"));
     }
   }
   getBlocks() {

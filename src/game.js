@@ -522,6 +522,29 @@ export default class Game {
             enemy.movement = 0;
           }*/
         }
+      } else if (enemy.enemyType === 4) {
+        if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            400000
+        ) {
+          enemy.position.x = this.screenWidth;
+          enemy.position.y = this.screenHeight / 2;
+          enemy.angle = 180;
+          enemy.inPlay = false;
+        } else if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            100000
+        ) {
+          enemy.angle -= 3;
+        }
       }
       enemy.update(delta);
     });
