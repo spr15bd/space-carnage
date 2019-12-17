@@ -524,6 +524,12 @@ export default class Game {
         }
       } else if (enemy.enemyType === 4) {
         if (
+          Math.random() > 0.9 &&
+          Math.abs(enemy.position.x - this.player.position.x) < 100
+        ) {
+          this.shootBullet(enemy);
+        }
+        if (
           enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
