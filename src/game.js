@@ -549,7 +549,16 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.angle -= 3;
+          if (
+            Math.abs(
+              enemy.angle -
+                Math.atan(
+                  (enemy.position.y - this.player.position.y) /
+                    (this.player.position.x - enemy.position.x)
+                )
+            ) > 0
+          )
+            enemy.angle -= 3;
         }
       }
       enemy.update(delta);
