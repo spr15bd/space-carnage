@@ -535,7 +535,7 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            400000
+            550000
         ) {
           enemy.position.x = this.screenWidth;
           enemy.position.y = this.screenHeight / 2;
@@ -552,13 +552,23 @@ export default class Game {
           if (
             Math.abs(
               enemy.angle -
-                Math.atan(
+                (Math.atan(
                   (enemy.position.y - this.player.position.y) /
                     (this.player.position.x - enemy.position.x)
-                )
+                ) /
+                  Math.PI) *
+                  180
             ) > 0
           )
-            enemy.angle -= 3;
+            enemy.angle -= 2;
+        } else {
+          enemy.angle =
+            (Math.atan(
+              (enemy.position.y - this.player.position.y) /
+                (this.player.position.x - enemy.position.x)
+            ) /
+              Math.PI) *
+            180;
         }
       }
       enemy.update(delta);
