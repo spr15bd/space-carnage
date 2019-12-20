@@ -86,7 +86,9 @@ export default class Level {
     } else {
       this.enemies.push(
         new Enemy(400, -400, 90, 4, "./enemies.png"),
-        new Enemy(400, -400, 310, 4, "./enemies.png")
+        new Enemy(400, -400, 0, 4, "./enemies.png"),
+        new Enemy(400, -400, 180, 4, "./enemies.png"),
+        new Enemy(400, -400, 270, 4, "./enemies.png")
       );
     }
   }
