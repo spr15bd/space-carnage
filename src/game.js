@@ -531,11 +531,10 @@ export default class Game {
         }
         if (
           enemy.inPlay &&
-          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
-            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
-            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
-              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            550000
+          (enemy.position.x < -200 ||
+            enemy.position.x + enemy.width > this.screenWidth + 200 ||
+            enemy.position.y < -200 ||
+            enemy.position.y + enemy.height > this.screenHeight + 200)
         ) {
           enemy.position.x = this.screenWidth;
           enemy.position.y = this.screenHeight / 2;
@@ -543,24 +542,19 @@ export default class Game {
           enemy.inPlay = false;
         } else if (
           enemy.inPlay &&
-          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
-            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
-            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
-              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            100000
+          (enemy.position.x < 100 ||
+            enemy.position.x + enemy.width > this.screenWidth - 100 ||
+            enemy.position.y < 100 ||
+            enemy.position.y + enemy.height > this.screenHeight - 100)
         ) {
-          if (enemy.position.x < 0) {
-            enemy.angle -= 4;
-          } else {
-            enemy.angle += 4;
-            /*enemy.angle =
-            (Math.atan(
-              (enemy.position.y - this.player.position.y) /
-                (this.player.position.x - enemy.position.x)
-            ) /
-              Math.PI) *
-            180;
-            */
+          if (enemy.position.x < 100) {
+            enemy.angle -= 2;
+          } else if (enemy.position.x + enemy.width > this.screenWidth - 100) {
+            enemy.angle += 2;
+          } else if (enemy.position.y < 100) {
+            enemy.angle -= 2;
+          } else if (enemy.position.y > enemy.position.y + enemy.height - 100) {
+            enemy.angle += 2;
           }
         }
       }
