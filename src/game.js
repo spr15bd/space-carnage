@@ -100,7 +100,6 @@ export default class Game {
 
   shootBullet(entity) {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      //console.log("shoot bullet");
       if (
         entity === this.player &&
         !entity.paused &&
@@ -531,10 +530,10 @@ export default class Game {
         }
         if (
           enemy.inPlay &&
-          (enemy.position.x < -200 ||
-            enemy.position.x + enemy.width > this.screenWidth + 200 ||
-            enemy.position.y < -200 ||
-            enemy.position.y + enemy.height > this.screenHeight + 200)
+          (enemy.position.x < -300 ||
+            enemy.position.x + enemy.width > this.screenWidth + 300 ||
+            enemy.position.y < -300 ||
+            enemy.position.y + enemy.height > this.screenHeight + 300)
         ) {
           enemy.position.x = this.screenWidth;
           enemy.position.y = this.screenHeight / 2;
@@ -548,13 +547,29 @@ export default class Game {
             enemy.position.y + enemy.height > this.screenHeight - 100)
         ) {
           if (enemy.position.x < 100) {
-            enemy.angle -= 2;
+            if (enemy.angle < 180) {
+              enemy.angle -= 3;
+            } else {
+              enemy.angle += 3;
+            }
           } else if (enemy.position.x + enemy.width > this.screenWidth - 100) {
-            enemy.angle += 2;
+            if (enemy.angle < 360) {
+              enemy.angle -= 3;
+            } else {
+              enemy.angle += 3;
+            }
           } else if (enemy.position.y < 100) {
-            enemy.angle -= 2;
+            if (enemy.angle < 270) {
+              enemy.angle -= 3;
+            } else {
+              enemy.angle += 3;
+            }
           } else if (enemy.position.y > enemy.position.y + enemy.height - 100) {
-            enemy.angle += 2;
+            if (enemy.angle < 90) {
+              enemy.angle += 3;
+            } else {
+              enemy.angle -= 3;
+            }
           }
         }
       }
@@ -684,13 +699,11 @@ export default class Game {
     } else {
       // lose a life routine
       setTimeout(() => {
-        console.log("start invulnerable pd");
         this.player.isVisible = true;
         this.player.isInvincible = true;
         //this.player.playerSprite.sourceY = 32;
         //do 3 second countdown
         setTimeout(() => {
-          console.log("end invulnerable pd");
           this.player.isInvincible = false;
           //this.player.playerSprite.sourceY = 0;
         }, 2000);

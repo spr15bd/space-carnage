@@ -107,6 +107,9 @@ export default class Enemy {
           ? Math.ceil(this.position.x) + this.speed.x
           : Math.floor(this.position.x) + this.speed.x;
       this.position.y = Math.floor(this.position.y) + this.speed.y;
+      if (this.angle <= 0) {
+        this.angle += 360;
+      }
     }
 
     // movement across screen

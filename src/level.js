@@ -28,7 +28,7 @@ export default class Level {
         new Enemy(width / 2 - 16, -270, 90, 0, "./enemies.png"),
         new Enemy(width / 2 - 16, -230, 90, 0, "./enemies.png")
       );
-      console.log(this.enemies.length);
+      //console.log(this.enemies.length);
       /*this.enemies.push(
         new Enemy(244, -320, 45, 0, "./enemies.png"),
         new Enemy(246, -290, 46, 0, "./enemies.png"),
