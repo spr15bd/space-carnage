@@ -57,10 +57,10 @@ export default class Player {
   incrementScore(enemyType) {
     switch (enemyType) {
       case 0:
-        this.score += 10;
+        this.score += 5;
         break;
       case 1:
-        this.score += 20;
+        this.score += 7;
         break;
       default:
         this.score += 10;

@@ -7,13 +7,13 @@ export default class Input {
         default:
           break;
         case 37:
-          if (!game.playerHit) player.left();
+          if (player.isVisible) player.left();
           break;
         case 39:
-          if (!game.playerHit) player.right();
+          if (player.isVisible) player.right();
           break;
         case 17:
-          if (!game.playerHit) game.shootBullet(player);
+          /*if (!game.playerHit)*/ game.shootBullet(player);
           break;
         case 32:
           game.start();

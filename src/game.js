@@ -100,12 +100,7 @@ export default class Game {
 
   shootBullet(entity) {
     if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
-      if (
-        entity === this.player &&
-        !entity.paused &&
-        entity.isVisible &&
-        !entity.isInvincible
-      ) {
+      if (entity === this.player && !entity.paused && entity.isVisible) {
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
@@ -523,7 +518,7 @@ export default class Game {
         }
       } else if (enemy.enemyType === 4) {
         if (
-          Math.random() > 0.9 &&
+          Math.random() > 0.95 &&
           Math.abs(enemy.position.x - this.player.position.x) < 100
         ) {
           this.shootBullet(enemy);
@@ -548,27 +543,27 @@ export default class Game {
         ) {
           if (enemy.position.x < 100) {
             if (enemy.angle < 180) {
-              enemy.angle -= 3;
+              enemy.angle -= 2.4;
             } else {
-              enemy.angle += 3;
+              enemy.angle += 2.4;
             }
           } else if (enemy.position.x + enemy.width > this.screenWidth - 100) {
             if (enemy.angle < 360) {
-              enemy.angle -= 3;
+              enemy.angle -= 2.4;
             } else {
-              enemy.angle += 3;
+              enemy.angle += 2.4;
             }
           } else if (enemy.position.y < 100) {
             if (enemy.angle < 270) {
-              enemy.angle -= 3;
+              enemy.angle -= 2.4;
             } else {
-              enemy.angle += 3;
+              enemy.angle += 2.4;
             }
           } else if (enemy.position.y > enemy.position.y + enemy.height - 100) {
             if (enemy.angle < 90) {
-              enemy.angle += 3;
+              enemy.angle += 2.4;
             } else {
-              enemy.angle -= 3;
+              enemy.angle -= 2.4;
             }
           }
         }
