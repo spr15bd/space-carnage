@@ -543,27 +543,27 @@ export default class Game {
         ) {
           if (enemy.position.x < 100) {
             if (enemy.angle < 180) {
-              enemy.angle -= 2.4;
+              enemy.rotate(-2);
             } else {
-              enemy.angle += 2.4;
+              enemy.rotate(2);
             }
           } else if (enemy.position.x + enemy.width > this.screenWidth - 100) {
             if (enemy.angle < 360) {
-              enemy.angle -= 2.4;
+              enemy.rotate(-2);
             } else {
-              enemy.angle += 2.4;
+              enemy.rotate(2);
             }
           } else if (enemy.position.y < 100) {
             if (enemy.angle < 270) {
-              enemy.angle -= 2.4;
+              enemy.rotate(-2);
             } else {
-              enemy.angle += 2.4;
+              enemy.rotate(2);
             }
           } else if (enemy.position.y > enemy.position.y + enemy.height - 100) {
             if (enemy.angle < 90) {
-              enemy.angle += 2.4;
+              enemy.rotate(2);
             } else {
-              enemy.angle -= 2.4;
+              enemy.rotate(-2);
             }
           }
         }

@@ -134,4 +134,10 @@ export default class Enemy {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
   }
+
+  rotate(angle) {
+    if (!this.paused) {
+      this.angle += angle;
+    }
+  }
 }
