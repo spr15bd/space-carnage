@@ -13,7 +13,7 @@ export default class Input {
           if (player.isVisible) player.right();
           break;
         case 17:
-          /*if (!game.playerHit)*/ game.shootBullet(player);
+          game.shootBullet(player);
           break;
         case 32:
           game.start();

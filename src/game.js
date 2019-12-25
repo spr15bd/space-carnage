@@ -93,9 +93,6 @@ export default class Game {
   gameOver() {
     this.screen = -1;
     this.gameState = GAMESTATE.GAMEOVER;
-
-    //this.playerLaser.pause();
-    //this.playerExplosion.pause();
   }
 
   shootBullet(entity) {
@@ -132,7 +129,6 @@ export default class Game {
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
       return;
     }
-    //this.ticks++;
 
     // update player
     if (this.player != null) this.player.update(delta);
@@ -149,11 +145,8 @@ export default class Game {
     // update explosions
     this.checkForExplosions(delta);
 
-    // when all enemies defeated, thrust the player ship upward a few seconds, reset variables 7 move to next level
+    // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
     if (this.levelComplete) {
-      //this.levelComplete = false;
-      //this.initialiseGame();
-      //console.log("game init")
       if (this.delayOver) {
         this.thrust();
       } else {
@@ -198,7 +191,9 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
-      this.stats.style.display = "none";
+      this.lives.style.display = "none";
+      this.score.style.display = "none";
+      this.hiscore.style.display = "none";
 
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
       ctx.fillStyle = "black";
@@ -298,7 +293,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.angle -= 2;
+          enemy.rotate(-2);
         }
       } else if (enemy.enemyType === 1) {
         if (
@@ -321,7 +316,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.angle += 1.5;
+          enemy.rotate(1.5);
         }
       } else if (enemy.enemyType === 2) {
         if (enemy.movement === 0) {
