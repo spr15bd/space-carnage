@@ -191,10 +191,6 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
-      this.lives.style.display = "none";
-      this.score.style.display = "none";
-      this.hiscore.style.display = "none";
-
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
       ctx.fillStyle = "black";
       ctx.fill();
