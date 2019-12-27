@@ -122,7 +122,7 @@ export default class Player {
 
     this.position.x += this.speed.x / delta; // pixels per milliSecond
     this.checkWhetherOnScreen();
-    if (this.isInvincible) this.playerSprite.sourceY = 16;
+    if (this.isInvincible) this.playerSprite.sourceY = 18;
     else this.playerSprite.sourceY = 0;
     this.playerSprite.update(delta);
   }
