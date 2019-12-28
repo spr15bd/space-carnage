@@ -18,7 +18,6 @@ export default class Game {
     this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-
     this.playerLaser = new Sound("/laser.m4a", 3, 0.1);
     this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
     this.playerExplosion = new Sound("/explosion.m4a", 3, 0.15);
@@ -33,7 +32,6 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-    //this.levelComplete = true;
   }
 
   initialiseGame() {
@@ -58,21 +56,6 @@ export default class Game {
     };
     this.enemyAttacking = 0;
     this.nextDistance = 0;
-    this.waveCentre = [
-      {
-        x: 300,
-        y: -200
-      },
-      {
-        x: this.screenWidth - 300,
-        y: -200
-      }
-    ];
-    this.radius = {
-      x: 300,
-      y: 600
-    };
-    this.waveXDisp = [0, -0];
     this.backgroundImage.yPos = -600;
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies();
@@ -159,7 +142,6 @@ export default class Game {
 
   thrust() {
     if (this.backgroundImage.yPos < 0) {
-      //console.log("thrust "+this.backgroundImage.yPos);
       this.enemies.forEach(enemy => {
         enemy.position.y += 3;
       });
@@ -177,10 +159,6 @@ export default class Game {
         });
 
         this.player.paused = false;
-
-        //this.delayOver = false;
-
-        //this.initialiseGame();
       });
 
       // wait a couple of seconds, reset variables and start a new level...
@@ -196,7 +174,7 @@ export default class Game {
       ctx.fill();
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "18px dejavu sans mono";
+      ctx.font = "18px consolas sans mono";
       ctx.fillText(
         "Controls",
         this.screenWidth / 2,
@@ -253,7 +231,6 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
-    //this.now = Date.now();
     this.enemies.forEach((enemy, i) => {
       if (
         (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -497,15 +474,6 @@ export default class Game {
             delta,
             delta * 2
           );
-          /*if (
-            Math.abs(enemy.position.x - enemy.start.x) <= 20 &&
-            Math.abs(enemy.position.y - (600 + enemy.start.y)) <= 20
-          ) {
-            enemy.position.x =
-              414 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
-            //enemy.position.y = enemy.start.y;
-            enemy.movement = 0;
-          }*/
         }
       } else if (enemy.enemyType === 4) {
         if (
