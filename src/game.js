@@ -57,8 +57,8 @@ export default class Game {
     this.enemyAttacking = 0;
     this.nextDistance = 0;
     this.backgroundImage.yPos = -600;
-    this.mothershipImage = new Image();
-    this.mothershipImage.src = "./mothership.png";
+    //this.mothershipImage = new Image();
+    //this.mothershipImage.src = "./mothership.png";
 
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies();
@@ -199,7 +199,7 @@ export default class Game {
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
       this.drawBackground(ctx);
-      if (this.screen === 0) {
+      /*if (this.screen === 0) {
         ctx.drawImage(
           this.mothershipImage,
           0, // source (spritesheet file) x
@@ -212,7 +212,7 @@ export default class Game {
           this.screenWidth / 2, // gamescreen width
           this.screenHeight / 2 // gamescreen height (twice screen height as it's a scrolling background)
         );
-      }
+      }*/
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {

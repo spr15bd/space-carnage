@@ -1,11 +1,12 @@
 import Sprite from "./sprite.js";
 export default class Block {
-  constructor(xPos, yPos, imageSrc) {
+  constructor(xPos, yPos, width, height, blockType, imageSrc) {
     // declare bullet properties
     //this.type = bulletType;
     //this.bulletDelay = 100;
-    this.width = 8;
-    this.height = 8;
+    this.width = width;
+    this.height = height;
+    this.blockType = blockType;
     this.position = {
       x: xPos,
       y: yPos

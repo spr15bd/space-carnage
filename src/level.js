@@ -85,6 +85,16 @@ export default class Level {
       );
     } else if (level === 4) {
     } else {
+      this.blocks.push(
+        new Block(300, 400, 8, 8, 1, "./block.png"),
+        new Block(308, 400, 8, 8, 1, "./block.png"),
+        new Block(316, 400, 8, 8, 1, "./block.png"),
+        new Block(324, 400, 8, 8, 1, "./block.png"),
+        new Block(332, 400, 8, 8, 1, "./block.png"),
+        new Block(340, 400, 8, 8, 1, "./block.png"),
+        new Block(348, 400, 8, 8, 1, "./block.png"),
+        new Block(356, 400, 8, 8, 1, "./block.png")
+      );
       this.enemies.push(
         new Enemy(400, -400, 90, 4, "./enemies.png"),
         new Enemy(400, -400, 0, 4, "./enemies.png"),
