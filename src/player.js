@@ -32,6 +32,7 @@ export default class Player {
     this.bulletImage.src = "./playerBullet.png";
     this.sourceWidth = 16;
     this.sourceHeight = 16;
+    this.sourceX = 0;
     this.sourceY = 0;
     this.numberOfFrames = 4;
     this.frameDuration = 15;
@@ -40,6 +41,7 @@ export default class Player {
       this.playerImage,
       this.sourceWidth,
       this.sourceHeight,
+      this.sourceX,
       this.sourceY,
       this.position,
       this.width,

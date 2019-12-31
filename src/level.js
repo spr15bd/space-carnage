@@ -86,6 +86,14 @@ export default class Level {
     } else if (level === 4) {
     } else {
       this.blocks.push(
+        new Block(300, 300, 16, 16, 0, "./block.png"),
+        new Block(316, 300, 16, 16, 0, "./block.png"),
+        new Block(332, 300, 16, 16, 0, "./block.png"),
+        new Block(348, 300, 16, 16, 0, "./block.png"),
+        new Block(364, 300, 16, 16, 0, "./block.png"),
+        new Block(380, 300, 16, 16, 0, "./block.png"),
+        new Block(396, 300, 16, 16, 0, "./block.png"),
+        new Block(412, 300, 16, 16, 0, "./block.png"),
         new Block(300, 400, 8, 8, 1, "./block.png"),
         new Block(308, 400, 8, 8, 1, "./block.png"),
         new Block(316, 400, 8, 8, 1, "./block.png"),

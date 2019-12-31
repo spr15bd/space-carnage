@@ -23,6 +23,7 @@ export default class Explosion {
       this.sourceWidth,
       this.sourceHeight,
       0,
+      0,
       this.position,
       this.width,
       this.height,

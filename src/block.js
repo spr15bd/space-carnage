@@ -17,7 +17,7 @@ export default class Block {
     };
     this.image = new Image();
     this.image.src = imageSrc;
-    this.sourceWidth = 8;
+    this.sourceWidth = 4;
     this.sourceHeight = 4;
 
     this.blockSprite = new Sprite(
@@ -25,6 +25,7 @@ export default class Block {
       this.sourceWidth,
       this.sourceHeight,
       0,
+      this.blockType * 16,
       this.position,
       this.width,
       this.height,
@@ -48,10 +49,13 @@ export default class Block {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
-    this.position.x += 30 / delta; // pixels per milliSecond
-    if (this.position.x > this.startX + 150) {
-      this.position.x = this.startX;
+    if (this.blockType === 0) {
+      this.position.x += 30 / delta; // pixels per milliSecond
+      if (this.position.x > this.startX + 150) {
+        this.position.x = this.startX;
+      }
     }
+
     //this.bulletSprite.update(delta);
   }
 }

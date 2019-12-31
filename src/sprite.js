@@ -3,6 +3,7 @@ export default class Sprite {
     image,
     sourceWidth,
     sourceHeight,
+    sourceX,
     sourceY,
     position,
     width,
@@ -16,6 +17,7 @@ export default class Sprite {
     this.sourceWidth = sourceWidth;
     this.sourceHeight = sourceHeight;
     this.angle = angle;
+    this.sourceX = sourceX;
     this.sourceY = sourceY;
     this.position = position;
     this.width = width;

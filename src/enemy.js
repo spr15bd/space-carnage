@@ -31,6 +31,7 @@ export default class Enemy {
     this.bulletImage.src = "./enemyBullet.png";
     this.sourceWidth = 32;
     this.sourceHeight = 32;
+    this.sourceX = 0;
     if (this.enemyType === 0) {
       this.sourceY = 0;
     } else if (this.enemyType === 1) {
@@ -52,6 +53,7 @@ export default class Enemy {
       this.image,
       this.sourceWidth,
       this.sourceHeight,
+      this.sourceX,
       this.sourceY,
       this.position,
       this.width,
