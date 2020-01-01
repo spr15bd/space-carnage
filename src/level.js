@@ -95,13 +95,13 @@ export default class Level {
         new Block(396, 300, 16, 16, 0, "./block.png"),
         new Block(412, 300, 16, 16, 0, "./block.png"),
         new Block(300, 400, 16, 16, 1, "./block.png"),
-        new Block(308, 400, 16, 16, 1, "./block.png"),
         new Block(316, 400, 16, 16, 1, "./block.png"),
-        new Block(324, 400, 16, 16, 1, "./block.png"),
         new Block(332, 400, 16, 16, 1, "./block.png"),
-        new Block(340, 400, 16, 16, 1, "./block.png"),
         new Block(348, 400, 16, 16, 1, "./block.png"),
-        new Block(356, 400, 16, 16, 1, "./block.png")
+        new Block(364, 400, 16, 16, 1, "./block.png"),
+        new Block(380, 400, 16, 16, 1, "./block.png"),
+        new Block(396, 400, 16, 16, 1, "./block.png"),
+        new Block(412, 400, 16, 16, 1, "./block.png")
       );
       this.enemies.push(
         new Enemy(400, -400, 90, 4, "./enemies.png"),

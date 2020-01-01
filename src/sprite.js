@@ -43,11 +43,12 @@ export default class Sprite {
       }
       this.ticks = 0;
     }
+    this.sourceX = this.sourceWidth * this.frameIndex;
   }
   draw(ctx) {
     ctx.drawImage(
       this.image,
-      this.sourceWidth * this.frameIndex, // source x
+      this.sourceX, // source x
       this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
