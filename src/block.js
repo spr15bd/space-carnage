@@ -17,15 +17,15 @@ export default class Block {
     };
     this.image = new Image();
     this.image.src = imageSrc;
-    this.sourceWidth = 4;
-    this.sourceHeight = 4;
+    this.sourceWidth = 16;
+    this.sourceHeight = 16;
 
     this.blockSprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
-      0,
       this.blockType * 16,
+      0,
       this.position,
       this.width,
       this.height,
