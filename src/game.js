@@ -148,6 +148,9 @@ export default class Game {
       this.enemies.forEach(enemy => {
         enemy.position.y += 3;
       });
+      this.blocks.forEach(block => {
+        block.position.y += 3;
+      });
       // do the between levels player thrust upwards routine
       this.backgroundImage.yPos += 3;
     } else {

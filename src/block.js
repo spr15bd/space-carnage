@@ -17,7 +17,8 @@ export default class Block {
     };
     this.image = new Image();
     this.image.src = imageSrc;
-    this.sourceWidth = 8;
+    // if the block is a moving (forcefield) block, make the source width smaller than the whole 8x8 block - this is to prevent flickering in the animation
+    this.sourceWidth = this.blockType === 0 ? 4 : 8;
     this.sourceHeight = 8;
 
     this.blockSprite = new Sprite(
