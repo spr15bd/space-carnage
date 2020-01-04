@@ -51,8 +51,8 @@ export default class Block {
     // every delta milliSeconds
     if (!delta) return;
     if (this.blockType === 0) {
-      this.position.x += 16; // pixels per milliSecond
-      if (this.position.x > 572) {
+      this.position.x += 8; // pixels per milliSecond
+      if (this.position.x > 580) {
         this.position.x = 204;
       }
     }
