@@ -577,9 +577,11 @@ export default class Game {
 
         this.blocks.forEach((block, k) => {
           if (bullet.collidesWith(block) && bullet.speed.y === -120) {
-            this.bulletPool.splice(i, 1);
-            //this.player.incrementScore(enemy.enemyType);
-            this.blocks.splice(k, 1);
+            //destroy block on collision with player bullet as long as it's not the mothership 'sphere' block
+            if (block.blockType !== 7) {
+              this.blocks.splice(k, 1);
+              this.bulletPool.splice(i, 1);
+            }
           }
         });
 
