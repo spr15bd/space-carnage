@@ -339,7 +339,8 @@ export default class Level {
         new Enemy(400, -400, 90, 4, "./enemies.png"),
         new Enemy(400, -400, 0, 4, "./enemies.png"),
         new Enemy(400, -400, 180, 4, "./enemies.png"),
-        new Enemy(400, -400, 270, 4, "./enemies.png")
+        new Enemy(400, -400, 270, 4, "./enemies.png"),
+        new Enemy(width / 2 - 16, -352, 270, 5, "./enemies.png")
       );
     }
   }
