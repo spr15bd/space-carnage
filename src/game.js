@@ -600,11 +600,23 @@ export default class Game {
             if (j < this.enemyAttacking) {
               this.enemyAttacking -= 1;
             }
-            this.enemies.splice(j, 1);
-            if (this.enemies.length <= 0) {
-              setTimeout(() => {
-                this.initialiseGame();
-              }, 1300);
+            if (enemy.enemyType === 5) {
+              this.enemies.splice(j, 1);
+              if (
+                this.enemies.filter(item => item.enemyType === 5).length <= 0
+              ) {
+                setTimeout(() => {
+                  this.initialiseGame();
+                }, 1300);
+              }
+            } else {
+              this.enemies.splice(j, 1);
+
+              if (this.enemies.length <= 0) {
+                setTimeout(() => {
+                  this.initialiseGame();
+                }, 1300);
+              }
             }
           } else if (
             this.player.collidesWith(enemy) &&
