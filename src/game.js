@@ -23,8 +23,6 @@ export default class Game {
     this.playerExplosion = new Sound("/explosion.m4a", 3, 0.15);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
-    this.enemies = [];
-    this.blocks = [];
     this.screen = -1;
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.bulletPool = []; // array for enemy and player bullets
@@ -32,12 +30,12 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-  }
-
-  initialiseGame() {
     this.bulletPool = []; // array for enemy and player bullets
     this.enemies = [];
     this.blocks = [];
+  }
+
+  initialiseGame() {
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
     this.levelComplete = true;
@@ -67,6 +65,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
     this.waiting = false;
     this.delayOver = this.screen === 0 ? true : false;
+    this.queenDead=false;
   }
 
   start() {
@@ -121,6 +120,9 @@ export default class Game {
     // update blocks
 
     this.blocks.forEach(block => {
+      if (this.queenDead) {
+        block.moveTo(Math.random()*800, -100, delta, delta);
+      }
       block.update(delta);
       //block.speed.x = 0;
     });
@@ -605,6 +607,7 @@ export default class Game {
               if (
                 this.enemies.filter(item => item.enemyType === 5).length <= 0
               ) {
+                this.queenDead = true;
                 setTimeout(() => {
                   this.initialiseGame();
                 }, 1300);
