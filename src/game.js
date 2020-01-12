@@ -18,9 +18,10 @@ export default class Game {
     //this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-    this.playerLaser = new Sound("/laser.m4a", 3, 0.1);
-    this.enemyExplosion = new Sound("/enemyExplosion.m4a", 3, 0.25);
-    this.playerExplosion = new Sound("/explosion.m4a", 3, 0.15);
+    this.playerLaser = new Sound("/sounds/laser.m4a", 3, 0.1);
+    this.enemyExplosion = new Sound("/sounds//enemyExplosion.m4a", 3, 0.25);
+    this.playerExplosion = new Sound("/sounds//explosion.m4a", 3, 0.15);
+    this.mothershipExplosion = new Sound("/sounds/randomize79.m4a", 3, 0.15);
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
     this.screen = -1;
@@ -65,7 +66,7 @@ export default class Game {
     this.chargingEnemy = Math.floor(Math.random() * this.enemies.length);
     this.waiting = false;
     this.delayOver = this.screen === 0 ? true : false;
-    this.queenDead=false;
+    this.queenDead = false;
   }
 
   start() {
@@ -121,7 +122,8 @@ export default class Game {
 
     this.blocks.forEach(block => {
       if (this.queenDead) {
-        block.moveTo(Math.random()*800, -100, delta, delta);
+        block.moveTo(Math.random() * 800, -200, delta, delta);
+        this.mothershipExplosion.play();
       }
       block.update(delta);
       //block.speed.x = 0;
