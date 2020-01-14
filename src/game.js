@@ -4,6 +4,7 @@ import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
 import Sound from "./sound";
+import Title from "./title.js";
 
 const GAMESTATE = {
   MENU: 0,
@@ -31,6 +32,7 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
+    this.titleText = new Title(250, 40, 300, 160, "./title.png");
     this.bulletPool = []; // array for enemy and player bullets
     this.enemies = [];
     this.blocks = [];
@@ -180,6 +182,7 @@ export default class Game {
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
+
       ctx.fillStyle = "black";
       ctx.fill();
       ctx.textAlign = "center";
@@ -202,6 +205,7 @@ export default class Game {
         this.screenWidth / 2,
         this.screenHeight / 2 + 80
       );
+      this.titleText.draw(ctx);
       document.getElementById("game-screen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";

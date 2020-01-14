@@ -24,4 +24,17 @@ export default class Title {
       1
     );
   }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2
+    );
+
+    ctx.rotate((this.angle * Math.PI) / 180);
+    this.titleSprite.draw(ctx);
+
+    ctx.restore();
+  }
 }
