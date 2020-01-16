@@ -33,7 +33,6 @@ export default class Game {
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
     this.titleText = new Title(250, 40, 300, 160, "./title.png");
-    this.bulletPool = []; // array for enemy and player bullets
     this.enemies = [];
     this.blocks = [];
   }
@@ -58,9 +57,6 @@ export default class Game {
     this.enemyAttacking = 0;
     this.nextDistance = 0;
     this.backgroundImage.yPos = -600;
-    //this.mothershipImage = new Image();
-    //this.mothershipImage.src = "./mothership.png";
-
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
     this.enemies = this.level.getEnemies();
     this.blocks = this.level.getBlocks(); // ...and an array of blocks and their positions
@@ -69,6 +65,9 @@ export default class Game {
     this.waiting = false;
     this.delayOver = this.screen === 0 ? true : false;
     this.queenDead = false;
+    this.bulletPool = []; // array for enemy and player bullets
+    // set bullets to zero here so that any previous level bullets don't
+    // interfere with new level
   }
 
   start() {
