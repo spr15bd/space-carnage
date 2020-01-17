@@ -21,7 +21,7 @@ export default class Block {
     if (this.blockType === 0) {
       this.sourceWidth = 4;
       this.sourceHeight = 4;
-    } else if (this.blockType === 7) {
+    } else if (this.blockType === 9) {
       this.sourceWidth = 96;
       this.sourceHeight = 16;
     } else {
