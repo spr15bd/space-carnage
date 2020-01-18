@@ -378,7 +378,7 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.85) {
+            if (Math.random() > 0.9) {
               this.shootBullet(enemy);
             }
             if (
@@ -409,7 +409,7 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.9) {
+            if (Math.random() > 0.95) {
               this.shootBullet(enemy);
             }
             if (
