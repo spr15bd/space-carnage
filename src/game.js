@@ -421,6 +421,7 @@ export default class Game {
             }
           }
         } else if (enemy.movement === 4) {
+          // finish enemy swoop, move enemy back into formation
           if (
             enemy !==
             this.enemies.filter(item => item.enemyType === 2)[
@@ -429,7 +430,7 @@ export default class Game {
           ) {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-              enemy.start.y + 600,
+              enemy.position.y,
               delta,
               delta
             );
@@ -438,17 +439,10 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y + 600,
               delta,
-              delta * 2
+              delta * 1.8
             );
-            if (
-              Math.abs(
-                enemy.position.x -
-                  (400 * Math.sin(Date.now() * 0.0015) + enemy.start.x)
-              ) < 20 &&
-              Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20
-            ) {
-              enemy.position.x =
-                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 10) {
+              //enemy.position.x = 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
               enemy.position.y = enemy.start.y + 600;
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
