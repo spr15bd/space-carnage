@@ -138,7 +138,7 @@ export default class Enemy {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 
-    if (
+    /*if (
       Math.abs(this.position.x - x) < 5 &&
       Math.abs(this.position.y - y) < 5
     ) {
@@ -147,7 +147,7 @@ export default class Enemy {
       this.speed.x = 0;
 
       this.speed.y = 0;
-    }
+    }*/
   }
 
   rotate(angle) {

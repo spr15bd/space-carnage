@@ -347,14 +347,14 @@ export default class Game {
             enemy.position.y += 20 * (delta / 1000);
             enemy.moveTo(
               260 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-              this.player.position.y - 125,
+              this.player.position.y - 150,
               delta,
               delta
             );
             if (Math.random() > 0.85) {
               this.shootBullet(enemy);
             }
-            if (enemy.position.y >= this.player.position.y - 125) {
+            if (enemy.position.y >= this.player.position.y - 150) {
               enemy.movement = 2;
             }
           }
@@ -374,7 +374,7 @@ export default class Game {
           } else {
             enemy.moveTo(
               this.player.position.x - 150,
-              this.player.position.y - 125,
+              this.player.position.y - 150,
               delta * 2,
               delta * 2
             );
@@ -384,7 +384,7 @@ export default class Game {
             if (
               Math.abs(enemy.position.x - (this.player.position.x - 150)) <
                 30 &&
-              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
+              Math.abs(enemy.position.y - (this.player.position.y - 150)) < 30
             ) {
               enemy.movement = 3;
             }
@@ -405,7 +405,7 @@ export default class Game {
           } else {
             enemy.moveTo(
               this.player.position.x + 150,
-              this.player.position.y - 125,
+              this.player.position.y - 150,
               delta * 2,
               delta * 2
             );
@@ -415,7 +415,7 @@ export default class Game {
             if (
               Math.abs(enemy.position.x - (this.player.position.x + 150)) <
                 30 &&
-              Math.abs(enemy.position.y - (this.player.position.y - 125)) < 30
+              Math.abs(enemy.position.y - (this.player.position.y - 150)) < 30
             ) {
               enemy.movement = 4;
             }
@@ -439,11 +439,11 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y + 600,
               delta,
-              delta * 1.8
+              delta
             );
-            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 10) {
-              //enemy.position.x = 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
               enemy.position.y = enemy.start.y + 600;
+              //enemy.position.x = 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
               this.enemyAttacking += 1;
