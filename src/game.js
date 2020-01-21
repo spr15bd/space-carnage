@@ -439,11 +439,15 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y + 600,
               delta,
-              delta
+              delta * 1.7
             );
-            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
-              enemy.position.y = enemy.start.y + 600;
-              //enemy.position.x = 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x;
+            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 5) {
+              enemy.moveTo(
+                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+                enemy.start.y + 600,
+                delta,
+                delta * 1.7
+              );
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
               this.enemyAttacking += 1;
