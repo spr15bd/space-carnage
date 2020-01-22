@@ -48,6 +48,7 @@ export default class Game {
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
     this.enemyCharging = false;
+    this.explosions = [];
     this.explosion = null;
     this.exitAngle = 0;
     this.exitPos = {
@@ -242,7 +243,10 @@ export default class Game {
       this.lives.innerHTML = this.player.lives;
       this.score.innerHTML = this.player.score;
       this.hiscore.innerHTML = this.player.hiscore;
-      if (this.explosion != null) this.explosion.draw(ctx);
+      this.explosions.forEach(explosion => {
+        explosion.draw(ctx);
+      });
+      //if (this.explosion != null) this.explosion.draw(ctx);
     } else if (this.gameState === GAMESTATE.GAMEOVER) {
       this.drawBackground(ctx);
       ctx.textAlign = "center";
@@ -439,14 +443,14 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y + 600,
               delta,
-              delta * 1.7
+              delta * 1.5
             );
             if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 5) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y + 600,
                 delta,
-                delta * 1.7
+                delta * 20
               );
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
@@ -594,10 +598,12 @@ export default class Game {
           if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             this.player.incrementScore(enemy.enemyType);
-            this.explosion = new Explosion(
-              enemy.position.x,
-              enemy.position.y,
-              "./explosion.png"
+            this.explosions.push(
+              new Explosion(
+                enemy.position.x,
+                enemy.position.y,
+                "./explosion.png"
+              )
             );
             //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
             this.enemyExplosion.play();
