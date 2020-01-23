@@ -642,13 +642,15 @@ export default class Game {
     }
   }
   checkForExplosions(delta) {
-    if (this.explosion != null) {
-      if (this.explosion.readyForDeletion === true) {
-        this.explosion = null;
-      } else {
-        this.explosion.update(delta);
+    this.explosions.forEach(explosion => {
+      if (explosion != null) {
+        if (explosion.readyForDeletion === true) {
+          explosion = null;
+        } else {
+          explosion.update(delta);
+        }
       }
-    }
+    });
   }
   delay(time, callback) {
     if (!this.waiting) {
@@ -675,10 +677,12 @@ export default class Game {
     );
   }
   playerLoseLife() {
-    this.explosion = new Explosion(
-      this.player.position.x,
-      this.player.position.y,
-      "./explosion.png"
+    this.explosions.push(
+      new Explosion(
+        this.player.position.x,
+        this.player.position.y,
+        "./explosion.png"
+      )
     );
     //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
     this.playerExplosion.play();
