@@ -1,9 +1,8 @@
 import Sprite from "./sprite.js";
 export default class Block {
   constructor(xPos, yPos, width, height, blockType, imageSrc) {
-    // declare bullet properties
-    //this.type = bulletType;
-    //this.bulletDelay = 100;
+    // declare block properties
+    // (blocks being chunks of mothership)
     this.width = width;
     this.height = height;
     this.blockType = blockType;
@@ -17,7 +16,9 @@ export default class Block {
     };
     this.image = new Image();
     this.image.src = imageSrc;
-    // if the block is a moving (forcefield) block, make the source width smaller than the whole 8x8 block - this is to prevent flickering in the animation
+    // if the block is 0 type block it's a moving forcefield block. Make the source width smaller than the whole 8x8 block - this is to prevent block boundary artifacts / flickering
+    // if the block is a 9 type block, it's the top part of the mothership
+    // for all other block types it's a destructible part of the mothership
     if (this.blockType === 0) {
       this.sourceWidth = 4;
       this.sourceHeight = 4;
@@ -57,23 +58,18 @@ export default class Block {
   update(delta) {
     // every delta milliSeconds
     if (!delta) return;
+    // move the forcefield blocks horizontally. When they reach the right hand side of the mothership move them back to the left hand side
     if (this.blockType === 0) {
       this.position.x += 8; // pixels per milliSecond
       if (this.position.x > 580) {
         this.position.x = 204;
       }
     }
-
-    //this.bulletSprite.update(delta);
   }
+
+  // method to move an entity to a specified xy coordinate
   moveTo(x, y, deltaX, deltaY) {
     if (!deltaX || !deltaY || this.paused) return;
-    /*if (
-      Math.round(this.position.x) === x &&
-      Math.round(this.position.y) === y
-    ) {
-      return;
-    }*/
     if (this.position.x !== x) {
       this.speed.x = (x - this.position.x) * (deltaX / 1000);
     }
