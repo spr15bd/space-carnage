@@ -277,6 +277,9 @@ export default class Game {
       }
 
       if (enemy.enemyType === 0) {
+        if (Math.random() > 0.995) {
+          this.shootBullet(enemy);
+        }
         if (
           enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
