@@ -506,6 +506,9 @@ export default class Game {
             delta,
             delta * 2
           );
+          if (Math.abs(enemy.position.y - enemy.start.y) < 5) {
+            enemy.movement = 0;
+          }
         }
       } else if (enemy.enemyType === 4) {
         if (
