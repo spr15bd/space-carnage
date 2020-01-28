@@ -69,6 +69,7 @@ export default class Game {
     this.bulletPool = []; // array for enemy and player bullets
     // set bullets to zero here so that any previous level bullets don't
     // interfere with new level
+    this.level.startEnemyWaveCycle1 = Date.now();
   }
 
   start() {
@@ -470,13 +471,14 @@ export default class Game {
       } else if (enemy.enemyType === 3) {
         if (enemy.movement === 0) {
           enemy.moveTo(
-            414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+            424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y + 600,
             delta,
             delta
           );
+
           if (
-            Date.now() - this.level.startEnemyWaveCycle >= 10000 &&
+            Date.now() - this.level.startEnemyWaveCycle1 >= 10000 &&
             enemy.position.x >= enemy.start.x
           ) {
             enemy.movement += 1;
@@ -501,12 +503,13 @@ export default class Game {
         } else if (enemy.movement === 4) {
           enemy.angle = 270;
           enemy.moveTo(
-            414 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+            424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y + 600,
             delta,
             delta * 2
           );
-          if (Math.abs(enemy.position.y - enemy.start.y) < 5) {
+          if (Math.abs(enemy.position.y - (enemy.start.y + 600)) < 5) {
+            this.level.startEnemyWaveCycle1 = Date.now();
             enemy.movement = 0;
           }
         }
