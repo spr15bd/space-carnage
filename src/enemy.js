@@ -44,6 +44,8 @@ export default class Enemy {
       this.sourceY = 128;
     } else if (this.enemyType === 5) {
       this.sourceY = 264;
+    } else if (this.enemyType === 6) {
+      this.sourceY = 296;
     }
 
     this.numberOfFrames = 8;

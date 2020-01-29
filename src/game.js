@@ -564,6 +564,8 @@ export default class Game {
             }
           }
         }
+      } else if (enemy.enemyType === 6) {
+        enemy.moveTo(this.player.position.x, this.player.position.y - 50);
       }
       enemy.update(delta);
     });

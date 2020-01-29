@@ -5,7 +5,10 @@ export default class Level {
     this.startEnemyWaveCycle = Date.now();
     this.enemies = [];
     this.blocks = [];
-    if (level === 1) {
+    this.stages = 0; // stages per level
+    this.currentStage = 0;
+    if (level === 0) {
+      this.stages = 2;
       this.enemies.push(
         new Enemy(width / 2 - 130, -480, 180, 1, "./enemies.png"),
         new Enemy(width / 2 - 160, -480, 180, 1, "./enemies.png"),
@@ -42,29 +45,7 @@ export default class Level {
         new Enemy(width / 2 - 16, -270, 90, 0, "./enemies.png"),
         new Enemy(width / 2 - 16, -230, 90, 0, "./enemies.png")
       );
-      //console.log(this.enemies.length);
-      /*this.enemies.push(
-        new Enemy(244, -320, 45, 0, "./enemies.png"),
-        new Enemy(246, -290, 46, 0, "./enemies.png"),
-        new Enemy(248, -260, 47, 0, "./enemies.png"),
-        new Enemy(250, -230, 48, 0, "./enemies.png"),
-        new Enemy(252, -200, 49, 1, "./enemies.png"),
-        new Enemy(254, -170, 50, 0, "./enemies.png"),
-        new Enemy(256, -140, 51, 1, "./enemies.png"),
-        new Enemy(256, -110, 52, 0, "./enemies.png"),
-        new Enemy(256, -80, 53, 1, "./enemies.png")
-      );*/
-      /*this.blocks.push(
-        new Block(300, 300, "./block.png"),
-        new Block(308, 300, "./block.png"),
-        new Block(316, 300, "./block.png"),
-        new Block(324, 300, "./block.png"),
-        new Block(332, 300, "./block.png"),
-        new Block(340, 300, "./block.png"),
-        new Block(348, 300, "./block.png"),
-        new Block(356, 300, "./block.png")
-      );*/
-    } else if (level === 0) {
+    } else if (level === 1) {
       this.enemies.push(
         new Enemy(240, -500, 270, 2, "./enemies.png"),
         new Enemy(300, -500, 270, 2, "./enemies.png"),
