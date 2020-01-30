@@ -565,7 +565,7 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 6) {
-        enemy.moveTo(this.player.position.x, this.player.position.y - 50);
+        enemy.moveTo(800, 100);
       }
       enemy.update(delta);
     });
@@ -636,9 +636,14 @@ export default class Game {
               this.enemies.splice(j, 1);
 
               if (this.enemies.length <= 0) {
-                setTimeout(() => {
-                  this.initialiseGame();
-                }, 1300);
+                this.currentStage += 1;
+                if (this.currentStage >= this.level.stages) {
+                  setTimeout(() => {
+                    this.initialiseGame();
+                  }, 1300);
+                } else {
+                  this.level.getNewEnemies(6);
+                }
               }
             }
           } else if (

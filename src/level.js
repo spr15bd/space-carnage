@@ -284,6 +284,16 @@ export default class Level {
     return this.enemies;
   }
 
+  getNewEnemies(enemyType) {
+    this.enemies.push(
+      new Enemy(200, 100, 270, enemyType, "./enemies.png"),
+      new Enemy(300, 100, 270, enemyType, "./enemies.png"),
+      new Enemy(400, 100, 270, enemyType, "./enemies.png"),
+      new Enemy(500, 100, 270, enemyType, "./enemies.png"),
+      new Enemy(600, 100, 270, enemyType, "./enemies.png")
+    );
+  }
+
   getStartTime() {
     return this.start;
   }
