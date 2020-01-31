@@ -6,7 +6,7 @@ export default class Level {
     this.enemies = [];
     this.blocks = [];
     this.stages = 0; // stages per level
-    this.currentStage = 0;
+
     if (level === 0) {
       this.stages = 2;
       this.enemies.push(

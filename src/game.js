@@ -38,6 +38,7 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
     this.levelComplete = true;
@@ -565,7 +566,7 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 6) {
-        enemy.moveTo(800, 100);
+        enemy.moveTo(800, 100, delta, delta);
       }
       enemy.update(delta);
     });
