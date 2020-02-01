@@ -566,7 +566,17 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 6) {
-        enemy.moveTo(800, 100, delta, delta);
+        if (enemy.movement === 0) {
+          enemy.moveTo(600 + enemy.start.x, 150, delta, delta);
+          if (enemy.position.x > 540 + enemy.start.x) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.moveTo(enemy.start.x - 170, 300, delta, delta);
+          if (enemy.position.x < enemy.start.x - 170) {
+            enemy.movement += 1;
+          }
+        }
       }
       enemy.update(delta);
     });
@@ -643,7 +653,8 @@ export default class Game {
                     this.initialiseGame();
                   }, 1300);
                 } else {
-                  this.level.getNewEnemies(6);
+                  this.enemies = this.level.getNewEnemies(6);
+                  this.enemies.forEach(enemy => (enemy.paused = false));
                 }
               }
             }

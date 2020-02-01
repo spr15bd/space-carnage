@@ -292,6 +292,7 @@ export default class Level {
       new Enemy(500, 100, 270, enemyType, "./enemies.png"),
       new Enemy(600, 100, 270, enemyType, "./enemies.png")
     );
+    return this.enemies;
   }
 
   getStartTime() {
