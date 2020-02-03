@@ -567,28 +567,28 @@ export default class Game {
         }
       } else if (enemy.enemyType === 6) {
         if (enemy.movement === 0) {
-          enemy.moveTo(500 + enemy.start.x, 150, delta * 1.5, delta);
-          if (enemy.position.x > 350 + enemy.start.x) {
+          enemy.moveTo(350 + enemy.start.x, 150, delta * 1.5, delta);
+          if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.moveTo(enemy.start.x - 170, 250, delta * 1.5, delta);
-          if (enemy.position.x < enemy.start.x - 100) {
+          enemy.moveTo(enemy.start.x - 220, 250, delta * 1.5, delta);
+          if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.moveTo(500 + enemy.start.x, 350, delta * 1.5, delta);
-          if (enemy.position.x > 350 + enemy.start.x) {
+          enemy.moveTo(350 + enemy.start.x, 350, delta * 1.5, delta);
+          if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
-          enemy.moveTo(enemy.start.x - 170, 450, delta * 1.5, delta);
-          if (enemy.position.x < enemy.start.x - 100) {
+          enemy.moveTo(enemy.start.x - 220, 450, delta * 1.5, delta);
+          if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 4) {
-          enemy.moveTo(500 + enemy.start.x, 550, delta * 1.5, delta);
-          if (enemy.position.x > 350 + enemy.start.x) {
+          enemy.moveTo(350 + enemy.start.x, 550, delta * 1.5, delta);
+          if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 5) {
