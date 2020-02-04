@@ -212,20 +212,6 @@ export default class Game {
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
       this.drawBackground(ctx);
-      /*if (this.screen === 0) {
-        ctx.drawImage(
-          this.mothershipImage,
-          0, // source (spritesheet file) x
-          0, // source (spritesheet file) y
-          400, // source (spritesheet file) width
-          200, // source (spritesheet file) height
-          200, // gamescreen x
-          200,
-          //this.backgroundImage.yPos, // gamescreen y
-          this.screenWidth / 2, // gamescreen width
-          this.screenHeight / 2 // gamescreen height (twice screen height as it's a scrolling background)
-        );
-      }*/
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
@@ -248,7 +234,6 @@ export default class Game {
       this.explosions.forEach(explosion => {
         explosion.draw(ctx);
       });
-      //if (this.explosion != null) this.explosion.draw(ctx);
     } else if (this.gameState === GAMESTATE.GAMEOVER) {
       this.drawBackground(ctx);
       ctx.textAlign = "center";
@@ -673,7 +658,8 @@ export default class Game {
                     this.initialiseGame();
                   }, 1300);
                 } else {
-                  this.enemies = this.level.getNewEnemies(6);
+                  this.enemies = this.level.getNewEnemies(this.screen);
+
                   this.enemies.forEach(enemy => (enemy.paused = false));
                 }
               }
