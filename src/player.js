@@ -51,7 +51,6 @@ export default class Player {
       this.repeatAnimation,
       0
     );
-    //this.hit = false;
     this.score = 0;
     this.lives = 9;
   }
@@ -65,7 +64,7 @@ export default class Player {
         this.score += 7;
         break;
       default:
-        this.score += 10;
+        this.score += 4;
     }
   }
 
@@ -113,7 +112,6 @@ export default class Player {
       this.position.y >= entity.position.y &&
       this.position.y <= entity.position.y + entity.height
     ) {
-      //console.log(entity);
       return true;
     }
   }
