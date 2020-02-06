@@ -577,6 +577,11 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 5) {
+          enemy.moveTo(enemy.start.x - 220, 650, delta * 1.5, delta);
+          if (enemy.position.x < enemy.start.x - 150) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 6) {
           enemy.moveTo(enemy.start.x, enemy.start.y, delta * 1.5, delta);
           if (enemy.position.x < 50 + enemy.start.x) {
             enemy.movement = 0;
