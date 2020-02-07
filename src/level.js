@@ -70,13 +70,18 @@ export default class Level {
         new Enemy(480, -300, 270, 3, "./enemies.png"),
         new Enemy(540, -300, 270, 3, "./enemies.png"),
 
+        //new Enemy(240, -200, 270, 3, "./enemies.png"),
+        //new Enemy(300, -200, 270, 3, "./enemies.png"),
+        //new Enemy(360, -200, 270, 3, "./enemies.png"),
+        //new Enemy(420, -200, 270, 3, "./enemies.png"),
+        //new Enemy(480, -200, 270, 3, "./enemies.png"),
+        //new Enemy(540, -200, 270, 3, "./enemies.png"),
+
         new Enemy(width - 130, -300, 180, 0, "./enemies.png"),
         new Enemy(width - 160, -300, 180, 0, "./enemies.png"),
         new Enemy(width - 190, -300, 180, 0, "./enemies.png"),
         new Enemy(width - 220, -300, 180, 0, "./enemies.png"),
         new Enemy(width - 250, -300, 180, 0, "./enemies.png")
-        //new Enemy(140, 315, 0, 0, "./enemies.png"),
-        //new Enemy(140, 345, 0, 0, "./enemies.png")
       );
     } else if (level === 4) {
     } else {
@@ -292,6 +297,12 @@ export default class Level {
         new Enemy(350, 100, 270, 6, "./enemies.png"),
         new Enemy(450, 100, 270, 6, "./enemies.png"),
         new Enemy(550, 100, 270, 6, "./enemies.png"),
+
+        new Enemy(150, 300, 270, 6, "./enemies.png"),
+        new Enemy(250, 300, 270, 6, "./enemies.png"),
+        new Enemy(350, 300, 270, 6, "./enemies.png"),
+        new Enemy(450, 300, 270, 6, "./enemies.png"),
+        new Enemy(550, 300, 270, 6, "./enemies.png"),
 
         new Enemy(240, -400, 270, 3, "./enemies.png"),
         new Enemy(300, -400, 270, 3, "./enemies.png"),

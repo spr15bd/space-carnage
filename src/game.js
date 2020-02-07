@@ -552,32 +552,62 @@ export default class Game {
         }
       } else if (enemy.enemyType === 6) {
         if (enemy.movement === 0) {
-          enemy.moveTo(350 + enemy.start.x, 150, delta * 1.5, delta);
+          enemy.moveTo(
+            350 + enemy.start.x,
+            enemy.start.y - 400 + 150,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.moveTo(enemy.start.x - 220, 250, delta * 1.5, delta);
+          enemy.moveTo(
+            enemy.start.x - 220,
+            enemy.start.y - 400 + 250,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.moveTo(350 + enemy.start.x, 350, delta * 1.5, delta);
+          enemy.moveTo(
+            350 + enemy.start.x,
+            enemy.start.y - 400 + 350,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
-          enemy.moveTo(enemy.start.x - 220, 450, delta * 1.5, delta);
+          enemy.moveTo(
+            enemy.start.x - 220,
+            enemy.start.y - 400 + 450,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 4) {
-          enemy.moveTo(350 + enemy.start.x, 550, delta * 1.5, delta);
+          enemy.moveTo(
+            350 + enemy.start.x,
+            enemy.start.y - 400 + 550,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 5) {
-          enemy.moveTo(enemy.start.x - 220, 650, delta * 1.5, delta);
+          enemy.moveTo(
+            enemy.start.x - 220,
+            enemy.start.y - 400 + 650,
+            delta * 1.5,
+            delta
+          );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
           }
