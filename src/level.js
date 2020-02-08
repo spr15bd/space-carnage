@@ -304,19 +304,11 @@ export default class Level {
         new Enemy(450, 300, 270, 6, "./enemies.png"),
         new Enemy(550, 300, 270, 6, "./enemies.png"),
 
-        new Enemy(240, -400, 270, 3, "./enemies.png"),
-        new Enemy(300, -400, 270, 3, "./enemies.png"),
-        new Enemy(360, -400, 270, 3, "./enemies.png"),
-        new Enemy(420, -400, 270, 3, "./enemies.png"),
-        new Enemy(480, -400, 270, 3, "./enemies.png"),
-        new Enemy(540, -400, 270, 3, "./enemies.png"),
-
-        new Enemy(240, -500, 270, 3, "./enemies.png"),
-        new Enemy(300, -500, 270, 3, "./enemies.png"),
-        new Enemy(360, -500, 270, 3, "./enemies.png"),
-        new Enemy(420, -500, 270, 3, "./enemies.png"),
-        new Enemy(480, -500, 270, 3, "./enemies.png"),
-        new Enemy(540, -500, 270, 3, "./enemies.png")
+        new Enemy(-100, 0, 0, 7, "./enemies.png"),
+        new Enemy(900, 0, 0, 7, "./enemies.png"),
+        new Enemy(400, -100, 0, 7, "./enemies.png"),
+        new Enemy(0, -300, 0, 7, "./enemies.png"),
+        new Enemy(800, -300, 0, 7, "./enemies.png")
       );
     }
 
