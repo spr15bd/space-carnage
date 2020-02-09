@@ -617,6 +617,13 @@ export default class Game {
             enemy.movement = 0;
           }
         }
+      } else if (enemy.enemyType === 7) {
+        enemy.moveTo(
+          this.player.position.x,
+          this.player.position.y - 100,
+          delta,
+          delta
+        );
       }
       enemy.update(delta);
     });
