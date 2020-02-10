@@ -618,12 +618,15 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 7) {
-        enemy.moveTo(
-          this.player.position.x,
-          this.player.position.y - 100,
-          delta,
-          delta
-        );
+        if (enemy.movement===0){
+          enemy.moveTo(
+            424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 600,
+            delta,
+            delta * 2
+          );
+        }
+        
       }
       enemy.update(delta);
     });
