@@ -618,15 +618,29 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 7) {
-        if (enemy.movement===0){
+        if (enemy.movement === 0) {
           enemy.moveTo(
             424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 600,
             delta,
             delta * 2
           );
+          if (enemy.position.y > enemy.start.y + 575) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
+          enemy.position.y -= 1;
+          if (enemy.position.y < enemy.start.y + 600) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
+          enemy.position.y += 1;
+          if (enemy.position.y > enemy.start.y + 600) {
+            enemy.movement = 0;
+          }
         }
-        
       }
       enemy.update(delta);
     });
