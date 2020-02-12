@@ -630,13 +630,13 @@ export default class Game {
           }
         } else if (enemy.movement === 1) {
           enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
-          enemy.position.y -= 1;
-          if (enemy.position.y < enemy.start.y + 600) {
+          enemy.position.y -= 3;
+          if (enemy.position.y < -50) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
           enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
-          enemy.position.y += 1;
+          enemy.position.y += 2;
           if (enemy.position.y > enemy.start.y + 600) {
             enemy.movement = 0;
           }
