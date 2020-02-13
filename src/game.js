@@ -629,10 +629,14 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
-          enemy.position.y -= 3;
+          enemy.moveTo(
+            424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            -100,
+            delta,
+            delta
+          );
           if (enemy.position.y < -50) {
-            enemy.movement += 1;
+            enemy.movement += 3;
           }
         } else if (enemy.movement === 2) {
           enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
