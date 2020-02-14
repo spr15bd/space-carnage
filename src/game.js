@@ -82,6 +82,7 @@ export default class Game {
 
   gameOver() {
     this.screen = -1;
+    this.bulletPool = null;
     this.gameState = GAMESTATE.GAMEOVER;
   }
 
@@ -130,6 +131,7 @@ export default class Game {
         this.mothershipExplosion.play();
       }
       block.update(delta);
+
       //block.speed.x = 0;
     });
     // update enemies
@@ -240,7 +242,7 @@ export default class Game {
       ctx.fillStyle = "#e61ce1";
       ctx.font = "24px dejavu sans mono";
       ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
-      // wait a couple of seconds then load a new game
+      // wait 3 seconds then load up the menu screen
       this.delay(3000, () => {
         this.gameState = GAMESTATE.MENU;
       });
@@ -623,25 +625,32 @@ export default class Game {
             424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 600,
             delta,
-            delta * 2
+            delta / 2
           );
           if (enemy.position.y > enemy.start.y + 575) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
+          if (Math.random() > 0.95) {
+            this.shootBullet(enemy);
+          }
           enemy.moveTo(
             424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            -100,
+            enemy.start.y + 100,
             delta,
-            delta
+            delta / 2
           );
-          if (enemy.position.y < -50) {
-            enemy.movement += 3;
+          if (enemy.position.y < enemy.start.y + 150) {
+            enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.position.x = 424 * Math.sin(Date.now() * 0.002) + enemy.start.x;
-          enemy.position.y += 2;
-          if (enemy.position.y > enemy.start.y + 600) {
+          enemy.moveTo(
+            424 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 750,
+            delta,
+            delta / 2
+          );
+          if (enemy.position.y > enemy.start.y + 700) {
             enemy.movement = 0;
           }
         }
@@ -781,11 +790,7 @@ export default class Game {
         "./explosion.png"
       )
     );
-    //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
     this.playerExplosion.play();
-    //}
-    //this.player.isVisible();
-
     this.player.isVisible = false;
     this.player.lives -= 1;
     if (this.player.lives <= 0) {
@@ -806,7 +811,6 @@ export default class Game {
         //do 3 second countdown
         setTimeout(() => {
           this.player.isInvincible = false;
-          //this.player.playerSprite.sourceY = 0;
         }, 2000);
       }, 3000);
     }

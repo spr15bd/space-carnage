@@ -2,8 +2,6 @@ import Sprite from "./sprite.js";
 export default class Bullet {
   constructor(xPos, yPos, speed, image) {
     // declare bullet properties
-    //this.type = bulletType;
-    //this.bulletDelay = 100;
     this.width = 4;
     this.height = 8;
     this.position = {
@@ -15,7 +13,6 @@ export default class Bullet {
       y: speed
     };
     this.image = image;
-    //this.image.src = imageSrc;
     this.sourceWidth = 2;
     this.sourceHeight = 4;
 
@@ -38,7 +35,6 @@ export default class Bullet {
       this.position.y >= entity.position.y &&
       this.position.y <= entity.position.y + entity.height
     ) {
-      //console.log(entity);
       return true;
     }
   }
@@ -58,6 +54,5 @@ export default class Bullet {
     // every delta milliSeconds
     if (!delta) return;
     this.position.y += this.speed.y / delta; // pixels per milliSecond
-    //this.bulletSprite.update(delta);
   }
 }

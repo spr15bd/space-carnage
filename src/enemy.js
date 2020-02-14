@@ -77,12 +77,9 @@ export default class Enemy {
     this.inPlay = false;
     this.turned180 = false;
     this.turning = false;
-    //this.moving = false;
-    //this.bulletPool = [];
   }
 
   draw(ctx) {
-    //ctx.fillStyle = "red";
     ctx.save();
     ctx.translate(
       this.position.x + this.width / 2,
