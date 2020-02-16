@@ -16,7 +16,6 @@ export default class Game {
   constructor(screenWidth, screenHeight) {
     this.backgroundImage = new Image();
     this.backgroundImage.src = "/starbackground.png";
-    //this.backgroundImage.yPos = -600;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.playerLaser = new Sound("/sounds/laser.m4a", 3, 0.1);
@@ -45,7 +44,7 @@ export default class Game {
     this.player.paused = true;
     this.player.isVisible = true;
     this.screen++;
-    this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
+    //this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
     this.enemyCharging = false;
