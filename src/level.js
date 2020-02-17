@@ -292,17 +292,17 @@ export default class Level {
   getNewEnemies(level) {
     if (level === 0) {
       this.enemies.push(
-        new Enemy(150, 100, 270, 6, "./enemies.png"),
-        new Enemy(250, 100, 270, 6, "./enemies.png"),
-        new Enemy(350, 100, 270, 6, "./enemies.png"),
-        new Enemy(450, 100, 270, 6, "./enemies.png"),
-        new Enemy(550, 100, 270, 6, "./enemies.png"),
+        new Enemy(150, -250, 270, 6, "./enemies.png"),
+        new Enemy(250, -250, 270, 6, "./enemies.png"),
+        new Enemy(350, -250, 270, 6, "./enemies.png"),
+        new Enemy(450, -250, 270, 6, "./enemies.png"),
+        new Enemy(550, -250, 270, 6, "./enemies.png"),
 
-        new Enemy(150, 300, 270, 6, "./enemies.png"),
-        new Enemy(250, 300, 270, 6, "./enemies.png"),
-        new Enemy(350, 300, 270, 6, "./enemies.png"),
-        new Enemy(450, 300, 270, 6, "./enemies.png"),
-        new Enemy(550, 300, 270, 6, "./enemies.png"),
+        new Enemy(150, -50, 270, 6, "./enemies.png"),
+        new Enemy(250, -50, 270, 6, "./enemies.png"),
+        new Enemy(350, -50, 270, 6, "./enemies.png"),
+        new Enemy(450, -50, 270, 6, "./enemies.png"),
+        new Enemy(550, -50, 270, 6, "./enemies.png"),
 
         new Enemy(200, -200, 270, 7, "./enemies.png"),
         new Enemy(400, -200, 270, 7, "./enemies.png"),

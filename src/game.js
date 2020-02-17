@@ -44,7 +44,6 @@ export default class Game {
     this.player.paused = true;
     this.player.isVisible = true;
     this.screen++;
-    //this.ticks = 0; // will be used to keep track of time for alien movement, player invincibility, limiting bullets and any required delays
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
     this.enemyCharging = false;
@@ -554,6 +553,78 @@ export default class Game {
       } else if (enemy.enemyType === 6) {
         if (enemy.movement === 0) {
           enemy.moveTo(
+            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 650,
+            delta,
+            delta / 2
+          );
+          if (enemy.position.y > enemy.start.y + 575) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          if (Math.random() > 0.95) {
+            this.shootBullet(enemy);
+          }
+          enemy.moveTo(
+            100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 100,
+            delta,
+            delta / 2
+          );
+          if (enemy.position.y < enemy.start.y + 150) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.moveTo(
+            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 650,
+            delta,
+            delta / 2
+          );
+
+          if (enemy.position.y > enemy.start.y + 600) {
+            enemy.movement = 0;
+          }
+        }
+      } else if (enemy.enemyType === 7) {
+        if (enemy.movement === 0) {
+          enemy.moveTo(
+            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 600,
+            delta,
+            delta / 2
+          );
+          if (enemy.position.y > enemy.start.y + 575) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          if (Math.random() > 0.95) {
+            this.shootBullet(enemy);
+          }
+          enemy.moveTo(
+            100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 100,
+            delta,
+            delta / 2
+          );
+          if (enemy.position.y < enemy.start.y + 150) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.moveTo(
+            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 750,
+            delta,
+            delta / 2
+          );
+
+          if (enemy.position.y > enemy.start.y + 700) {
+            enemy.movement = 0;
+          }
+        }
+      } else if (enemy.enemyType === 8) {
+        if (enemy.movement === 0) {
+          enemy.moveTo(
             350 + enemy.start.x,
             enemy.start.y - 400 + 150,
             delta * 1.5,
@@ -615,42 +686,6 @@ export default class Game {
         } else if (enemy.movement === 6) {
           enemy.moveTo(enemy.start.x, enemy.start.y, delta * 1.5, delta);
           if (enemy.position.x < 50 + enemy.start.x) {
-            enemy.movement = 0;
-          }
-        }
-      } else if (enemy.enemyType === 7) {
-        if (enemy.movement === 0) {
-          enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 600,
-            delta,
-            delta / 2
-          );
-          if (enemy.position.y > enemy.start.y + 575) {
-            enemy.movement += 1;
-          }
-        } else if (enemy.movement === 1) {
-          if (Math.random() > 0.95) {
-            this.shootBullet(enemy);
-          }
-          enemy.moveTo(
-            100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 100,
-            delta,
-            delta / 2
-          );
-          if (enemy.position.y < enemy.start.y + 150) {
-            enemy.movement += 1;
-          }
-        } else if (enemy.movement === 2) {
-          enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 750,
-            delta,
-            delta / 2
-          );
-
-          if (enemy.position.y > enemy.start.y + 700) {
             enemy.movement = 0;
           }
         }
