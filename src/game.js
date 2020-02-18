@@ -562,7 +562,10 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          if (Math.random() > 0.95) {
+          if (
+            Math.random() > 0.95 &&
+            Math.abs(this.player.position.x - enemy.position.x) < 100
+          ) {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
@@ -598,7 +601,10 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          if (Math.random() > 0.95) {
+          if (
+            Math.random() > 0.95 &&
+            Math.abs(this.player.position.x - enemy.position.x) < 100
+          ) {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
