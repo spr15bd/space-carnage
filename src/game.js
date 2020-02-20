@@ -567,7 +567,7 @@ export default class Game {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
-            100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            100 * Math.sin(Date.now() * 0.002) + enemy.start.x * 0.7,
             enemy.start.y + 100,
             delta,
             delta / 2
@@ -590,7 +590,7 @@ export default class Game {
       } else if (enemy.enemyType === 7) {
         if (enemy.movement === 0) {
           enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            300 * Math.sin(Date.now() * 0.002) + enemy.start.x * 0.8,
             enemy.start.y + 600,
             delta,
             delta / 2
@@ -599,10 +599,7 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          if (
-            Math.random() > 0.95 &&
-            Math.abs(this.player.position.x - enemy.position.x) < 50
-          ) {
+          if (Math.random() > 0.95) {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
@@ -704,12 +701,13 @@ export default class Game {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (
-          (bullet.speed === this.playerBulletSpeed &&
-            bullet.position.y < 500) ||
-          (bullet.speed === this.enemyBulletSpeed &&
+          (bullet.speed.y === this.playerBulletSpeed &&
+            bullet.position.y < 0) ||
+          (bullet.speed.y === this.enemyBulletSpeed &&
             bullet.position.y > this.screenHeight)
         ) {
           this.bulletPool.splice(i, 1);
+          //console.log(this.bulletPool.length);
         }
         // player and enemy bullet collision
         if (
