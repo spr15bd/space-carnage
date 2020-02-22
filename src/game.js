@@ -567,7 +567,7 @@ export default class Game {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
-            100 * Math.sin(Date.now() * 0.002) + enemy.start.x * 0.7,
+            100 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) * 0.5,
             enemy.start.y + 100,
             delta,
             delta / 2
@@ -590,7 +590,7 @@ export default class Game {
       } else if (enemy.enemyType === 7) {
         if (enemy.movement === 0) {
           enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x * 0.8,
+            300 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) / 2,
             enemy.start.y + 600,
             delta,
             delta / 2
