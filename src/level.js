@@ -306,9 +306,9 @@ export default class Level {
         new Enemy(this.screenWidth / 2 + 84, -50, 270, 6, "./enemies.png"),
         new Enemy(this.screenWidth / 2 + 184, -50, 270, 6, "./enemies.png"),
 
-        new Enemy(this.screenWidth / 2 - 216, -200, 270, 7, "./enemies.png"),
-        new Enemy(this.screenWidth / 2 - 16, -200, 270, 7, "./enemies.png"),
-        new Enemy(this.screenWidth / 2 + 184, -200, 270, 7, "./enemies.png"),
+        new Enemy(this.screenWidth / 2 - 216, -120, 270, 7, "./enemies.png"),
+        new Enemy(this.screenWidth / 2 - 16, -120, 270, 7, "./enemies.png"),
+        new Enemy(this.screenWidth / 2 + 184, -120, 270, 7, "./enemies.png"),
         new Enemy(this.screenWidth / 2 - 216, -300, 270, 7, "./enemies.png"),
         new Enemy(this.screenWidth / 2 - 16, -300, 270, 7, "./enemies.png"),
         new Enemy(this.screenWidth / 2 + 184, -300, 270, 7, "./enemies.png")
