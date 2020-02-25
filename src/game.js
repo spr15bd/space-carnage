@@ -690,6 +690,8 @@ export default class Game {
             enemy.movement = 0;
           }
         }
+      } else if (enemy.enemyType === 9) {
+        //enemy.moveTo(50, 50, delta, delta);
       }
       enemy.update(delta);
     });
