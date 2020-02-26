@@ -49,7 +49,7 @@ export default class Enemy {
     } else if (this.enemyType === 7) {
       this.sourceY = 196;
     } else if (this.enemyType === 9) {
-      this.sourceY = 300;
+      this.sourceY = 328;
     }
 
     this.numberOfFrames = 8;

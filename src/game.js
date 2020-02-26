@@ -69,6 +69,7 @@ export default class Game {
     // set bullets to zero here so that any previous level bullets don't
     // interfere with new level
     this.level.startEnemyWaveCycle1 = Date.now();
+    this.bonusTime = false;
   }
 
   start() {
@@ -139,6 +140,13 @@ export default class Game {
     this.checkForCollisions(delta);
     // update explosions
     this.checkForExplosions(delta);
+
+    if (!this.bonusTime) {
+      if (Math.random > 0.995) {
+        this.bonusTime = true;
+        this.level.getBonusEnemy();
+      }
+    }
 
     // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
     if (this.levelComplete) {
@@ -691,7 +699,13 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 9) {
-        //enemy.moveTo(50, 50, delta, delta);
+        if (this.bonusTime) {
+          enemy.position.x += 1.6;
+          if (enemy.position.x > this.screenWidth) {
+            this.bonusTime = false;
+            enemy = null;
+          }
+        }
       }
       enemy.update(delta);
     });
