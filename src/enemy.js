@@ -24,6 +24,7 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
+    this.paused = true;
     this.maxTurn = 180;
     this.image = new Image();
     this.image.src = imageSrc;
@@ -50,6 +51,7 @@ export default class Enemy {
       this.sourceY = 196;
     } else if (this.enemyType === 9) {
       this.sourceY = 328;
+      this.paused = false; //bonus enemy will appear mid-level - as enemies are unpaused during game initialisation, this one won't be so must be unpaused on creation here
     }
 
     this.numberOfFrames = 8;
@@ -71,7 +73,7 @@ export default class Enemy {
       this.repeatAnimation,
       this.angle
     );
-    this.paused = true;
+
     this.movement = 0;
     this.bounced = 0;
     this.swoop = false;

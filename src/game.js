@@ -141,10 +141,11 @@ export default class Game {
     // update explosions
     this.checkForExplosions(delta);
 
-    if (!this.bonusTime) {
-      if (Math.random > 0.995) {
+    if (!this.bonusTime && !this.levelComplete) {
+      if (Math.random() > 0.997) {
         this.bonusTime = true;
         this.level.getBonusEnemy();
+        console.log("getting bonus enemy");
       }
     }
 
@@ -258,6 +259,7 @@ export default class Game {
 
   moveEnemies(delta) {
     if (!delta) return;
+
     this.enemies.forEach((enemy, i) => {
       if (
         (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -699,12 +701,10 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 9) {
-        if (this.bonusTime) {
-          enemy.position.x += 1.6;
-          if (enemy.position.x > this.screenWidth) {
-            this.bonusTime = false;
-            enemy = null;
-          }
+        enemy.position.x += 1.6;
+        //console.log("move");
+        if (enemy.position.x > this.screenWidth) {
+          this.bonusTime = false;
         }
       }
       enemy.update(delta);
@@ -747,6 +747,9 @@ export default class Game {
         });
 
         this.enemies.forEach((enemy, j) => {
+          if (enemy.enemyType === 9 && !this.bonusTime) {
+            this.enemies.splice(j, 1);
+          }
           if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
             this.bulletPool.splice(i, 1);
             this.player.incrementScore(enemy.enemyType);

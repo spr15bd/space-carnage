@@ -320,7 +320,7 @@ export default class Level {
   }
 
   getBonusEnemy() {
-    this.enemies.push(new Enemy(-50, -550, 270, 9, "./enemies.png"));
+    this.enemies.push(new Enemy(-50, 50, 270, 9, "./enemies.png"));
   }
 
   getStartTime() {
