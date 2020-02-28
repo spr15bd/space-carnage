@@ -69,7 +69,7 @@ export default class Game {
     // set bullets to zero here so that any previous level bullets don't
     // interfere with new level
     this.level.startEnemyWaveCycle1 = Date.now();
-    this.bonusTime = false;
+    this.bonusTime = false; // when true a bonus alien may momentarily appear at the top of the screen
   }
 
   start() {
@@ -142,7 +142,7 @@ export default class Game {
     this.checkForExplosions(delta);
 
     if (!this.bonusTime && !this.levelComplete) {
-      if (Math.random() > 0.997) {
+      if (Math.random() > 0.99) {
         this.bonusTime = true;
         this.level.getBonusEnemy();
         console.log("getting bonus enemy");
@@ -704,7 +704,7 @@ export default class Game {
         enemy.position.x += 1.6;
         //console.log("move");
         if (enemy.position.x > this.screenWidth) {
-          this.bonusTime = false;
+          //this.bonusTime = false;
         }
       }
       enemy.update(delta);
@@ -747,7 +747,7 @@ export default class Game {
         });
 
         this.enemies.forEach((enemy, j) => {
-          if (enemy.enemyType === 9 && !this.bonusTime) {
+          if (enemy.enemyType === 9 && enemy.position.x > this.screenWidth) {
             this.enemies.splice(j, 1);
           }
           if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
