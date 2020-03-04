@@ -1,5 +1,6 @@
 import Player from "./player.js";
 import Bullet from "./bullet.js";
+import Bonus from "./bonus.js";
 import Explosion from "./explosion.js";
 import Input from "./input";
 import Level from "./level";
@@ -145,7 +146,7 @@ export default class Game {
       if (Math.random() > 0.99) {
         this.bonusTime = true;
         this.level.getBonusEnemy();
-        console.log("getting bonus enemy");
+        //console.log("getting bonus enemy");
       }
     }
 
@@ -232,7 +233,7 @@ export default class Game {
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });
-
+      if (this.bonus != null) this.bonus.draw(ctx);
       if (this.bulletPool.length > 0) {
         this.bulletPool.forEach(bullet => {
           bullet.draw(ctx);
@@ -763,6 +764,13 @@ export default class Game {
             //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
             this.enemyExplosion.play();
             //}
+            if (enemy.enemyType === 9) {
+              this.bonus = new Bonus(
+                enemy.position.x,
+                enemy.position.y,
+                "./bonus.png"
+              );
+            }
             if (j < this.enemyAttacking) {
               this.enemyAttacking -= 1;
             }

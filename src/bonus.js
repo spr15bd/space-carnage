@@ -1,6 +1,6 @@
 import Sprite from "./sprite.js";
 export default class Bonus {
-  constructor(xPos, yPos, speed, image) {
+  constructor(xPos, yPos, image) {
     // declare bullet properties
     this.width = 32;
     this.height = 32;
