@@ -1,18 +1,19 @@
 import Sprite from "./sprite.js";
 export default class Bonus {
-  constructor(xPos, yPos, image) {
+  constructor(xPos, yPos, imageSrc) {
     // declare bullet properties
-    this.width = 32;
-    this.height = 32;
+    this.width = 28;
+    this.height = 28;
     this.position = {
       x: xPos,
       y: yPos
     };
     this.speed = {
       x: 0,
-      y: -0.3
+      y: -18
     };
-    this.image = image;
+    this.image = new Image();
+    this.image.src = imageSrc;
     this.sourceWidth = 32;
     this.sourceHeight = 32;
 

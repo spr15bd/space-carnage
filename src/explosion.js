@@ -12,7 +12,7 @@ export default class Explosion {
       y: yPos
     };
     this.image = new Image();
-    this.image.src = "./explosion.png";
+    this.image.src = imageSrc;
     this.sourceWidth = 16;
     this.sourceHeight = 16;
     this.numberOfFrames = 4;

@@ -38,6 +38,7 @@ export default class Game {
   }
 
   initialiseGame() {
+    this.bonus = null;
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
@@ -141,6 +142,8 @@ export default class Game {
     this.checkForCollisions(delta);
     // update explosions
     this.checkForExplosions(delta);
+
+    if (this.bonus != null) this.bonus.update(delta);
 
     if (!this.bonusTime && !this.levelComplete) {
       if (Math.random() > 0.99) {
@@ -702,7 +705,7 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 9) {
-        enemy.position.x += 1.6;
+        enemy.position.x += 1;
         //console.log("move");
         if (enemy.position.x > this.screenWidth) {
           //this.bonusTime = false;
