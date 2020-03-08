@@ -54,6 +54,8 @@ export default class Enemy {
       this.paused = false; //bonus enemy will appear mid-level - as enemies are unpaused during game initialisation, this one won't be so must be unpaused on creation here
       this.width = 28;
       this.height = 28;
+    } else if (this.enemyType === 10) {
+      this.sourceY = 360;
     }
 
     this.numberOfFrames = 8;
