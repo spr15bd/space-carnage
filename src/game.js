@@ -710,6 +710,24 @@ export default class Game {
         if (enemy.position.x > this.screenWidth) {
           //this.bonusTime = false;
         }
+      } else if (enemy.enemyType === 10) {
+        if (enemy.movement === 0) {
+          if (enemy.enemyNumber === 0) {
+            enemy.moveTo(0, this.screenHeight, delta / 2, delta / 2);
+            enemy.angle = Math.atan(enemy.position.y, enemy.position.x);
+          } else if (enemy.enemyNumber === 1) {
+            enemy.moveTo(this.screenWidth, this.screenHeight, delta, delta);
+          }
+          if (enemy.position.y > this.screenHeight - 20) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          if (enemy.enemyNumber === 0) {
+            //enemy.angle+=1;
+          } else if (enemy.enemyNumber === 1) {
+            //enemy.angme-=1;
+          }
+        }
       }
       enemy.update(delta);
     });

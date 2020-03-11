@@ -1,7 +1,7 @@
 import Sprite from "./sprite.js";
 
 export default class Enemy {
-  constructor(xPos, yPos, angle, enemyType, imageSrc) {
+  constructor(xPos, yPos, angle, enemyType, enemyNumber, imageSrc) {
     // declare enemy properties
     this.enemyType = enemyType;
     this.width = 32;
@@ -24,6 +24,9 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
+    if (enemyNumber != null) {
+      this.enemyNumber = enemyNumber;
+    }
     this.paused = true;
     this.maxTurn = 180;
     this.image = new Image();
