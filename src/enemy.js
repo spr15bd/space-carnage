@@ -126,6 +126,14 @@ export default class Enemy {
       if (this.angle <= 0) {
         this.angle += 360;
       }
+    } else if (this.enemyType === 10) {
+      this.speed.x = -5 * Math.cos((this.angle * Math.PI) / 180);
+      this.speed.y = -5 * Math.sin((this.angle * Math.PI) / 180);
+      this.position.x =
+        this.enemyType === 0
+          ? Math.ceil(this.position.x) + this.speed.x
+          : Math.floor(this.position.x) + this.speed.x;
+      this.position.y = Math.floor(this.position.y) + this.speed.y;
     }
 
     // movement across screen

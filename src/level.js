@@ -12,12 +12,12 @@ export default class Level {
     if (level === 0) {
       this.stages = 2;
       this.enemies.push(
-        new Enemy(width / 2 - 130, -480, 180, 1, 0, "./enemies.png"),
-        new Enemy(width / 2 - 160, -480, 180, 1, 1, "./enemies.png"),
+        //new Enemy(width / 2 - 130, -480, 180, 1, 0, "./enemies.png"),
+        //new Enemy(width / 2 - 160, -480, 180, 1, 1, "./enemies.png"),
         new Enemy(width / 2 - 190, -480, 180, 1, 2, "./enemies.png"),
         new Enemy(width / 2 - 220, -480, 180, 1, 3, "./enemies.png"),
         new Enemy(width / 2 - 250, -480, 180, 1, 4, "./enemies.png"),
-        new Enemy(width / 2 - 280, -480, 180, 1, 5, "./enemies.png"),
+        new Enemy(width / 2 - 280, -480, 180, 1, 5, "./enemies.png")
 
         //new Enemy(width / 2 + 100, -480, 0, 0, "./enemies.png"),
         //new Enemy(width / 2 + 130, -480, 0, 0, "./enemies.png"),
@@ -40,12 +40,12 @@ export default class Level {
         //new Enemy(width / 2 + 78, -110, 135, 0, "./enemies.png"),
         //new Enemy(width / 2 + 48, -80, 135, 0, "./enemies.png"),
         //new Enemy(width / 2 + 18, -50, 135, 0, "./enemies.png"),
-        new Enemy(width / 2 - 16, -430, 90, 0, 0, "./enemies.png"),
-        new Enemy(width / 2 - 16, -390, 90, 0, 1, "./enemies.png"),
-        new Enemy(width / 2 - 16, -350, 90, 0, 2, "./enemies.png"),
-        new Enemy(width / 2 - 16, -310, 90, 0, 3, "./enemies.png"),
-        new Enemy(width / 2 - 16, -270, 90, 0, 4, "./enemies.png"),
-        new Enemy(width / 2 - 16, -230, 90, 0, 5, "./enemies.png")
+        //new Enemy(width / 2 - 16, -430, 90, 0, 0, "./enemies.png"),
+        //new Enemy(width / 2 - 16, -390, 90, 0, 1, "./enemies.png"),
+        //new Enemy(width / 2 - 16, -350, 90, 0, 2, "./enemies.png"),
+        //new Enemy(width / 2 - 16, -310, 90, 0, 3, "./enemies.png"),
+        //new Enemy(width / 2 - 16, -270, 90, 0, 4, "./enemies.png"),
+        //new Enemy(width / 2 - 16, -230, 90, 0, 5, "./enemies.png")
       );
     } else if (level === 1) {
       this.enemies.push(
@@ -309,8 +309,8 @@ export default class Level {
         new Enemy(this.screenWidth / 2 - 216, 100, 270, 10, 0, "./enemies.png"),
         new Enemy(this.screenWidth / 2 - 16, 100, 270, 10, 1, "./enemies.png"),
         new Enemy(this.screenWidth / 2 + 184, -120, 270, 7, 0, "./enemies.png"),
-        new Enemy(this.screenWidth / 2 - 216, -300, 270, 7, 1, "./enemies.png"),
-        new Enemy(this.screenWidth / 2 - 16, -300, 270, 7, 2, "./enemies.png"),
+        //new Enemy(this.screenWidth / 2 - 216, -300, 270, 7, 1, "./enemies.png"),
+        //new Enemy(this.screenWidth / 2 - 16, -300, 270, 7, 2, "./enemies.png"),
         new Enemy(this.screenWidth / 2 + 184, -300, 270, 7, 3, "./enemies.png")
         //new Enemy(700, -300, 270, 7, "./enemies.png")
       );
