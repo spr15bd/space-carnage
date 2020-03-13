@@ -729,9 +729,9 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            100000
+            8900
         ) {
-          enemy.rotate(1.5);
+          enemy.rotate(2.3);
         }
       }
       enemy.update(delta);
