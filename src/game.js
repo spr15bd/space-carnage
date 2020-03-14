@@ -143,8 +143,12 @@ export default class Game {
     // update explosions
     this.checkForExplosions(delta);
 
-    if (this.bonus != null) this.bonus.update(delta);
-
+    if (this.bonus != null) {
+      this.bonus.update(delta);
+      if (this.bonus.position.x > this.screenWidth) {
+        this.bonus = null;
+      }
+    }
     if (!this.bonusTime && !this.levelComplete) {
       if (Math.random() > 0.99) {
         this.bonusTime = true;
@@ -731,7 +735,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             8900
         ) {
-          enemy.rotate(2.3);
+          enemy.rotate(Math.random(-4, 1));
         }
       }
       enemy.update(delta);
