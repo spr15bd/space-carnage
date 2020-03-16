@@ -269,6 +269,7 @@ export default class Game {
     if (!delta) return;
 
     this.enemies.forEach((enemy, i) => {
+      if (enemy.paused) return;
       if (
         (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
@@ -283,6 +284,12 @@ export default class Game {
       }
 
       if (enemy.enemyType === 0) {
+        enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = 5 * Math.sin((enemy.angle * Math.PI) / 180);
+
+        enemy.position.x = Math.ceil(enemy.position.x) + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
+
         if (Math.random() > 0.995) {
           this.shootBullet(enemy);
         }
@@ -309,6 +316,11 @@ export default class Game {
           enemy.rotate(-2);
         }
       } else if (enemy.enemyType === 1) {
+        enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = 5 * Math.sin((enemy.angle * Math.PI) / 180);
+
+        enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
         if (
           enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -519,6 +531,15 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 4) {
+        enemy.speed.x = 7 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = 7 * Math.sin((enemy.angle * Math.PI) / 180);
+
+        enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
+        if (enemy.angle <= 0) {
+          enemy.angle += 360;
+        }
+
         if (
           Math.random() > 0.95 &&
           Math.abs(enemy.position.x - this.player.position.x) < 100
@@ -715,6 +736,10 @@ export default class Game {
           //this.bonusTime = false;
         }
       } else if (enemy.enemyType === 10) {
+        enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
         if (
           enemy.inPlay &&
           (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
@@ -733,9 +758,9 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            8900
+            8400
         ) {
-          enemy.rotate(Math.random(-4, 1));
+          enemy.rotate(1);
         }
       }
       enemy.update(delta);
