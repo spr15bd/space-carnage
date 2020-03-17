@@ -736,6 +736,20 @@ export default class Game {
           //this.bonusTime = false;
         }
       } else if (enemy.enemyType === 10) {
+        if (enemy.movement === 0) {
+          if (enemy.angle > 180) {
+            enemy.angle -= 1;
+          } else {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          if (enemy.angle < 360) {
+            enemy.angle += 2;
+          } else {
+            enemy.movement += 1;
+          }
+        }
+
         enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
@@ -758,9 +772,9 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            8400
+            10400
         ) {
-          enemy.rotate(1);
+          //enemy.rotate(1);
         }
       }
       enemy.update(delta);
