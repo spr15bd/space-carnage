@@ -737,8 +737,8 @@ export default class Game {
         }
       } else if (enemy.enemyType === 10) {
         if (enemy.movement === 0) {
-          if (enemy.angle > 180) {
-            enemy.angle -= 1;
+          if (enemy.angle > 90) {
+            enemy.angle -= 2;
           } else {
             enemy.movement += 1;
           }
@@ -748,10 +748,15 @@ export default class Game {
           } else {
             enemy.movement += 1;
           }
+        } else if (enemy.movement === 2) {
+          if (enemy.angle > 120) {
+            enemy.angle -= 2;
+          } else {
+            enemy.movement = 0;
+          }
         }
-
-        enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
-        enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.speed.x = -8 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = -8 * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
         enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
         if (
