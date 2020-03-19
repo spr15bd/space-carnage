@@ -737,20 +737,19 @@ export default class Game {
         }
       } else if (enemy.enemyType === 10) {
         if (enemy.movement === 0) {
-          if (enemy.angle > 90) {
-            enemy.angle -= 2;
-          } else {
+          if (enemy.position.x < 150) {
             enemy.movement += 1;
+          } else {
           }
         } else if (enemy.movement === 1) {
-          if (enemy.angle < 360) {
-            enemy.angle += 2;
+          if (enemy.angle < 720) {
+            enemy.angle += 4;
           } else {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
           if (enemy.angle > 120) {
-            enemy.angle -= 2;
+            enemy.angle -= 5;
           } else {
             enemy.movement = 0;
           }
