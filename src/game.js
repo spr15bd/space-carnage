@@ -742,14 +742,20 @@ export default class Game {
           } else {
           }
         } else if (enemy.movement === 1) {
-          if (enemy.angle < 720) {
-            enemy.angle += 4;
+          if (enemy.angle <= 610) {
+            enemy.angle += 3;
           } else {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          if (enemy.angle > 120) {
-            enemy.angle -= 5;
+          if (enemy.position.y > this.screenHeight - 100) {
+            enemy.movement += 1;
+          } else {
+            //enemy.movement = 0;
+          }
+        } else if (enemy.movement === 3) {
+          if (enemy.angle > 0) {
+            enemy.angle -= 3;
           } else {
             enemy.movement = 0;
           }
