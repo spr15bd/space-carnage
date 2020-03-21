@@ -38,7 +38,7 @@ export default class Game {
   }
 
   initialiseGame() {
-    this.bonus = null;
+    this.bonusCaption = null;
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
@@ -143,11 +143,8 @@ export default class Game {
     // update explosions
     this.checkForExplosions(delta);
 
-    if (this.bonus != null) {
-      this.bonus.update(delta);
-      if (this.bonus.position.x > this.screenWidth) {
-        this.bonus = null;
-      }
+    if (this.bonusCaption != null) {
+      this.bonusCaption.update(delta);
     }
     if (!this.bonusTime && !this.levelComplete) {
       if (Math.random() > 0.99) {
@@ -240,7 +237,7 @@ export default class Game {
       this.enemies.forEach(enemy => {
         enemy.draw(ctx);
       });
-      if (this.bonus != null) this.bonus.draw(ctx);
+      if (this.bonusCaption != null) this.bonusCaption.draw(ctx);
       if (this.bulletPool.length > 0) {
         this.bulletPool.forEach(bullet => {
           bullet.draw(ctx);
@@ -732,8 +729,10 @@ export default class Game {
       } else if (enemy.enemyType === 9) {
         enemy.position.x += 1;
         //console.log("move");
+
         if (enemy.position.x > this.screenWidth) {
-          //this.bonusTime = false;
+          this.enemies.splice(i, 1);
+          this.checkWhetherEnemiesRemaining();
         }
       } else if (enemy.enemyType === 10) {
         if (enemy.movement === 0) {
@@ -844,7 +843,7 @@ export default class Game {
             this.enemyExplosion.play();
             //}
             if (enemy.enemyType === 9) {
-              this.bonus = new Bonus(
+              this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
                 "./bonus.png"
@@ -865,19 +864,7 @@ export default class Game {
               }
             } else {
               this.enemies.splice(j, 1);
-
-              if (this.enemies.length <= 0) {
-                this.currentStage += 1;
-                if (this.currentStage >= this.level.stages) {
-                  setTimeout(() => {
-                    this.initialiseGame();
-                  }, 1300);
-                } else {
-                  this.enemies = this.level.getNewEnemies(this.screen);
-
-                  this.enemies.forEach(enemy => (enemy.paused = false));
-                }
-              }
+              this.checkWhetherEnemiesRemaining();
             }
           } else if (
             this.player.collidesWith(enemy) &&
@@ -956,6 +943,20 @@ export default class Game {
           this.player.isInvincible = false;
         }, 2000);
       }, 3000);
+    }
+  }
+  checkWhetherEnemiesRemaining() {
+    if (this.enemies.length <= 0) {
+      this.currentStage += 1;
+      if (this.currentStage >= this.level.stages) {
+        setTimeout(() => {
+          this.initialiseGame();
+        }, 1300);
+      } else {
+        this.enemies = this.level.getNewEnemies(this.screen);
+
+        this.enemies.forEach(enemy => (enemy.paused = false));
+      }
     }
   }
 }

@@ -307,6 +307,14 @@ export default class Level {
         new Enemy(this.screenWidth / 2 + 184, -50, 270, 6, 9, "./enemies.png"),
 
         new Enemy(
+          this.screenWidth + 10,
+          this.screenHeight / 2,
+          0,
+          10,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
           this.screenWidth + 50,
           this.screenHeight / 2,
           0,
@@ -315,7 +323,7 @@ export default class Level {
           "./enemies.png"
         ),
         new Enemy(
-          this.screenWidth + 82,
+          this.screenWidth + 90,
           this.screenHeight / 2,
           0,
           10,
@@ -323,7 +331,7 @@ export default class Level {
           "./enemies.png"
         ),
         new Enemy(
-          this.screenWidth + 114,
+          this.screenWidth + 130,
           this.screenHeight / 2,
           0,
           10,
@@ -331,7 +339,7 @@ export default class Level {
           "./enemies.png"
         ),
         new Enemy(
-          this.screenWidth + 146,
+          this.screenWidth + 170,
           this.screenHeight / 2,
           0,
           10,
@@ -339,17 +347,13 @@ export default class Level {
           "./enemies.png"
         ),
         new Enemy(
-          this.screenWidth / 2 + 184,
-          -120,
-          270,
+          this.screenWidth - 30,
+          this.screenHeight / 2,
+          0,
           10,
           0,
           "./enemies.png"
-        ),
-        //new Enemy(this.screenWidth / 2 - 216, -300, 270, 7, 1, "./enemies.png"),
-        //new Enemy(this.screenWidth / 2 - 16, -300, 270, 7, 2, "./enemies.png"),
-        new Enemy(this.screenWidth / 2 + 184, -300, 270, 10, 3, "./enemies.png")
-        //new Enemy(700, -300, 270, 7, "./enemies.png")
+        )
       );
     }
 
