@@ -43,7 +43,7 @@ export default class Player {
       this.sourceHeight,
       this.sourceX,
       this.sourceY,
-      this.position,
+      //this.position,
       this.width,
       this.height,
       this.numberOfFrames,

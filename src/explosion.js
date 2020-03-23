@@ -24,7 +24,7 @@ export default class Explosion {
       this.sourceHeight,
       0,
       0,
-      this.position,
+      //this.position,
       this.width,
       this.height,
       this.numberOfFrames, // number of frames in the spritsheet

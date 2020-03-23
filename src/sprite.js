@@ -5,7 +5,7 @@ export default class Sprite {
     sourceHeight,
     sourceX,
     sourceY,
-    position,
+    //position,
     width,
     height,
     numFrames,
@@ -19,7 +19,7 @@ export default class Sprite {
     this.angle = angle;
     this.sourceX = sourceX;
     this.sourceY = sourceY;
-    this.position = position;
+    //this.position = position;
     this.width = width;
     this.height = height;
     this.numFrames = numFrames;

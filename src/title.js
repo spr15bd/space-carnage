@@ -18,7 +18,7 @@ export default class Title {
       this.sourceHeight,
       0,
       0,
-      this.position,
+      //this.position,
       this.width,
       this.height,
       1

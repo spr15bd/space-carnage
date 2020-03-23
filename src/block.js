@@ -35,7 +35,7 @@ export default class Block {
       this.sourceHeight,
       this.blockType * 8,
       0,
-      this.position,
+      //this.position,
       this.width,
       this.height,
       1

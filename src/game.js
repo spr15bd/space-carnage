@@ -33,6 +33,7 @@ export default class Game {
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
     this.titleText = new Title(250, 40, 300, 160, "./title.png");
+    this.text1 = new Text(50, 60, 32, 32, "/text.png");
     this.enemies = [];
     this.blocks = [];
   }

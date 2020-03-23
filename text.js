@@ -1,61 +1,40 @@
+import Sprite from "./sprite.js";
 export default class Text {
-  constructor(
-    image,
-    sourceWidth,
-    sourceHeight,
-    sourceX,
-    sourceY,
-    position,
-    width,
-    height,
-    numFrames,
-    frameDuration,
-    repeatAnimation,
-    angle
-  ) {
-    this.image = image;
-    this.sourceWidth = sourceWidth;
-    this.sourceHeight = sourceHeight;
-    this.angle = angle;
-    this.sourceX = sourceX;
-    this.sourceY = sourceY;
-    this.position = position;
+  constructor(xPos, yPos, width, height, imageSrc) {
+    this.sourceWidth = 400;
+    this.sourceHeight = 192;
     this.width = width;
     this.height = height;
-    this.numFrames = numFrames;
-    this.frameIndex = 0;
-    this.ticksPerFrame = frameDuration;
-    this.repeatAnimation = repeatAnimation;
-    this.ticks = 0;
-    this.terminateSprite = false;
-  }
-  update(delta) {
-    if (!delta) return;
-    this.ticks++;
-    if (this.ticks >= this.ticksPerFrame) {
-      this.frameIndex++;
-      if (this.frameIndex >= this.numFrames) {
-        if (this.repeatAnimation === true) {
-          this.frameIndex = 0;
-        } else {
-          this.terminateSprite = true;
-        }
-      }
-      this.ticks = 0;
-    }
-    this.sourceX = this.sourceWidth * this.frameIndex;
-  }
-  draw(ctx) {
-    ctx.drawImage(
+
+    this.position = {
+      x: xPos,
+      y: yPos
+    };
+    this.image = new Image();
+    this.image.src = imageSrc;
+    this.textSprite = new Sprite(
       this.image,
-      this.sourceX, // source x
-      this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
-      -this.width / 2,
-      -this.height / 2,
+      0,
+      0,
+      //this.position,
       this.width,
-      this.height
+      this.height,
+      1
     );
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2
+    );
+
+    ctx.rotate((this.angle * Math.PI) / 180);
+    this.titleSprite.draw(ctx);
+
+    ctx.restore();
   }
 }

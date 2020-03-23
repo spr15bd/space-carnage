@@ -72,7 +72,7 @@ export default class Enemy {
       this.sourceHeight,
       this.sourceX,
       this.sourceY,
-      this.position,
+      //this.position,
       this.width,
       this.height,
       this.numberOfFrames, // number of frames in the spritsheet
@@ -105,10 +105,6 @@ export default class Enemy {
   update(delta) {
     // every delta milliSeconds
     if (!delta || this.paused) return;
-    if (this.enemyType === 0 || this.enemyType === 1) {
-    } else if (this.enemyType === 4) {
-    } else if (this.enemyType === 10) {
-    }
 
     // movement across screen
     // pixels per milliSecond
