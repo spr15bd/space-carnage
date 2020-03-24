@@ -1,8 +1,8 @@
 import Sprite from "./sprite.js";
-export default class Title {
-  constructor(xPos, yPos, width, height, imageSrc) {
-    this.sourceWidth = 400;
-    this.sourceHeight = 192;
+export default class Text {
+  constructor(xPos, yPos, width, height, imageSrc, text) {
+    this.sourceWidth = 6;
+    this.sourceHeight = 12;
     this.width = width;
     this.height = height;
 
@@ -12,8 +12,8 @@ export default class Title {
     };
     this.image = new Image();
     this.image.src = imageSrc;
-
-    this.titleSprite = new Sprite(
+    this.text = text;
+    this.textSprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
@@ -34,8 +34,17 @@ export default class Title {
     );
 
     ctx.rotate((this.angle * Math.PI) / 180);
-    this.titleSprite.draw(ctx);
+    this.textSprite.draw(ctx);
 
     ctx.restore();
+  }
+
+  getCurrentSymbol(symbol) {
+    switch (symbol) {
+      case "a": {
+        this.position.x = 0;
+        this.position.y = 0;
+      }
+    }
   }
 }
