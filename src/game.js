@@ -121,6 +121,7 @@ export default class Game {
   }
 
   update(delta) {
+    this.text1.update(delta);
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
       return;
     }

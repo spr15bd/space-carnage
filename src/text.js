@@ -13,17 +13,38 @@ export default class Text {
     this.image = new Image();
     this.image.src = imageSrc;
     this.text = text;
+    this.currentIndex = 0;
     this.textSprite = new Sprite(
       this.image,
       this.sourceWidth,
       this.sourceHeight,
-      0,
+      12,
       0,
       //this.position,
       this.width,
       this.height,
       1
     );
+    this.ticks = 0;
+  }
+
+  update(delta) {
+    this.ticks++;
+    if (this.ticks > 60 && this.ticks < 120) {
+      //console.log("update");
+      this.position.x += 10;
+      this.textSprite = new Sprite(
+        this.image,
+        this.sourceWidth,
+        this.sourceHeight,
+        24,
+        0,
+        //this.position,
+        this.width,
+        this.height,
+        1
+      );
+    }
   }
 
   draw(ctx) {
@@ -39,12 +60,12 @@ export default class Text {
     ctx.restore();
   }
 
-  getCurrentSymbol(symbol) {
+  /*getCurrentSymbol(symbol) {
     switch (symbol) {
       case "a": {
         this.position.x = 0;
         this.position.y = 0;
       }
     }
-  }
+  }*/
 }
