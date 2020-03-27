@@ -10,27 +10,21 @@ export default class Text {
       x: xPos,
       y: yPos
     };
-    this.spriteOffsetPosition = {
-      x: xPos,
-      y: yPos
-    };
+
     this.image = new Image();
     this.image.src = imageSrc;
 
     this.currentIndex = 0;
-    this.textSprites = [];
-    this.textSprites.push(
-      new Sprite(
-        this.image,
-        this.sourceWidth,
-        this.sourceHeight,
-        12,
-        0,
-        this.position,
-        this.width,
-        this.height,
-        1
-      )
+    this.textSprite = new Sprite(
+      this.image,
+      this.sourceWidth,
+      this.sourceHeight,
+      12,
+      0,
+      this.position,
+      this.width,
+      this.height,
+      1
     );
     //this.textSprite =
     this.ticks = 0;
@@ -40,7 +34,6 @@ export default class Text {
     this.ticks++;
     if (this.ticks === 60) {
       //console.log("update");
-      this.spriteOffsetPosition.x += 30;
       /*this.textSprite = new Sprite(
         this.image,
         this.sourceWidth,
@@ -52,19 +45,6 @@ export default class Text {
         this.height,
         1
       );*/
-      this.textSprites.push(
-        new Sprite(
-          this.image,
-          this.sourceWidth,
-          this.sourceHeight,
-          18,
-          0,
-          this.spriteOffsetPosition,
-          this.width,
-          this.height,
-          1
-        )
-      );
     }
   }
 
@@ -77,10 +57,10 @@ export default class Text {
 
     ctx.rotate((this.angle * Math.PI) / 180);
     //this.position.x = 230;
-    this.textSprites.forEach(sprite => {
-      sprite.draw(ctx);
-      //this.position.x += 10;
-    });
+
+    this.textSprite.draw(ctx);
+    //this.position.x += 10;
+
     //this.position.x = 230;
     //this.textSprite.draw(ctx);
 
