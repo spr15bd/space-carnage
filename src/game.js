@@ -33,8 +33,15 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-    this.titleText = new Title(250, 40, 300, 160, "./title.png");
-    this.text1 = new Text(170, 270, 12, 24, "/captions.png");
+    this.titleText = new Title(100, 40, 300, 160, "./title.png");
+    this.text0 = new Text(
+      this.screenWidth / 2 - 44,
+      270,
+      10,
+      24,
+      0,
+      "/captions.png"
+    );
     this.enemies = [];
     this.blocks = [];
   }
@@ -121,7 +128,7 @@ export default class Game {
   }
 
   update(delta) {
-    this.text1.update(delta);
+    this.text0.update(delta);
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
       return;
     }
@@ -208,11 +215,13 @@ export default class Game {
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
       ctx.font = "18px consolas sans mono";
+      /*
       ctx.fillText(
         "Controls",
         this.screenWidth / 2,
         this.screenHeight / 2 - 40
       );
+      */
       ctx.fillStyle = "#a21ce6";
       ctx.fillText(
         "Use keyboard arrows to move left and right, and <ctrl> to fire.",
@@ -226,7 +235,7 @@ export default class Game {
         this.screenHeight / 2 + 80
       );
       this.titleText.draw(ctx);
-      this.text1.draw(ctx);
+      this.text0.draw(ctx);
       document.getElementById("game-screen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";

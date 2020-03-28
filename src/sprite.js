@@ -54,10 +54,13 @@ export default class Sprite {
       this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
-      -this.width / 2,
+      0, //   was -this.width/2
       -this.height / 2,
       this.width,
       this.height
     );
+  }
+  setSourceX(x) {
+    this.sourceX = x;
   }
 }
