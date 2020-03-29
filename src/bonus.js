@@ -8,6 +8,10 @@ export default class Bonus {
       x: xPos,
       y: yPos
     };
+    this.pivotPoint = {
+      x: -this.width / 2,
+      y: -this.height / 2
+    };
     this.speed = {
       x: 0,
       y: -18
@@ -23,7 +27,7 @@ export default class Bonus {
       this.sourceHeight,
       0,
       0,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       1

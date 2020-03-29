@@ -8,6 +8,10 @@ export default class Bullet {
       x: xPos,
       y: yPos
     };
+    this.pivotPoint = {
+      x: -this.width / 2,
+      y: -this.height / 2
+    };
     this.speed = {
       x: 0,
       y: speed
@@ -22,7 +26,7 @@ export default class Bullet {
       this.sourceHeight,
       0,
       0,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       1

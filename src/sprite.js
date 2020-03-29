@@ -5,7 +5,7 @@ export default class Sprite {
     sourceHeight,
     sourceX,
     sourceY,
-    //position,
+    pivotPoint,
     width,
     height,
     numFrames,
@@ -19,7 +19,7 @@ export default class Sprite {
     this.angle = angle;
     this.sourceX = sourceX;
     this.sourceY = sourceY;
-    //this.position = position;
+    this.pivotPoint = pivotPoint;
     this.width = width;
     this.height = height;
     this.numFrames = numFrames;
@@ -54,8 +54,8 @@ export default class Sprite {
       this.sourceY, // source y
       this.sourceWidth,
       this.sourceHeight,
-      0, //   was -this.width/2
-      -this.height / 2,
+      this.pivotPoint.x,
+      this.pivotPoint.y,
       this.width,
       this.height
     );

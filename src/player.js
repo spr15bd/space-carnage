@@ -26,6 +26,10 @@ export default class Player {
       x: this.screenWidth / 2 - this.width / 2,
       y: this.screenHeight - this.height - 10
     };
+    this.pivotPoint = {
+      x: -this.width / 2,
+      y: -this.height / 2
+    };
     this.playerImage = new Image();
     this.playerImage.src = "./player.png";
     this.bulletImage = new Image();
@@ -43,7 +47,7 @@ export default class Player {
       this.sourceHeight,
       this.sourceX,
       this.sourceY,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       this.numberOfFrames,

@@ -33,10 +33,16 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-    this.titleText = new Title(100, 40, 300, 160, "./title.png");
+    this.titleText = new Title(
+      this.screenWidth / 2 - 150,
+      40,
+      300,
+      160,
+      "./title.png"
+    );
     this.text0 = new Text(
-      this.screenWidth / 2 - 44,
-      270,
+      this.screenWidth / 2 - 47,
+      250,
       10,
       24,
       0,

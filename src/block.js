@@ -10,6 +10,10 @@ export default class Block {
       x: xPos,
       y: yPos
     };
+    this.pivotPoint = {
+      x: -this.width / 2,
+      y: -this.height / 2
+    };
     this.speed = {
       x: 30,
       y: 0
@@ -35,7 +39,7 @@ export default class Block {
       this.sourceHeight,
       this.blockType * 8,
       0,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       1

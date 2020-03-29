@@ -20,6 +20,10 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
+    this.pivotPoint = {
+      x: -this.width / 2,
+      y: -this.height / 2
+    };
     this.last = {
       x: xPos,
       y: yPos
@@ -72,7 +76,7 @@ export default class Enemy {
       this.sourceHeight,
       this.sourceX,
       this.sourceY,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       this.numberOfFrames, // number of frames in the spritsheet

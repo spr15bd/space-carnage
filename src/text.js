@@ -7,10 +7,13 @@ export default class Text {
     this.height = height;
     this.textLine = textLine;
     this.position = {
-      x: xPos,
+      x: xPos + this.width / 2,
       y: yPos
     };
-
+    this.pivotPoint = {
+      x: 0,
+      y: 0
+    };
     this.image = new Image();
     this.image.src = imageSrc;
 
@@ -21,7 +24,7 @@ export default class Text {
       this.sourceHeight,
       this.textLine * 12,
       0,
-      //this.position,
+      this.pivotPoint,
       this.width,
       this.height,
       1
