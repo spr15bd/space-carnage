@@ -48,6 +48,50 @@ export default class Game {
       0,
       "/captions.png"
     );
+
+    this.text1 = new Text(
+      this.screenWidth / 2 - 47,
+      300,
+      10,
+      24,
+      1,
+      "/captions.png"
+    );
+
+    this.text2 = new Text(
+      this.screenWidth / 2 - 47,
+      324,
+      10,
+      24,
+      2,
+      "/captions.png"
+    );
+    this.text3 = new Text(
+      this.screenWidth / 2 - 47,
+      348,
+      10,
+      24,
+      3,
+      "/captions.png"
+    );
+
+    this.text4 = new Text(
+      this.screenWidth / 2 - 97,
+      372,
+      10,
+      24,
+      4,
+      "/captions.png"
+    );
+
+    this.text5 = new Text(
+      this.screenWidth / 2 - 100,
+      422,
+      10,
+      24,
+      5,
+      "/captions.png"
+    );
     this.enemies = [];
     this.blocks = [];
   }
@@ -135,6 +179,16 @@ export default class Game {
 
   update(delta) {
     this.text0.update(delta);
+    if (this.text0.completed) {
+      this.text1.update(delta);
+      this.text2.update(delta);
+      this.text3.update(delta);
+      this.text4.update(delta);
+    }
+    if (this.text4.completed) {
+      this.text5.update(delta);
+    }
+
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
       return;
     }
@@ -229,19 +283,25 @@ export default class Game {
       );
       */
       ctx.fillStyle = "#a21ce6";
-      ctx.fillText(
+      /*ctx.fillText(
         "Use keyboard arrows to move left and right, and <ctrl> to fire.",
         this.screenWidth / 2,
         this.screenHeight / 2 + 20
-      );
+      );*/
       ctx.fillStyle = "#741ce6";
-      ctx.fillText(
+      /*ctx.fillText(
         "Press <space> to start. Good luck an' go ahead!",
         this.screenWidth / 2,
         this.screenHeight / 2 + 80
-      );
+      );*/
       this.titleText.draw(ctx);
       this.text0.draw(ctx);
+      this.text1.draw(ctx);
+      this.text2.draw(ctx);
+      this.text3.draw(ctx);
+      this.text4.draw(ctx);
+
+      this.text5.draw(ctx);
       document.getElementById("game-screen").focus();
     } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
       this.stats.style.display = "flex";
