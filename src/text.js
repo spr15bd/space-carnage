@@ -38,79 +38,80 @@ export default class Text {
 
   update(delta) {
     this.ticks++;
-    if (this.ticks === 10) {
+    if (this.ticks === 7) {
       this.textSprite.sourceWidth = 5;
       this.textSprite.width = 10;
       //this.textSound.play();
-    } else if (this.ticks === 20) {
+    } else if (this.ticks === 14) {
       this.textSprite.sourceWidth = 11;
       this.textSprite.width = 22;
       //this.textSound.play();
-    } else if (this.ticks === 30) {
+    } else if (this.ticks === 21) {
       this.textSprite.sourceWidth = 17;
       this.textSprite.width = 34;
       //this.textSound.play();
-    } else if (this.ticks === 40) {
+    } else if (this.ticks === 28) {
       this.textSprite.sourceWidth = 22;
       this.textSprite.width = 44;
       //this.textSound.play();
-    } else if (this.ticks === 50) {
+    } else if (this.ticks === 35) {
       this.textSprite.sourceWidth = 26;
       this.textSprite.width = 52;
       //this.textSound.play();
-    } else if (this.ticks === 60) {
+    } else if (this.ticks === 42) {
       this.textSprite.sourceWidth = 33;
       this.textSprite.width = 66;
+
       //this.textSound.play();
-    } else if (this.ticks === 70) {
+    } else if (this.ticks === 49) {
       this.textSprite.sourceWidth = 35;
       this.textSprite.width = 70;
       //this.textSound.play();
-    } else if (this.ticks === 80) {
+    } else if (this.ticks === 56) {
       this.textSprite.sourceWidth = 41;
       this.textSprite.width = 82;
+
       //this.textSound.play();
-    } else if (this.ticks === 90) {
+    } else if (this.ticks === 63) {
       this.textSprite.sourceWidth = 43;
       this.textSprite.width = 86;
       //this.textSound.play();
-    } else if (this.ticks === 100) {
+    } else if (this.ticks === 70) {
       this.textSprite.sourceWidth = 50;
       this.textSprite.width = 100;
       //this.textSound.play();
-    } else if (this.ticks === 110) {
+    } else if (this.ticks === 77) {
       this.textSprite.sourceWidth = 57;
       this.textSprite.width = 114;
       //this.textSound.play();
-    } else if (this.ticks === 120) {
+    } else if (this.ticks === 84) {
       this.textSprite.sourceWidth = 65;
       this.textSprite.width = 130;
       //this.textSound.play();
-    } else if (this.ticks === 130) {
+    } else if (this.ticks === 91) {
       this.textSprite.sourceWidth = 71;
       this.textSprite.width = 142;
-      //this.textSound.play();
-    } else if (this.ticks === 140) {
+    } else if (this.ticks === 98) {
       this.textSprite.sourceWidth = 78;
       this.textSprite.width = 156;
       //this.textSound.play();
-    } else if (this.ticks === 150) {
+    } else if (this.ticks === 105) {
       this.textSprite.sourceWidth = 83;
       this.textSprite.width = 166;
       //this.textSound.play();
-    } else if (this.ticks === 160) {
+    } else if (this.ticks === 112) {
       this.textSprite.sourceWidth = 88;
       this.textSprite.width = 176;
       //this.textSound.play();
-    } else if (this.ticks === 170) {
+    } else if (this.ticks === 119) {
       this.textSprite.sourceWidth = 93;
       this.textSprite.width = 186;
       //this.textSound.play();
-    } else if (this.ticks === 180) {
+    } else if (this.ticks === 126) {
       this.textSprite.sourceWidth = 99;
       this.textSprite.width = 198;
       this.completed = true;
-    } else if (this.ticks === 190) {
+    } else if (this.ticks === 133) {
       this.textSprite.sourceWidth = 101;
       this.textSprite.width = 202;
       this.completed = true;

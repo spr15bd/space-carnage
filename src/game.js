@@ -181,8 +181,14 @@ export default class Game {
     this.text0.update(delta);
     if (this.text0.completed) {
       this.text1.update(delta);
+    }
+    if (this.text1.completed) {
       this.text2.update(delta);
+    }
+    if (this.text2.completed) {
       this.text3.update(delta);
+    }
+    if (this.text3.completed) {
       this.text4.update(delta);
     }
     if (this.text4.completed) {
