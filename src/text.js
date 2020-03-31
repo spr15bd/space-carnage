@@ -32,7 +32,7 @@ export default class Text {
     );
     this.textSound = new Sound("/sounds/textSound.m4a", 4, 0.15);
     //this.textSound.play();
-    this.ticks = 0;
+    this.ticks = -80;
     this.completed = false;
   }
 
@@ -53,7 +53,14 @@ export default class Text {
     } else if (this.ticks === 28) {
       this.textSprite.sourceWidth = 22;
       this.textSprite.width = 44;
-      //this.textSound.play();
+      if (
+        this.textLine === 0 ||
+        this.textLine === 1 ||
+        this.textLine === 2 ||
+        this.textLine === 3
+      ) {
+        this.completed = true;
+      }
     } else if (this.ticks === 35) {
       this.textSprite.sourceWidth = 26;
       this.textSprite.width = 52;
@@ -61,8 +68,6 @@ export default class Text {
     } else if (this.ticks === 42) {
       this.textSprite.sourceWidth = 33;
       this.textSprite.width = 66;
-
-      //this.textSound.play();
     } else if (this.ticks === 49) {
       this.textSprite.sourceWidth = 35;
       this.textSprite.width = 70;
@@ -70,8 +75,6 @@ export default class Text {
     } else if (this.ticks === 56) {
       this.textSprite.sourceWidth = 41;
       this.textSprite.width = 82;
-
-      //this.textSound.play();
     } else if (this.ticks === 63) {
       this.textSprite.sourceWidth = 43;
       this.textSprite.width = 86;
@@ -79,7 +82,6 @@ export default class Text {
     } else if (this.ticks === 70) {
       this.textSprite.sourceWidth = 50;
       this.textSprite.width = 100;
-      //this.textSound.play();
     } else if (this.ticks === 77) {
       this.textSprite.sourceWidth = 57;
       this.textSprite.width = 114;
@@ -98,7 +100,6 @@ export default class Text {
     } else if (this.ticks === 105) {
       this.textSprite.sourceWidth = 83;
       this.textSprite.width = 166;
-      //this.textSound.play();
     } else if (this.ticks === 112) {
       this.textSprite.sourceWidth = 88;
       this.textSprite.width = 176;
@@ -110,7 +111,6 @@ export default class Text {
     } else if (this.ticks === 126) {
       this.textSprite.sourceWidth = 99;
       this.textSprite.width = 198;
-      this.completed = true;
     } else if (this.ticks === 133) {
       this.textSprite.sourceWidth = 101;
       this.textSprite.width = 202;

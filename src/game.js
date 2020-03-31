@@ -42,7 +42,7 @@ export default class Game {
     );
     this.text0 = new Text(
       this.screenWidth / 2 - 47,
-      250,
+      230,
       10,
       24,
       0,
@@ -76,7 +76,7 @@ export default class Game {
     );
 
     this.text4 = new Text(
-      this.screenWidth / 2 - 97,
+      this.screenWidth / 2 - 102,
       372,
       10,
       24,
@@ -85,8 +85,8 @@ export default class Game {
     );
 
     this.text5 = new Text(
-      this.screenWidth / 2 - 100,
-      422,
+      this.screenWidth / 2 - 105,
+      442,
       10,
       24,
       5,
@@ -871,6 +871,7 @@ export default class Game {
           //enemy.rotate(1);
         }
       }
+
       enemy.update(delta);
     });
   }
@@ -1031,6 +1032,7 @@ export default class Game {
     }
   }
   checkWhetherEnemiesRemaining() {
+    console.log(this.enemies.length);
     if (this.enemies.length <= 0) {
       this.currentStage += 1;
       if (this.currentStage >= this.level.stages) {
