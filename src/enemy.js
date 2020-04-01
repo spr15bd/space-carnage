@@ -117,30 +117,23 @@ export default class Enemy {
   }
   moveTo(x, y, deltaX, deltaY) {
     if (!deltaX || !deltaY || this.paused) return;
-    /*if (
-      Math.round(this.position.x) === x &&
-      Math.round(this.position.y) === y
-    ) {
-      return;
-    }*/
+
     if (this.position.x !== x) {
       this.speed.x = (x - this.position.x) * (deltaX / 1000);
     }
     if (this.position.y !== y) {
       this.speed.y = (y - this.position.y) * (deltaY / 1000);
     }
+
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 
-    /*if (
-      Math.abs(this.position.x - x) < 5 &&
-      Math.abs(this.position.y - y) < 5
-    ) {
-      this.position.x = x;
-      this.position.y = y;
-      this.speed.x = 0;
-
-      this.speed.y = 0;
+    /*this.targetAngle =
+      180 + 180 * (Math.atan2(this.speed.y, this.speed.x) / Math.PI);
+    if (this.angle < this.targetAngle) {
+      this.angle += (this.targetAngle - this.angle) * 0.1;
+    } else {
+      this.angle -= (this.angle - this.targetAngle) * 0.1;
     }*/
   }
 

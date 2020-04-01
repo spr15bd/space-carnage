@@ -820,6 +820,17 @@ export default class Game {
           this.checkWhetherEnemiesRemaining();
         }
       } else if (enemy.enemyType === 10) {
+        /*if (enemy.movement === 0) {
+          enemy.moveTo(0, 200, delta, delta);
+          if (enemy.position.x < 100) enemy.movement += 1;
+        } else if (enemy.movement === 1) {
+          enemy.moveTo(300, 600, enemy.start.y + 200, delta, delta);
+          if (enemy.position.y > 500) enemy.movement = 2;
+        } else if (enemy.movement === 2) {
+          enemy.moveTo(800, 300, delta, delta);
+          if (enemy.position.x > 700) enemy.movement = 0;
+        }*/
+
         if (enemy.movement === 0) {
           if (enemy.position.x < 150) {
             enemy.movement += 1;
@@ -828,6 +839,12 @@ export default class Game {
         } else if (enemy.movement === 1) {
           if (enemy.angle <= 610) {
             enemy.angle += 3;
+            enemy.moveTo(
+              this.player.position.x,
+              this.player.position.y,
+              delta,
+              delta
+            );
           } else {
             enemy.movement += 1;
           }

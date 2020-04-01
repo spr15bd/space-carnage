@@ -14,10 +14,10 @@ export default class Level {
       this.enemies.push(
         //new Enemy(width / 2 - 130, -480, 180, 1, 0, "./enemies.png"),
         //new Enemy(width / 2 - 160, -480, 180, 1, 1, "./enemies.png"),
-        new Enemy(width / 2 - 190, -480, 180, 1, 2, "./enemies.png"),
-        new Enemy(width / 2 - 220, -480, 180, 1, 3, "./enemies.png"),
-        new Enemy(width / 2 - 250, -480, 180, 1, 4, "./enemies.png"),
-        new Enemy(width / 2 - 280, -480, 180, 1, 5, "./enemies.png")
+        //new Enemy(width / 2 - 190, -480, 180, 1, 2, "./enemies.png"),
+        new Enemy(width / 2 - 220, -480, 180, 1, 3, "./enemies.png")
+        //new Enemy(width / 2 - 250, -480, 180, 1, 4, "./enemies.png"),
+        //new Enemy(width / 2 - 280, -480, 180, 1, 5, "./enemies.png")
 
         //new Enemy(width / 2 + 100, -480, 0, 0, "./enemies.png"),
         //new Enemy(width / 2 + 130, -480, 0, 0, "./enemies.png"),
