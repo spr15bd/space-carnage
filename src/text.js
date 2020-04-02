@@ -30,9 +30,13 @@ export default class Text {
       this.height,
       1
     );
-    this.textSound = new Sound("/sounds/textSound.m4a", 4, 0.15);
+    this.textSound = new Sound("/sounds/textSound.m4a", 1, 0.15);
     //this.textSound.play();
-    this.ticks = -80;
+    if (this.textLine === 0) {
+      this.ticks = -180;
+    } else {
+      this.ticks = -50;
+    }
     this.completed = false;
   }
 
@@ -41,18 +45,9 @@ export default class Text {
     if (this.ticks === 7) {
       this.textSprite.sourceWidth = 5;
       this.textSprite.width = 10;
-      //this.textSound.play();
     } else if (this.ticks === 14) {
       this.textSprite.sourceWidth = 11;
       this.textSprite.width = 22;
-      //this.textSound.play();
-    } else if (this.ticks === 21) {
-      this.textSprite.sourceWidth = 17;
-      this.textSprite.width = 34;
-      //this.textSound.play();
-    } else if (this.ticks === 28) {
-      this.textSprite.sourceWidth = 22;
-      this.textSprite.width = 44;
       if (
         this.textLine === 0 ||
         this.textLine === 1 ||
@@ -61,6 +56,12 @@ export default class Text {
       ) {
         this.completed = true;
       }
+    } else if (this.ticks === 21) {
+      this.textSprite.sourceWidth = 17;
+      this.textSprite.width = 34;
+    } else if (this.ticks === 28) {
+      this.textSprite.sourceWidth = 22;
+      this.textSprite.width = 44;
     } else if (this.ticks === 35) {
       this.textSprite.sourceWidth = 26;
       this.textSprite.width = 52;

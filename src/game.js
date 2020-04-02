@@ -35,7 +35,7 @@ export default class Game {
     this.hiscore = document.getElementById("hiscore");
     this.titleText = new Title(
       this.screenWidth / 2 - 150,
-      40,
+      800,
       300,
       160,
       "./title.png"
@@ -136,6 +136,7 @@ export default class Game {
   start() {
     if (this.gameState === GAMESTATE.MENU) {
       this.initialiseGame();
+
       this.gameState = GAMESTATE.GAMEINPROGRESS;
     }
   }
@@ -178,21 +179,24 @@ export default class Game {
   }
 
   update(delta) {
-    this.text0.update(delta);
-    if (this.text0.completed) {
-      this.text1.update(delta);
-    }
-    if (this.text1.completed) {
-      this.text2.update(delta);
-    }
-    if (this.text2.completed) {
-      this.text3.update(delta);
-    }
-    if (this.text3.completed) {
-      this.text4.update(delta);
-    }
-    if (this.text4.completed) {
-      this.text5.update(delta);
+    if (this.gameState === GAMESTATE.MENU) {
+      if (this.titleText.position.y >= 40) this.titleText.position.y -= 5;
+      this.text0.update(delta);
+      if (this.text0.completed) {
+        this.text1.update(delta);
+      }
+      if (this.text1.completed) {
+        this.text2.update(delta);
+      }
+      if (this.text2.completed) {
+        this.text3.update(delta);
+      }
+      if (this.text3.completed) {
+        this.text4.update(delta);
+      }
+      if (this.text4.completed) {
+        this.text5.update(delta);
+      }
     }
 
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
@@ -839,12 +843,6 @@ export default class Game {
         } else if (enemy.movement === 1) {
           if (enemy.angle <= 610) {
             enemy.angle += 3;
-            enemy.moveTo(
-              this.player.position.x,
-              this.player.position.y,
-              delta,
-              delta
-            );
           } else {
             enemy.movement += 1;
           }
@@ -852,7 +850,6 @@ export default class Game {
           if (enemy.position.y > this.screenHeight - 100) {
             enemy.movement += 1;
           } else {
-            //enemy.movement = 0;
           }
         } else if (enemy.movement === 3) {
           if (enemy.angle > 0) {
@@ -876,6 +873,7 @@ export default class Game {
           enemy.position.x = this.screenWidth;
           enemy.position.y = this.screenHeight / 2;
           enemy.angle = 0;
+
           enemy.inPlay = false;
         } else if (
           enemy.inPlay &&
