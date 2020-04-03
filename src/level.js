@@ -361,6 +361,22 @@ export default class Level {
           10,
           0,
           "./enemies.png"
+        ),
+        new Enemy(
+          this.screenWidth - 70,
+          this.screenHeight / 2,
+          0,
+          10,
+          0,
+          "./enemies.png"
+        ),
+        new Enemy(
+          this.screenWidth - 110,
+          this.screenHeight / 2,
+          0,
+          10,
+          0,
+          "./enemies.png"
         )
       );
     }

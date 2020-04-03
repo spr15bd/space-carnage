@@ -702,11 +702,18 @@ export default class Game {
           }
         } else if (enemy.movement === 2) {
           enemy.moveTo(
+            this.player.position.x - enemy.start.x,
+            this.player.position.y,
+            delta,
+            delta * 3
+          );
+
+          /*enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 650,
             delta,
             delta / 2
-          );
+          );*/
 
           if (enemy.position.y > enemy.start.y + 600) {
             enemy.movement = 0;
