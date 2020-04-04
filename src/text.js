@@ -48,14 +48,6 @@ export default class Text {
     } else if (this.ticks === 14) {
       this.textSprite.sourceWidth = 11;
       this.textSprite.width = 22;
-      if (
-        this.textLine === 0 ||
-        this.textLine === 1 ||
-        this.textLine === 2 ||
-        this.textLine === 3
-      ) {
-        this.completed = true;
-      }
     } else if (this.ticks === 21) {
       this.textSprite.sourceWidth = 17;
       this.textSprite.width = 34;
@@ -65,7 +57,14 @@ export default class Text {
     } else if (this.ticks === 35) {
       this.textSprite.sourceWidth = 26;
       this.textSprite.width = 52;
-      //this.textSound.play();
+      if (
+        this.textLine === 0 ||
+        this.textLine === 1 ||
+        this.textLine === 2 ||
+        this.textLine === 3
+      ) {
+        this.completed = true;
+      }
     } else if (this.ticks === 42) {
       this.textSprite.sourceWidth = 33;
       this.textSprite.width = 66;
@@ -113,8 +112,8 @@ export default class Text {
       this.textSprite.sourceWidth = 99;
       this.textSprite.width = 198;
     } else if (this.ticks === 133) {
-      this.textSprite.sourceWidth = 101;
-      this.textSprite.width = 202;
+      this.textSprite.sourceWidth = 103;
+      this.textSprite.width = 206;
       this.completed = true;
     }
   }

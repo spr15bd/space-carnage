@@ -85,7 +85,7 @@ export default class Game {
     );
 
     this.text5 = new Text(
-      this.screenWidth / 2 - 105,
+      this.screenWidth / 2 - 103,
       442,
       10,
       24,
