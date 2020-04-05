@@ -892,6 +892,24 @@ export default class Game {
         ) {
           //enemy.rotate(1);
         }
+      } else if (enemy.enemyType === 11) {
+        if (enemy.movement === 0) {
+          enemy.position.x -= 4;
+          if (enemy.position.x < 0) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.angle -= 10;
+          if (enemy.angle <= -180) {
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.position.x += 4;
+          if (enemy.position.x > this.screenWidth) {
+            enemy.angle = 0;
+            enemy.movement = 0;
+          }
+        }
       }
 
       enemy.update(delta);

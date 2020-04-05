@@ -377,7 +377,8 @@ export default class Level {
           10,
           0,
           "./enemies.png"
-        )
+        ),
+        new Enemy(this.screenWidth + 10, 140, 0, 11, 0, "./enemies.png")
       );
     }
 
