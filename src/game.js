@@ -223,14 +223,30 @@ export default class Game {
     // update explosions
     this.checkForExplosions(delta);
 
+    // update bonus enemy caption
     if (this.bonusCaption != null) {
       this.bonusCaption.update(delta);
     }
+
+    // update bonus enemies if on screen
     if (!this.bonusTime && !this.levelComplete) {
-      if (Math.random() > 0.99) {
+      if (Math.random() > 0.9) {
         this.bonusTime = true;
-        this.level.getBonusEnemy();
-        //console.log("getting bonus enemy");
+        this.level.getBonusEnemy(
+          11,
+          this.screenWidth + 100,
+          this.screenHeight / 2
+        );
+        this.level.getBonusEnemy(
+          11,
+          this.screenWidth + 50,
+          50 + this.screenHeight / 2
+        );
+        this.level.getBonusEnemy(
+          11,
+          this.screenWidth + 100,
+          100 + this.screenHeight / 2
+        );
       }
     }
 
@@ -893,6 +909,12 @@ export default class Game {
           //enemy.rotate(1);
         }
       } else if (enemy.enemyType === 11) {
+        if (
+          Math.random() > 0.85 &&
+          Math.abs(enemy.position.x - this.player.position.x) < 50
+        ) {
+          this.shootBullet(enemy);
+        }
         if (enemy.movement === 0) {
           enemy.position.x -= 4;
           if (enemy.position.x < 0) {
@@ -970,7 +992,9 @@ export default class Game {
             //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
             this.enemyExplosion.play();
             //}
-            if (enemy.enemyType === 9) {
+
+            // display a bonus score when a bonus alien is destroyed
+            if (enemy.enemyType === 9 || enemy.enemyType === 11) {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,

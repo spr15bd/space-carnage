@@ -1,7 +1,7 @@
 import Sprite from "./sprite.js";
 
 export default class Enemy {
-  constructor(xPos, yPos, angle, enemyType, enemyNumber, imageSrc) {
+  constructor(xPos, yPos, angle, enemyType, isPaused, imageSrc) {
     // declare enemy properties
     this.enemyType = enemyType;
     this.width = 32;
@@ -28,10 +28,8 @@ export default class Enemy {
       x: xPos,
       y: yPos
     };
-    if (enemyNumber != null) {
-      this.enemyNumber = enemyNumber;
-    }
-    this.paused = true;
+
+    this.paused = isPaused;
     this.maxTurn = 180;
     this.image = new Image();
     this.image.src = imageSrc;
@@ -58,7 +56,7 @@ export default class Enemy {
       this.sourceY = 196;
     } else if (this.enemyType === 9) {
       this.sourceY = 264;
-      this.paused = false; //bonus enemy will appear mid-level - as enemies are unpaused during game initialisation, this one won't be so must be unpaused on creation here
+      //this.paused = false; //bonus enemy will appear mid-level - as enemies are unpaused during game initialisation, this one won't be so must be unpaused on creation here
       this.width = 28;
       this.height = 28;
     } else if (this.enemyType === 10) {
