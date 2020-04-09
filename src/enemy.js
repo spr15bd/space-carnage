@@ -82,7 +82,7 @@ export default class Enemy {
       this.repeatAnimation,
       this.angle
     );
-
+    this.plays = 0;
     this.movement = 0;
     this.bounced = 0;
     this.swoop = false;

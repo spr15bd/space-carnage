@@ -16,6 +16,7 @@ const GAMESTATE = {
 
 export default class Game {
   constructor(screenWidth, screenHeight) {
+    this.music = new Audio("/sounds/spacecarnage.m4a");
     this.backgroundImage = new Image();
     this.backgroundImage.src = "/starbackground.png";
     this.screenWidth = screenWidth;
@@ -24,8 +25,10 @@ export default class Game {
     this.enemyExplosion = new Sound("/sounds//enemyExplosion.m4a", 3, 0.25);
     this.playerExplosion = new Sound("/sounds//explosion.m4a", 3, 0.15);
     this.mothershipExplosion = new Sound("/sounds/randomize79.m4a", 3, 0.15);
+
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
+
     this.screen = -1;
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.bulletPool = []; // array for enemy and player bullets
@@ -94,6 +97,7 @@ export default class Game {
     );
     this.enemies = [];
     this.blocks = [];
+    this.music.play();
   }
 
   initialiseGame() {
@@ -931,6 +935,13 @@ export default class Game {
           enemy.position.x += 4;
           if (enemy.position.x > this.screenWidth) {
             enemy.angle = 0;
+            enemy.plays += 1;
+            console.log(enemy.plays);
+            // remove bonus enemy after a set number of 'plays'
+            if (enemy.plays > 1) {
+              this.enemies.splice(i, 1);
+              this.checkWhetherEnemiesRemaining();
+            }
             enemy.movement = 0;
           }
         }
