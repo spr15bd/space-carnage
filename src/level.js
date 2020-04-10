@@ -455,9 +455,10 @@ export default class Level {
     return this.enemies;
   }
 
-  getBonusEnemy(enemyType, x, y) {
-    //this.enemies.push(new Enemy(-50, 50, 270, enemyType, false, "./enemies.png"));
-    this.enemies.push(new Enemy(x, y, 0, enemyType, false, "./enemies.png"));
+  getBonusEnemy(enemyType, x, y, angle) {
+    this.enemies.push(
+      new Enemy(x, y, angle, enemyType, false, "./enemies.png")
+    );
   }
 
   getStartTime() {

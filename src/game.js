@@ -16,7 +16,6 @@ const GAMESTATE = {
 
 export default class Game {
   constructor(screenWidth, screenHeight) {
-    this.music = new Audio("/sounds/spacecarnage.m4a");
     this.backgroundImage = new Image();
     this.backgroundImage.src = "/starbackground.png";
     this.screenWidth = screenWidth;
@@ -97,7 +96,7 @@ export default class Game {
     );
     this.enemies = [];
     this.blocks = [];
-    this.music.play();
+    //this.music.play();
   }
 
   initialiseGame() {
@@ -134,7 +133,7 @@ export default class Game {
     // set bullets to zero here so that any previous level bullets don't
     // interfere with new level
     this.level.startEnemyWaveCycle1 = Date.now();
-    this.bonusTime = false; // when true a bonus alien may momentarily appear at the top of the screen
+    this.bonusTime = false; // when true a bonus alien may momentarily appear
   }
 
   start() {
@@ -234,22 +233,28 @@ export default class Game {
 
     // update bonus enemies if on screen
     if (!this.bonusTime && !this.levelComplete) {
-      if (Math.random() > 0.9) {
+      if (Math.random() > 0.95) {
+        this.bonusTime = true;
+        this.level.getBonusEnemy(9, -30, 50, 270);
+      } else if (Math.random() > 0.9) {
         this.bonusTime = true;
         this.level.getBonusEnemy(
           11,
           this.screenWidth + 100,
-          this.screenHeight / 2
+          this.screenHeight / 2,
+          0
         );
         this.level.getBonusEnemy(
           11,
           this.screenWidth + 50,
-          50 + this.screenHeight / 2
+          50 + this.screenHeight / 2,
+          0
         );
         this.level.getBonusEnemy(
           11,
           this.screenWidth + 100,
-          100 + this.screenHeight / 2
+          100 + this.screenHeight / 2,
+          0
         );
       }
     }

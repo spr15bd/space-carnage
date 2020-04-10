@@ -1,5 +1,4 @@
 import Sprite from "./sprite.js";
-import Sound from "./sound";
 export default class Text {
   constructor(xPos, yPos, width, height, textLine, imageSrc) {
     this.sourceWidth = 0;
@@ -30,8 +29,7 @@ export default class Text {
       this.height,
       1
     );
-    this.textSound = new Sound("/sounds/textSound.m4a", 1, 0.15);
-    //this.textSound.play();
+
     if (this.textLine === 0) {
       this.ticks = -180;
     } else {
