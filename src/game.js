@@ -853,6 +853,8 @@ export default class Game {
 
         if (enemy.position.x > this.screenWidth) {
           this.enemies.splice(i, 1);
+          this.level.bonusEnemyCount--;
+          if (this.level.bonusEnemyCount <= 0) this.bonusTime = false;
           this.checkWhetherEnemiesRemaining();
         }
       } else if (enemy.enemyType === 10) {
@@ -945,6 +947,8 @@ export default class Game {
             // remove bonus enemy after a set number of 'plays'
             if (enemy.plays > 1) {
               this.enemies.splice(i, 1);
+              this.level.bonusEnemyCount--;
+              if (this.level.bonusEnemyCount <= 0) this.bonusTime = false;
               this.checkWhetherEnemiesRemaining();
             }
             enemy.movement = 0;
@@ -1016,6 +1020,9 @@ export default class Game {
                 enemy.position.y,
                 "./bonus.png"
               );
+              // check for bonus enemies still on screen, if none another bonus enemy may appear
+              this.level.bonusEnemyCount--;
+              if (this.level.bonusEnemyCount <= 0) this.bonusTime = false;
             }
             if (j < this.enemyAttacking) {
               this.enemyAttacking -= 1;

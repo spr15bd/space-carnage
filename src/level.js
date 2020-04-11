@@ -8,7 +8,7 @@ export default class Level {
     this.enemies = [];
     this.blocks = [];
     this.stages = 0; // stages per level
-
+    this.bonusEnemyCount = 0;
     if (level === 0) {
       this.stages = 2;
       this.enemies.push(
@@ -459,6 +459,7 @@ export default class Level {
     this.enemies.push(
       new Enemy(x, y, angle, enemyType, false, "./enemies.png")
     );
+    this.bonusEnemyCount++;
   }
 
   getStartTime() {
