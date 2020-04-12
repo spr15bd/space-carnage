@@ -100,7 +100,7 @@ export default class Game {
   }
 
   initialiseGame() {
-    this.bonusCaption = null;
+    this.bonusCaption = new Bonus(-100, -100, "/bonus25.png");
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
@@ -112,7 +112,7 @@ export default class Game {
     this.delayOver = true; // set to true whenever a delay is over
     this.enemyCharging = false;
     this.explosions = [];
-    this.explosion = null;
+    this.explosion = new Explosion(-100, -100, "/explosion.png");
     this.exitAngle = 0;
     this.exitPos = {
       x: 0,
@@ -233,29 +233,14 @@ export default class Game {
 
     // update bonus enemies if on screen
     if (!this.bonusTime && !this.levelComplete) {
-      if (Math.random() > 0.95) {
+      if (Math.random() > 0.9995) {
         this.bonusTime = true;
         this.level.getBonusEnemy(9, -30, 50, 270);
-      } else if (Math.random() > 0.9) {
+      } else if (Math.random() > 0.999) {
         this.bonusTime = true;
-        this.level.getBonusEnemy(
-          11,
-          this.screenWidth + 100,
-          this.screenHeight / 2,
-          0
-        );
-        this.level.getBonusEnemy(
-          11,
-          this.screenWidth + 50,
-          50 + this.screenHeight / 2,
-          0
-        );
-        this.level.getBonusEnemy(
-          11,
-          this.screenWidth + 100,
-          100 + this.screenHeight / 2,
-          0
-        );
+        this.level.getBonusEnemy(11, this.screenWidth + 90, 130, 0);
+        this.level.getBonusEnemy(11, this.screenWidth + 50, 170, 0);
+        this.level.getBonusEnemy(11, this.screenWidth + 90, 210, 0);
       }
     }
 
@@ -922,12 +907,12 @@ export default class Game {
       } else if (enemy.enemyType === 11) {
         if (
           Math.random() > 0.85 &&
-          Math.abs(enemy.position.x - this.player.position.x) < 50
+          Math.abs(enemy.position.x - this.player.position.x) < 40
         ) {
           this.shootBullet(enemy);
         }
         if (enemy.movement === 0) {
-          enemy.position.x -= 4;
+          enemy.position.x -= 6;
           if (enemy.position.x < 0) {
             enemy.angle -= 10;
           }
@@ -939,7 +924,7 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.position.x += 4;
+          enemy.position.x += 6;
           if (enemy.position.x > this.screenWidth) {
             enemy.angle = 0;
             enemy.plays += 1;
@@ -1014,11 +999,20 @@ export default class Game {
             //}
 
             // display a bonus score when a bonus alien is destroyed
-            if (enemy.enemyType === 9 || enemy.enemyType === 11) {
+            if (enemy.enemyType === 9) {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
-                "./bonus.png"
+                "./bonus50.png"
+              );
+              // check for bonus enemies still on screen, if none another bonus enemy may appear
+              this.level.bonusEnemyCount--;
+              if (this.level.bonusEnemyCount <= 0) this.bonusTime = false;
+            } else if (enemy.enemyType === 11) {
+              this.bonusCaption = new Bonus(
+                enemy.position.x,
+                enemy.position.y,
+                "./bonus25.png"
               );
               // check for bonus enemies still on screen, if none another bonus enemy may appear
               this.level.bonusEnemyCount--;

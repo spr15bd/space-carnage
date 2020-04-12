@@ -69,6 +69,10 @@ export default class Player {
         break;
       case 9:
         this.score += 50;
+        break;
+      case 11:
+        this.score += 25;
+        break;
       default:
         this.score += 4;
     }
