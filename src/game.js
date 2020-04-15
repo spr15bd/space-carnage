@@ -238,9 +238,9 @@ export default class Game {
         this.level.getBonusEnemy(9, -30, 50, 270);
       } else if (Math.random() > 0.999) {
         this.bonusTime = true;
-        this.level.getBonusEnemy(11, this.screenWidth + 90, 130, 0);
-        this.level.getBonusEnemy(11, this.screenWidth + 50, 170, 0);
-        this.level.getBonusEnemy(11, this.screenWidth + 90, 210, 0);
+        this.level.getBonusEnemy(11, this.screenWidth + 90, 80, 0);
+        this.level.getBonusEnemy(11, this.screenWidth + 50, 120, 0);
+        this.level.getBonusEnemy(11, this.screenWidth + 90, 160, 0);
       }
     }
 
