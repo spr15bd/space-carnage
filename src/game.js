@@ -395,7 +395,7 @@ export default class Game {
             (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
             (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
-            400000
+            700000
         ) {
           enemy.position.x = this.screenWidth;
           enemy.position.y = this.screenHeight / 2;

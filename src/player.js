@@ -3,7 +3,7 @@ export default class Player {
   constructor(screenWidth, screenHeight, game) {
     // declare player properties
     this.width = 24;
-    this.height = 30;
+    this.height = 28;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.game = game;
