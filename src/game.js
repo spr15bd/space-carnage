@@ -409,7 +409,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(-2);
+          enemy.rotate(-3);
         }
       } else if (enemy.enemyType === 1) {
         enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
@@ -437,7 +437,21 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(1.5);
+          if (
+            Math.abs(
+              enemy.angle -
+                180 -
+                ((-180 *
+                  (Math.atan2(
+                    this.player.position.y - enemy.position.y,
+                    enemy.position.x - this.player.position.x
+                  ) /
+                    Math.PI)) %
+                  360)
+            ) > 5
+          ) {
+            enemy.rotate(-2);
+          }
         }
       } else if (enemy.enemyType === 2) {
         if (enemy.movement === 0) {
@@ -928,7 +942,7 @@ export default class Game {
           if (enemy.position.x > this.screenWidth) {
             enemy.angle = 0;
             enemy.plays += 1;
-            console.log(enemy.plays);
+            //console.log(enemy.plays);
             // remove bonus enemy after a set number of 'plays'
             if (enemy.plays > 1) {
               this.enemies.splice(i, 1);
