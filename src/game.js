@@ -96,7 +96,14 @@ export default class Game {
     );
     this.enemies = [];
     this.blocks = [];
-    //this.music.play();
+    this.gameOverText = new Text(
+      this.screenWidth / 2 - 57,
+      230,
+      10,
+      24,
+      6,
+      "/captions.png"
+    );
   }
 
   initialiseGame() {
@@ -200,6 +207,8 @@ export default class Game {
       if (this.text4.completed) {
         this.text5.update(delta);
       }
+    } else if (this.gameState === GAMESTATE.GAMEOVER) {
+      this.gameOverText.update(delta);
     }
 
     if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
@@ -350,13 +359,22 @@ export default class Game {
       });
     } else if (this.gameState === GAMESTATE.GAMEOVER) {
       this.drawBackground(ctx);
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#e61ce1";
-      ctx.font = "24px dejavu sans mono";
-      ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
+      this.gameOverText.draw(ctx);
+      //ctx.textAlign = "center";
+      //ctx.fillStyle = "#e61ce1";
+      //ctx.font = "24px dejavu sans mono";
+      //ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
       // wait 3 seconds then load up the menu screen
-      this.delay(3000, () => {
+      this.delay(4000, () => {
         this.gameState = GAMESTATE.MENU;
+        this.gameOverText = new Text(
+          this.screenWidth / 2 - 52,
+          230,
+          10,
+          24,
+          6,
+          "/captions.png"
+        );
       });
     }
   }
@@ -409,7 +427,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(-3);
+          enemy.rotate(7);
         }
       } else if (enemy.enemyType === 1) {
         enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
@@ -450,7 +468,7 @@ export default class Game {
                   360)
             ) > 5
           ) {
-            enemy.rotate(-2);
+            enemy.rotate(-7);
           }
         }
       } else if (enemy.enemyType === 2) {

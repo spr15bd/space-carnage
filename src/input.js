@@ -1,3 +1,8 @@
+const GAMESTATE = {
+  MENU: 0,
+  GAMEINPROGRESS: 1,
+  GAMEOVER: 2
+};
 export default class Input {
   constructor(player, game) {
     document.addEventListener("keydown", event => {
@@ -16,7 +21,10 @@ export default class Input {
           game.shootBullet(player);
           break;
         case 32:
-          game.start();
+          if (game.gameState === GAMESTATE.MENU) game.start();
+          else if (game.gameState === GAMESTATE.GAMEOVER)
+            game.gameState = GAMESTATE.MENU;
+          game.state = game.GAMESTATE.GAMEOVER;
           break;
       }
     });
