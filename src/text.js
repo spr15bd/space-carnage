@@ -33,7 +33,7 @@ export default class Text {
     if (this.textLine === 0) {
       this.ticks = -180;
     } else {
-      this.ticks = -50;
+      this.ticks = -30;
     }
     this.completed = false;
   }

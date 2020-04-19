@@ -35,78 +35,23 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-    this.titleText = new Title(
-      this.screenWidth / 2 - 150,
-      800,
-      300,
-      160,
-      "./title.png"
-    );
-    this.text0 = new Text(
-      this.screenWidth / 2 - 47,
-      230,
-      10,
-      24,
-      0,
-      "/captions.png"
-    );
 
-    this.text1 = new Text(
-      this.screenWidth / 2 - 47,
-      300,
-      10,
-      24,
-      1,
-      "/captions.png"
-    );
-
-    this.text2 = new Text(
-      this.screenWidth / 2 - 47,
-      324,
-      10,
-      24,
-      2,
-      "/captions.png"
-    );
-    this.text3 = new Text(
-      this.screenWidth / 2 - 47,
-      348,
-      10,
-      24,
-      3,
-      "/captions.png"
-    );
-
-    this.text4 = new Text(
-      this.screenWidth / 2 - 102,
-      372,
-      10,
-      24,
-      4,
-      "/captions.png"
-    );
-
-    this.text5 = new Text(
-      this.screenWidth / 2 - 103,
-      442,
-      10,
-      24,
-      5,
-      "/captions.png"
-    );
     this.enemies = [];
     this.blocks = [];
+
+    this.initialiseMenuText();
+  }
+
+  initialiseGame() {
+    this.initialiseMenuText();
     this.gameOverText = new Text(
-      this.screenWidth / 2 - 57,
+      this.screenWidth / 2 - 52,
       230,
       10,
       24,
       6,
       "/captions.png"
     );
-  }
-
-  initialiseGame() {
     this.bonusCaption = new Bonus(-100, -100, "/bonus25.png");
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
@@ -360,21 +305,9 @@ export default class Game {
     } else if (this.gameState === GAMESTATE.GAMEOVER) {
       this.drawBackground(ctx);
       this.gameOverText.draw(ctx);
-      //ctx.textAlign = "center";
-      //ctx.fillStyle = "#e61ce1";
-      //ctx.font = "24px dejavu sans mono";
-      //ctx.fillText("Game Over", this.screenWidth / 2, this.screenHeight / 2);
-      // wait 3 seconds then load up the menu screen
+      // wait 4 seconds then load up the menu screen
       this.delay(4000, () => {
         this.gameState = GAMESTATE.MENU;
-        this.gameOverText = new Text(
-          this.screenWidth / 2 - 52,
-          230,
-          10,
-          24,
-          6,
-          "/captions.png"
-        );
       });
     }
   }
@@ -1132,7 +1065,7 @@ export default class Game {
         }
         this.player.reset();
         this.gameOver();
-      }, 2000);
+      }, 3500);
     } else {
       // lose a life routine
       setTimeout(() => {
@@ -1147,7 +1080,6 @@ export default class Game {
     }
   }
   checkWhetherEnemiesRemaining() {
-    console.log(this.enemies.length);
     if (this.enemies.length <= 0) {
       this.currentStage += 1;
       if (this.currentStage >= this.level.stages) {
@@ -1160,5 +1092,65 @@ export default class Game {
         this.enemies.forEach(enemy => (enemy.paused = false));
       }
     }
+  }
+  initialiseMenuText() {
+    this.titleText = new Title(
+      this.screenWidth / 2 - 150,
+      800,
+      300,
+      160,
+      "./title.png"
+    );
+    this.text0 = new Text(
+      this.screenWidth / 2 - 47,
+      230,
+      10,
+      24,
+      0,
+      "/captions.png"
+    );
+    this.text1 = new Text(
+      this.screenWidth / 2 - 47,
+      300,
+      10,
+      24,
+      1,
+      "/captions.png"
+    );
+
+    this.text2 = new Text(
+      this.screenWidth / 2 - 47,
+      324,
+      10,
+      24,
+      2,
+      "/captions.png"
+    );
+    this.text3 = new Text(
+      this.screenWidth / 2 - 47,
+      348,
+      10,
+      24,
+      3,
+      "/captions.png"
+    );
+
+    this.text4 = new Text(
+      this.screenWidth / 2 - 102,
+      372,
+      10,
+      24,
+      4,
+      "/captions.png"
+    );
+
+    this.text5 = new Text(
+      this.screenWidth / 2 - 103,
+      442,
+      10,
+      24,
+      5,
+      "/captions.png"
+    );
   }
 }

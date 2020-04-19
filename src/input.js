@@ -24,7 +24,7 @@ export default class Input {
           if (game.gameState === GAMESTATE.MENU) game.start();
           else if (game.gameState === GAMESTATE.GAMEOVER)
             game.gameState = GAMESTATE.MENU;
-          game.state = game.GAMESTATE.GAMEOVER;
+
           break;
       }
     });
