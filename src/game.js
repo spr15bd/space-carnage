@@ -40,6 +40,8 @@ export default class Game {
     this.blocks = [];
 
     this.initialiseMenuText();
+
+    //this.backgroundImage.yPos = 600;
   }
 
   initialiseGame() {
@@ -98,8 +100,8 @@ export default class Game {
 
   gameOver() {
     this.screen = -1;
-    this.bulletPool = null;
-    this.explosions = [];
+    //this.bulletPool = null;
+    //this.explosions = [];
     this.gameState = GAMESTATE.GAMEOVER;
   }
 
@@ -156,9 +158,9 @@ export default class Game {
       this.gameOverText.update(delta);
     }
 
-    if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
-      return;
-    }
+    //if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
+    //  return;
+    //}
 
     // update player
     if (this.player != null) this.player.update(delta);
@@ -178,34 +180,37 @@ export default class Game {
     // update collisions
     this.checkForCollisions(delta);
     // update explosions
-    this.checkForExplosions(delta);
+    if (this.gameState !== GAMESTATE.MENU) {
+      this.checkForExplosions(delta);
 
-    // update bonus enemy caption
-    if (this.bonusCaption != null) {
-      this.bonusCaption.update(delta);
-    }
-
-    // update bonus enemies if on screen
-    if (!this.bonusTime && !this.levelComplete) {
-      if (Math.random() > 0.9995) {
-        this.bonusTime = true;
-        this.level.getBonusEnemy(9, -30, 50, 270);
-      } else if (Math.random() > 0.999) {
-        this.bonusTime = true;
-        this.level.getBonusEnemy(11, this.screenWidth + 90, 80, 0);
-        this.level.getBonusEnemy(11, this.screenWidth + 50, 120, 0);
-        this.level.getBonusEnemy(11, this.screenWidth + 90, 160, 0);
+      // update bonus enemy caption
+      if (this.bonusCaption != null) {
+        this.bonusCaption.update(delta);
       }
-    }
 
-    // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
-    if (this.levelComplete) {
-      if (this.delayOver) {
-        this.thrust();
-      } else {
-        this.delay(2000, () => {
-          this.delayOver = true;
-        });
+      // update bonus enemies if on screen
+      if (!this.bonusTime && !this.levelComplete) {
+        if (Math.random() > 0.9995) {
+          this.bonusTime = true;
+          this.level.getBonusEnemy(9, -30, 50, 270);
+        } else if (Math.random() > 0.999) {
+          this.bonusTime = true;
+          this.level.getBonusEnemy(11, this.screenWidth + 90, 80, 0);
+          this.level.getBonusEnemy(11, this.screenWidth + 50, 120, 0);
+          this.level.getBonusEnemy(11, this.screenWidth + 90, 160, 0);
+        }
+      }
+      //}
+
+      // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
+      if (this.levelComplete) {
+        if (this.delayOver) {
+          this.thrust();
+        } else {
+          this.delay(2000, () => {
+            this.delayOver = true;
+          });
+        }
       }
     }
   }
@@ -242,13 +247,16 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
+      //this.drawBackground(ctx);
+      /*
       ctx.rect(0, 0, this.screenWidth, this.screenHeight);
 
       ctx.fillStyle = "black";
       ctx.fill();
       ctx.textAlign = "center";
       ctx.fillStyle = "#e61ce1";
-      ctx.font = "18px consolas sans mono";
+      */
+      //ctx.font = "18px consolas sans mono";
       /*
       ctx.fillText(
         "Controls",
@@ -256,13 +264,13 @@ export default class Game {
         this.screenHeight / 2 - 40
       );
       */
-      ctx.fillStyle = "#a21ce6";
+      //ctx.fillStyle = "#a21ce6";
       /*ctx.fillText(
         "Use keyboard arrows to move left and right, and <ctrl> to fire.",
         this.screenWidth / 2,
         this.screenHeight / 2 + 20
       );*/
-      ctx.fillStyle = "#741ce6";
+      //ctx.fillStyle = "#741ce6";
       /*ctx.fillText(
         "Press <space> to start. Good luck an' go ahead!",
         this.screenWidth / 2,
@@ -277,7 +285,7 @@ export default class Game {
 
       this.text5.draw(ctx);
       document.getElementById("game-screen").focus();
-    } else if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+    } else {
       this.stats.style.display = "flex";
       this.drawBackground(ctx);
       this.player.draw(ctx);
@@ -296,14 +304,18 @@ export default class Game {
           bullet.draw(ctx);
         });
       }
-      this.lives.innerHTML = this.player.lives;
-      this.score.innerHTML = this.player.score;
-      this.hiscore.innerHTML = this.player.hiscore;
+
       this.explosions.forEach(explosion => {
         explosion.draw(ctx);
       });
-    } else if (this.gameState === GAMESTATE.GAMEOVER) {
-      this.drawBackground(ctx);
+    }
+    if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
+      this.lives.innerHTML = this.player.lives;
+      this.score.innerHTML = this.player.score;
+      this.hiscore.innerHTML = this.player.hiscore;
+    }
+    if (this.gameState === GAMESTATE.GAMEOVER) {
+      //this.drawBackground(ctx);
       this.gameOverText.draw(ctx);
       // wait 4 seconds then load up the menu screen
       this.delay(4000, () => {
@@ -360,7 +372,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(7);
+          enemy.rotate(5);
         }
       } else if (enemy.enemyType === 1) {
         enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
@@ -388,6 +400,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
+          // when enemy goes off screen rotate it until it faces the bottom-centre of screen
           if (
             Math.abs(
               enemy.angle -
@@ -395,13 +408,13 @@ export default class Game {
                 ((-180 *
                   (Math.atan2(
                     this.player.position.y - enemy.position.y,
-                    enemy.position.x - this.player.position.x
+                    enemy.position.x - 400
                   ) /
                     Math.PI)) %
                   360)
             ) > 5
           ) {
-            enemy.rotate(-7);
+            enemy.rotate(-11);
           }
         }
       } else if (enemy.enemyType === 2) {
@@ -799,8 +812,6 @@ export default class Game {
         }
       } else if (enemy.enemyType === 9) {
         enemy.position.x += 1;
-        //console.log("move");
-
         if (enemy.position.x > this.screenWidth) {
           this.enemies.splice(i, 1);
           this.level.bonusEnemyCount--;
@@ -912,7 +923,7 @@ export default class Game {
 
   checkForCollisions(delta) {
     // check for and handle any player, enemy or screen boundary collisions with bullets
-    if (this.bulletPool.length > 0) {
+    if (this.bulletPool != null && this.bulletPool.length > 0) {
       this.bulletPool.forEach((bullet, i) => {
         bullet.update(delta);
         if (

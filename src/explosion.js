@@ -45,7 +45,7 @@ export default class Explosion {
       this.position.y + this.height / 2
     );
 
-    ctx.rotate((this.angle * Math.PI) / 180);
+    //ctx.rotate((this.angle * Math.PI) / 180);
     this.explosionSprite.draw(ctx);
 
     ctx.restore();

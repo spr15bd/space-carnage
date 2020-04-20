@@ -54,7 +54,7 @@ export default class Block {
       this.position.y + this.height / 2
     );
 
-    ctx.rotate((this.angle * Math.PI) / 180);
+    //ctx.rotate((this.angle * Math.PI) / 180);
     this.blockSprite.draw(ctx);
 
     ctx.restore();

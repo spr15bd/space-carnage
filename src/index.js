@@ -14,7 +14,7 @@ let progress; // time in milliSeconds between each loop iteration
 function gameLoop(timestamp) {
   progress = timestamp - lastRender;
 
-  ctx.fillStyle = "black";
+  //ctx.fillStyle = "black";
   ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
   game.update(progress);

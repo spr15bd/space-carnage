@@ -41,7 +41,7 @@ export default class Bonus {
       this.position.y + this.height / 2
     );
 
-    ctx.rotate((this.angle * Math.PI) / 180);
+    //ctx.rotate((this.angle * Math.PI) / 180);
     this.bonusSprite.draw(ctx);
 
     ctx.restore();

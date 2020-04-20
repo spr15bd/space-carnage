@@ -49,7 +49,7 @@ export default class Bullet {
       this.position.y + this.height / 2
     );
 
-    ctx.rotate((this.angle * Math.PI) / 180);
+    //ctx.rotate((this.angle * Math.PI) / 180);
     this.bulletSprite.draw(ctx);
 
     ctx.restore();
