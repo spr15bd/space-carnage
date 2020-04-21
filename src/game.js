@@ -192,7 +192,7 @@ export default class Game {
       if (!this.bonusTime && !this.levelComplete) {
         if (Math.random() > 0.9995) {
           this.bonusTime = true;
-          this.level.getBonusEnemy(9, -30, 50, 270);
+          this.level.getBonusEnemy(9, -30, 20, 270);
         } else if (Math.random() > 0.999) {
           this.bonusTime = true;
           this.level.getBonusEnemy(11, this.screenWidth + 90, 80, 0);
@@ -284,6 +284,8 @@ export default class Game {
       this.text4.draw(ctx);
 
       this.text5.draw(ctx);
+      //this.enemies.forEach(enemy=>enemy.draw(ctx));
+
       document.getElementById("game-screen").focus();
     } else {
       this.stats.style.display = "flex";
@@ -904,7 +906,6 @@ export default class Game {
           if (enemy.position.x > this.screenWidth) {
             enemy.angle = 0;
             enemy.plays += 1;
-            //console.log(enemy.plays);
             // remove bonus enemy after a set number of 'plays'
             if (enemy.plays > 1) {
               this.enemies.splice(i, 1);
