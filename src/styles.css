@@ -1,6 +1,8 @@
 html,
 body {
-  font-family: dejavu sans mono;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 24px;
 }
 
 canvas {
@@ -20,7 +22,7 @@ canvas {
   height: 25px;
   background-color: rgb(0, 0, 0);
   font-weight: normal;
-  font-size: 20px;
+  font-size: 24px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -44,7 +46,7 @@ div {
 }
 #score {
   width: 28%;
-  color: red;
+  color: #ff0000;
   float: left;
 }
 .score {
