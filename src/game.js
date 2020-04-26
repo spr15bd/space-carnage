@@ -916,6 +916,8 @@ export default class Game {
             enemy.movement = 0;
           }
         }
+      } else if (enemy.enemyType === 12) {
+        enemy.moveTo(600,600, delta, delta);
       }
 
       enemy.update(delta);

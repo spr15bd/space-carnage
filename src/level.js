@@ -9,7 +9,7 @@ export default class Level {
     this.blocks = [];
     this.stages = 0; // stages per level
     this.bonusEnemyCount = 0;
-    if (level === 0) {
+    if (level === 3) {
       this.stages = 2;
       this.enemies.push(
         new Enemy(width / 2 - 130, -480, 180, 1, true, "./enemies.png"),
@@ -85,7 +85,8 @@ export default class Level {
         new Enemy(width - 220, -300, 180, 0, true, "./enemies.png"),
         new Enemy(width - 250, -300, 180, 0, true, "./enemies.png")
       );
-    } else if (level === 4) {
+    } else if (level === 0) {
+      this.enemies.push(new Enemy(400, -400, 270, 12, true, "./enemies.png"));
     } else {
       this.blocks.push(
         new Block(204, -372, 384, 64, 9, "./block.png"),
