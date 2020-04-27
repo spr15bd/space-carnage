@@ -917,7 +917,57 @@ export default class Game {
           }
         }
       } else if (enemy.enemyType === 12) {
-        enemy.moveTo(600,600, delta, delta);
+        if (enemy.movement === 0) {
+          enemy.angle += 1;
+          if (enemy.position.y > this.screenHeight) {
+            enemy.angle = 70;
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.angle += 0.5;
+          if (enemy.position.y < -50) {
+            enemy.angle = 220;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          if (enemy.position.y > this.screenHeight - 100) {
+            enemy.movement += 1;
+          } else {
+          }
+        } else if (enemy.movement === 3) {
+          if (enemy.angle > 0) {
+            enemy.angle -= 3;
+          } else {
+            enemy.movement = 0;
+          }
+        }
+        enemy.speed.x = -8 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = -8 * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
+        if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            400000
+        ) {
+          //enemy.position.x = this.screenWidth;
+          //enemy.position.y = this.screenHeight / 2;
+          //enemy.angle = 0;
+          //enemy.inPlay = false;
+        } else if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            10400
+        ) {
+          //enemy.rotate(1);
+        }
       }
 
       enemy.update(delta);
