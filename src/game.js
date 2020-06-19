@@ -926,22 +926,24 @@ export default class Game {
         } else if (enemy.movement === 1) {
           enemy.angle += 0.6;
           if (enemy.position.y < -50) {
-            enemy.angle = 220;
+            enemy.angle = 230;
 
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
           enemy.angle += 0.4;
           if (enemy.position.y > this.screenHeight + 80) {
-            enemy.angle = 50;
+            enemy.angle = 110;
 
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
-          if (enemy.angle > 0) {
-            enemy.angle -= 3;
+          if (enemy.position.y > -725) {
+            enemy.angle =90;
+            
           } else {
-            enemy.movement = 0;
+            enemy.movement=0;
+            enemy.angle=225;
           }
         }
         enemy.speed.x = -8 * Math.cos((enemy.angle * Math.PI) / 180);
