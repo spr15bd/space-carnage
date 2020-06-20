@@ -88,8 +88,11 @@ export default class Level {
     } else if (level === 0) {
       this.enemies.push(
         new Enemy(400, -700, 225, 12, true, "./enemies.png"),
-        new Enemy(375, -725, 225, 12, true, "./enemies.png"),
-        new Enemy(350, -750, 225, 12, true, "./enemies.png")
+        new Enemy(380, -725, 225, 12, true, "./enemies.png"),
+        new Enemy(360, -750, 225, 12, true, "./enemies.png"),
+        new Enemy(340, -700, 225, 12, true, "./enemies.png"),
+        new Enemy(320, -725, 225, 12, true, "./enemies.png"),
+        new Enemy(300, -750, 225, 12, true, "./enemies.png")
       );
     } else {
       this.blocks.push(

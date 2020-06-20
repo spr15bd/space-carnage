@@ -234,12 +234,13 @@ export default class Game {
         this.levelComplete = false;
         this.enemies.forEach(enemy => {
           enemy.paused = false;
+          enemy.start.y = enemy.position.y;
         });
 
         this.player.paused = false;
       });
 
-      // wait a couple of seconds, reset variables and start a new level...
+      // wait 0.3 seconds, reset variables and start a new level...
       // move the background image back above the screen ready for the end of the next level
       // (top and bottom half of the background image are the same so the change is unnoticeable)
     }
@@ -423,7 +424,7 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.moveTo(
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-            enemy.start.y + 600,
+            enemy.start.y,
             delta,
             delta
           );
@@ -538,14 +539,14 @@ export default class Game {
           } else {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-              enemy.start.y + 600,
+              enemy.start.y,
               delta,
               delta * 1.5
             );
             if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 5) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-                enemy.start.y + 600,
+                enemy.start.y,
                 delta,
                 delta * 20
               );
@@ -565,7 +566,7 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.moveTo(
             424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-            enemy.start.y + 600,
+            enemy.start.y,
             delta,
             delta
           );
@@ -578,7 +579,7 @@ export default class Game {
           }
         } else if (enemy.movement === 1) {
           enemy.position.y += 130 * (delta / 1000);
-          if (Math.abs(enemy.position.y - (600 + enemy.start.y)) > 150) {
+          if (Math.abs(enemy.position.y - enemy.start.y) > 150) {
             enemy.movement = 2;
           }
         } else if (enemy.movement === 2) {
@@ -597,11 +598,11 @@ export default class Game {
           enemy.angle = 270;
           enemy.moveTo(
             424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-            enemy.start.y + 600,
+            enemy.start.y,
             delta,
             delta * 2
           );
-          if (Math.abs(enemy.position.y - (enemy.start.y + 600)) < 5) {
+          if (Math.abs(enemy.position.y - enemy.start.y) < 5) {
             this.level.startEnemyWaveCycle1 = Date.now();
             enemy.movement = 0;
           }
@@ -670,11 +671,11 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 650,
+            enemy.start.y + 50,
             delta,
             delta / 2
           );
-          if (enemy.position.y > enemy.start.y + 575) {
+          if (enemy.position.y > enemy.start.y - 25) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
@@ -687,7 +688,7 @@ export default class Game {
             delta,
             delta / 2
           );
-          if (enemy.position.y < enemy.start.y + 150) {
+          if (enemy.position.y < enemy.start.y - 450) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
@@ -705,7 +706,7 @@ export default class Game {
             delta / 2
           );*/
 
-          if (enemy.position.y > enemy.start.y + 600) {
+          if (enemy.position.y > enemy.start.y) {
             enemy.movement = 0;
           }
         }
@@ -713,11 +714,11 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) / 2,
-            enemy.start.y + 600,
+            enemy.start.y,
             delta,
             delta / 2
           );
-          if (enemy.position.y > enemy.start.y + 575) {
+          if (enemy.position.y > enemy.start.y - 25) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
@@ -726,22 +727,22 @@ export default class Game {
           }
           enemy.moveTo(
             100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 100,
+            enemy.start.y - 500,
             delta,
             delta / 2
           );
-          if (enemy.position.y < enemy.start.y + 150) {
+          if (enemy.position.y < enemy.start.y - 450) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 750,
+            enemy.start.y + 150,
             delta,
             delta / 2
           );
 
-          if (enemy.position.y > enemy.start.y + 700) {
+          if (enemy.position.y > enemy.start.y + 100) {
             enemy.movement = 0;
           }
         }
@@ -749,7 +750,7 @@ export default class Game {
         if (enemy.movement === 0) {
           enemy.moveTo(
             350 + enemy.start.x,
-            enemy.start.y - 400 + 150,
+            enemy.start.y - 1000 + 150,
             delta * 1.5,
             delta
           );
@@ -759,7 +760,7 @@ export default class Game {
         } else if (enemy.movement === 1) {
           enemy.moveTo(
             enemy.start.x - 220,
-            enemy.start.y - 400 + 250,
+            enemy.start.y - 1000 + 250,
             delta * 1.5,
             delta
           );
@@ -769,7 +770,7 @@ export default class Game {
         } else if (enemy.movement === 2) {
           enemy.moveTo(
             350 + enemy.start.x,
-            enemy.start.y - 400 + 350,
+            enemy.start.y - 1000 + 350,
             delta * 1.5,
             delta
           );
@@ -779,7 +780,7 @@ export default class Game {
         } else if (enemy.movement === 3) {
           enemy.moveTo(
             enemy.start.x - 200,
-            enemy.start.y - 400 + 450,
+            enemy.start.y - 1000 + 450,
             delta * 1.5,
             delta
           );
@@ -789,7 +790,7 @@ export default class Game {
         } else if (enemy.movement === 4) {
           enemy.moveTo(
             300 + enemy.start.x,
-            enemy.start.y - 400 + 550,
+            enemy.start.y - 1000 + 550,
             delta * 1.5,
             delta
           );
@@ -799,7 +800,7 @@ export default class Game {
         } else if (enemy.movement === 5) {
           enemy.moveTo(
             enemy.start.x - 200,
-            enemy.start.y - 400 + 650,
+            enemy.start.y - 1000 + 650,
             delta * 1.5,
             delta
           );
@@ -918,36 +919,37 @@ export default class Game {
         }
       } else if (enemy.enemyType === 12) {
         if (enemy.movement === 0) {
-          enemy.angle += 0.65;
-          if (enemy.position.y > this.screenHeight + 180) {
+          enemy.angle += 0.45;
+          if (enemy.position.y > this.screenHeight) {
             enemy.angle = 70;
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.angle += 0.6;
+          enemy.angle += 0.2;
           if (enemy.position.y < -50) {
             enemy.angle = 230;
 
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.angle += 0.4;
+          enemy.angle += 0.2;
           if (enemy.position.y > this.screenHeight + 80) {
             enemy.angle = 110;
 
             enemy.movement += 1;
           }
         } else if (enemy.movement === 3) {
-          if (enemy.position.y > -725) {
-            enemy.angle =90;
-            
+          if (enemy.position.y > -40) {
+            enemy.angle = 80;
           } else {
-            enemy.movement=0;
-            enemy.angle=225;
+            enemy.movement = 0;
+            enemy.angle = 225;
+            enemy.position.x = enemy.start.x;
+            enemy.position.y = enemy.start.y;
           }
         }
         enemy.speed.x = -8 * Math.cos((enemy.angle * Math.PI) / 180);
-        enemy.speed.y = -8 * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
         enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
         if (
