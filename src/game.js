@@ -948,9 +948,66 @@ export default class Game {
             enemy.position.y = enemy.start.y;
           }
         }
-        enemy.speed.x = -8 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
-        enemy.position.x = Math.floor(enemy.position.x) + enemy.speed.x;
+        enemy.position.x = enemy.position.x + enemy.speed.x;
+        enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
+        if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            400000
+        ) {
+          //enemy.position.x = this.screenWidth;
+          //enemy.position.y = this.screenHeight / 2;
+          //enemy.angle = 0;
+          //enemy.inPlay = false;
+        } else if (
+          enemy.inPlay &&
+          (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) *
+            (enemy.position.x + enemy.width / 2 - this.screenWidth / 2) +
+            (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) *
+              (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
+            10400
+        ) {
+          //enemy.movement += 1;
+        }
+      } else if (enemy.enemyType === 13) {
+        if (enemy.movement === 0) {
+          enemy.angle -= 0.45;
+          if (enemy.position.y > this.screenHeight) {
+            enemy.angle = 110;
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 1) {
+          enemy.angle -= 0.2;
+          if (enemy.position.y < -50) {
+            enemy.angle = -50;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          enemy.angle -= 0.2;
+          if (enemy.position.y > this.screenHeight + 80) {
+            enemy.angle = 70;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 3) {
+          if (enemy.position.y > -40) {
+            enemy.angle = 120;
+          } else {
+            enemy.movement = 0;
+            enemy.angle = -45;
+            enemy.position.x = enemy.start.x;
+            enemy.position.y = 0;
+          }
+        }
+        enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
+        enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
+        enemy.position.x = enemy.position.x + enemy.speed.x;
         enemy.position.y = Math.floor(enemy.position.y) + enemy.speed.y;
         if (
           enemy.inPlay &&
