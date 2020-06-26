@@ -290,10 +290,10 @@ export default class Level {
         new Block(580, -300, 8, 8, 0, "./block.png")
       );
       this.enemies.push(
-        new Enemy(this.screenWidth / 2, -400, 90, 4, true, "./enemies.png"),
-        new Enemy(this.screenWidth / 2, -400, 0, 4, true, "./enemies.png"),
-        new Enemy(this.screenWidth / 2, -400, 180, 4, true, "./enemies.png"),
-        new Enemy(this.screenWidth / 2, -400, 270, 4, true, "./enemies.png"),
+        new Enemy(-24 + this.screenWidth / 2, -400, 90, 4, true, "./enemies.png"),
+        new Enemy(-24 + this.screenWidth / 2, -400, 0, 4, true, "./enemies.png"),
+        new Enemy(-24 + this.screenWidth / 2, -400, 180, 4, true, "./enemies.png"),
+        new Enemy(-24 + this.screenWidth / 2, -400, 270, 4, true, "./enemies.png"),
         new Enemy(
           -24 + this.screenWidth / 2,
           -352,
