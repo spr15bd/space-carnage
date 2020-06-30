@@ -48,7 +48,7 @@ export default class Game {
     this.initialiseMenuText();
     this.gameOverText = new Text(
       this.screenWidth / 2 - 52,
-      200,
+      180,
       10,
       24,
       6,
