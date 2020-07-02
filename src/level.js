@@ -79,8 +79,8 @@ export default class Level {
         new Enemy(180, -300, 270, 3, true, "./enemies.png"),
         new Enemy(240, -300, 270, 3, true, "./enemies.png"),
         new Enemy(300, -300, 270, 3, true, "./enemies.png"),
-        new Enemy(360, -200, 270, 3, true, "./enemies.png"),
-        new Enemy(420, -200, 270, 3, true, "./enemies.png"),
+        new Enemy(360, -300, 270, 3, true, "./enemies.png"),
+        new Enemy(420, -300, 270, 3, true, "./enemies.png"),
         new Enemy(480, -300, 270, 3, true, "./enemies.png"),
         new Enemy(540, -300, 270, 3, true, "./enemies.png"),
         new Enemy(600, -300, 270, 3, true, "./enemies.png")
@@ -290,10 +290,38 @@ export default class Level {
         new Block(580, -300, 8, 8, 0, "./block.png")
       );
       this.enemies.push(
-        new Enemy(-24 + this.screenWidth / 2, -400, 90, 4, true, "./enemies.png"),
-        new Enemy(-24 + this.screenWidth / 2, -400, 0, 4, true, "./enemies.png"),
-        new Enemy(-24 + this.screenWidth / 2, -400, 180, 4, true, "./enemies.png"),
-        new Enemy(-24 + this.screenWidth / 2, -400, 270, 4, true, "./enemies.png"),
+        new Enemy(
+          -24 + this.screenWidth / 2,
+          -400,
+          90,
+          4,
+          true,
+          "./enemies.png"
+        ),
+        new Enemy(
+          -24 + this.screenWidth / 2,
+          -400,
+          0,
+          4,
+          true,
+          "./enemies.png"
+        ),
+        new Enemy(
+          -24 + this.screenWidth / 2,
+          -400,
+          180,
+          4,
+          true,
+          "./enemies.png"
+        ),
+        new Enemy(
+          -24 + this.screenWidth / 2,
+          -400,
+          270,
+          4,
+          true,
+          "./enemies.png"
+        ),
         new Enemy(
           -24 + this.screenWidth / 2,
           -352,
