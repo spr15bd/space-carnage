@@ -77,7 +77,7 @@ export default class Level {
         new Enemy(480, -375, 270, 3, true, "./enemies.png"),
         new Enemy(540, -375, 270, 3, true, "./enemies.png"),
         new Enemy(600, -300, 270, 3, true, "./enemies.png"),
-        
+
         new Enemy(240, -300, 270, 3, true, "./enemies.png"),
         new Enemy(300, -300, 270, 3, true, "./enemies.png"),
         new Enemy(360, -300, 270, 3, true, "./enemies.png"),

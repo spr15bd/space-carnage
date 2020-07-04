@@ -982,7 +982,7 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
-          enemy.angle -= 0.2;
+          enemy.angle -= 0.35;
           if (enemy.position.y < -50) {
             enemy.angle = -50;
 
