@@ -109,7 +109,7 @@ export default class Level {
       );
     } else {
       this.blocks.push(
-        new Block(204, -372, 384, 64, 9, "./block.png"),
+        new Block(224, -372, 384, 64, 9, "./block.png"), //main mothership image
 
         new Block(204, -292, 16, 16, 7, "./block.png"),
         new Block(220, -292, 16, 16, 2, "./block.png"),
