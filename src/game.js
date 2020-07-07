@@ -189,7 +189,7 @@ export default class Game {
       }
 
       // update bonus enemies if on screen
-      if (!this.bonusTime && !this.levelComplete) {
+      if (!this.bonusTime && !this.levelComplete && this.enemies.length > 0) {
         if (Math.random() > 0.9995) {
           this.bonusTime = true;
           this.level.getBonusEnemy(9, -30, 20, 270);
