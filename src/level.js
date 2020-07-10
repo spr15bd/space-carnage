@@ -353,7 +353,7 @@ export default class Level {
       this.enemies.push(
         new Enemy(
           this.screenWidth / 2 - 216,
-          -250,
+          -75,
           270,
           6,
           false,
@@ -361,7 +361,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 - 116,
-          -250,
+          -75,
           270,
           6,
           false,
@@ -369,7 +369,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 - 16,
-          -250,
+          -75,
           270,
           6,
           false,
@@ -377,7 +377,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 + 84,
-          -250,
+          -75,
           270,
           6,
           false,
@@ -385,7 +385,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 + 184,
-          -250,
+          -75,
           270,
           6,
           false,
@@ -394,7 +394,7 @@ export default class Level {
 
         new Enemy(
           this.screenWidth / 2 - 216,
-          -50,
+          -25,
           270,
           6,
           false,
@@ -402,7 +402,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 - 116,
-          -50,
+          -25,
           270,
           6,
           false,
@@ -410,7 +410,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 - 16,
-          -50,
+          -25,
           270,
           6,
           false,
@@ -418,7 +418,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 + 84,
-          -50,
+          -25,
           270,
           6,
           false,
@@ -426,7 +426,7 @@ export default class Level {
         ),
         new Enemy(
           this.screenWidth / 2 + 184,
-          -50,
+          -25,
           270,
           6,
           false,
