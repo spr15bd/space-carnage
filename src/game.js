@@ -670,8 +670,8 @@ export default class Game {
       } else if (enemy.enemyType === 6) {
         if (enemy.movement === 0) {
           enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 50,
+            500 * Math.sin(Date.now() * 0.002) + enemy.start.x,
+            enemy.start.y + 75,
             delta,
             delta / 2
           );
@@ -683,18 +683,18 @@ export default class Game {
             this.shootBullet(enemy);
           }
           enemy.moveTo(
-            100 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) * 0.5,
-            enemy.start.y + 100,
+            500 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) * 0.5,
+            enemy.start.y + 300,
             delta,
             delta / 2
           );
-          if (enemy.position.y < enemy.start.y - 450) {
+          if (enemy.position.y > enemy.start.y + 297) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
           enemy.moveTo(
-            this.player.position.x - enemy.start.x,
-            this.player.position.y,
+            enemy.start.x,
+            enemy.start.y + 75,
             delta,
             delta * 3
           );
@@ -706,7 +706,7 @@ export default class Game {
             delta / 2
           );*/
 
-          if (enemy.position.y > enemy.start.y) {
+          if (enemy.position.y < enemy.start.y+77) {
             enemy.movement = 0;
           }
         }
