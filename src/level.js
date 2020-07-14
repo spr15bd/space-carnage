@@ -106,7 +106,14 @@ export default class Level {
         new Enemy(440, -550, -45, 13, true, "./enemies.png"),
         new Enemy(460, -500, -45, 13, true, "./enemies.png"),
         new Enemy(480, -525, -45, 13, true, "./enemies.png"),
-        new Enemy(500, -550, -45, 13, true, "./enemies.png")
+        new Enemy(500, -550, -45, 13, true, "./enemies.png"),
+
+        new Enemy(-100, -600, 180, 14, true, "./enemies.png"),
+        new Enemy(-100, -625, 180, 14, true, "./enemies.png"),
+        new Enemy(-100, -650, 90, 14, true, "./enemies.png"),
+        new Enemy(-75, -612, 90, 14, true, "./enemies.png"),
+        new Enemy(-75, -638, 0, 14, true, "./enemies.png"),
+        new Enemy(-50, -625, 0, 14, true, "./enemies.png")
       );
     } else {
       this.blocks.push(

@@ -1004,6 +1004,37 @@ export default class Game {
             enemy.position.x = enemy.start.x;
             enemy.position.y = 0;
           }
+        } else if (enemy.enemyType === 14) {
+          if (enemy.movement === 0) {
+            enemy.angle -= 0.1;
+            if (enemy.position.y < -50) {
+              enemy.angle = 300;
+              enemy.movement += 1;
+            }
+          } else if (enemy.movement === 1) {
+            enemy.angle -= 0;
+            if (enemy.position.y < this.screenHeight) {
+              enemy.angle = 270;
+  
+              enemy.movement += 1;
+            }
+          } else if (enemy.movement === 2) {
+            enemy.angle -= 0.2;
+            if (enemy.position.y > this.screenHeight + 80) {
+              enemy.angle = 70;
+  
+              enemy.movement += 1;
+            }
+          } else if (enemy.movement === 3) {
+            if (enemy.position.y > -40) {
+              enemy.angle = 120;
+            } else {
+              enemy.movement = 0;
+              enemy.angle = -45;
+              enemy.position.x = enemy.start.x;
+              enemy.position.y = 0;
+            }
+          }
         }
         enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
