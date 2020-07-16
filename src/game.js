@@ -112,7 +112,7 @@ export default class Game {
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
             new Bullet(
-              entity.position.x + entity.width / 2,
+              entity.position.x + (entity.width / 2) - 2, // 2 meaning half of bullet width
               entity.position.y,
               this.playerBulletSpeed, // speed of player bullets
               entity.bulletImage
