@@ -1035,13 +1035,13 @@ export default class Game {
           
           if (enemy.movement === 0) {
             enemy.angle -= 0.15;
-            if (enemy.position.y < 0) {
-              enemy.angle = 270;
+            if (enemy.position.y < -50) {
+              enemy.angle = 260;
               enemy.movement += 1;
             }
           } else if (enemy.movement === 1) {
             enemy.angle += 0.1;
-            if (enemy.position.y > this.screenHeight) {
+            if (enemy.position.y > this.screenHeight+100) {
               enemy.angle =110;
   
               enemy.movement += 1;
