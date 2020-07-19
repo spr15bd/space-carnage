@@ -112,7 +112,7 @@ export default class Game {
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
             new Bullet(
-              entity.position.x + (entity.width / 2) - 2, // 2 meaning half of bullet width
+              entity.position.x + entity.width / 2 - 2, // 2 meaning half of bullet width
               entity.position.y,
               this.playerBulletSpeed, // speed of player bullets
               entity.bulletImage
@@ -692,12 +692,7 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.moveTo(
-            enemy.start.x,
-            enemy.start.y + 75,
-            delta,
-            delta * 3
-          );
+          enemy.moveTo(enemy.start.x, enemy.start.y + 75, delta, delta * 3);
 
           /*enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
@@ -706,7 +701,7 @@ export default class Game {
             delta / 2
           );*/
 
-          if (enemy.position.y < enemy.start.y+77) {
+          if (enemy.position.y < enemy.start.y + 77) {
             enemy.movement = 0;
           }
         }
@@ -975,6 +970,12 @@ export default class Game {
           //enemy.movement += 1;
         }
       } else if (enemy.enemyType === 13) {
+        if (
+          Math.random() > 0.65 &&
+          Math.abs(enemy.position.x - this.player.position.x) < 40
+        ) {
+          this.shootBullet(enemy);
+        }
         if (enemy.movement === 0) {
           enemy.angle -= 0.45;
           if (enemy.position.y > this.screenHeight) {
@@ -1032,37 +1033,35 @@ export default class Game {
           //enemy.movement += 1;
         }
       } else if (enemy.enemyType === 14) {
-          
-          if (enemy.movement === 0) {
-            enemy.angle -= 0.15;
-            if (enemy.position.y < -50) {
-              enemy.angle = 260;
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 1) {
-            enemy.angle += 0.1;
-            if (enemy.position.y > this.screenHeight+100) {
-              enemy.angle =110;
-  
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 2) {
-            //enemy.angle -= 0.2;
-            if (enemy.position.y < 0) {
-              enemy.angle = 250;
-  
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 3) {
-            if (enemy.position.y > this.screenHeight) {
-              
-              enemy.movement = 0;
-              enemy.angle = 180;
-              enemy.position.x = enemy.start.x;
-              enemy.position.y = enemy.start.y;
-            } 
+        if (enemy.movement === 0) {
+          enemy.angle -= 0.15;
+          if (enemy.position.y < -50) {
+            enemy.angle = 260;
+            enemy.movement += 1;
           }
-        
+        } else if (enemy.movement === 1) {
+          enemy.angle += 0.1;
+          if (enemy.position.y > this.screenHeight + 100) {
+            enemy.angle = 110;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          //enemy.angle -= 0.2;
+          if (enemy.position.y < 0) {
+            enemy.angle = 250;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 3) {
+          if (enemy.position.y > this.screenHeight) {
+            enemy.movement = 0;
+            enemy.angle = 180;
+            enemy.position.x = enemy.start.x;
+            enemy.position.y = enemy.start.y;
+          }
+        }
+
         enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.position.x = enemy.position.x + enemy.speed.x;

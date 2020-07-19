@@ -66,7 +66,7 @@ export default class Enemy {
     } else if (this.enemyType === 12) {
       this.sourceY = 232;
     } else if (this.enemyType === 13) {
-      this.sourceY = 232;
+      this.sourceY = 392;
     } else if (this.enemyType === 14) {
       this.sourceY = 232;
     }
