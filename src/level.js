@@ -48,6 +48,7 @@ export default class Level {
         new Enemy(width / 2 - 16, -230, 90, 0, true, "./enemies.png")
       );
     } else if (level === 0) {
+      this.stages = 1;
       this.enemies.push(
         new Enemy(120, -525, 270, 2, true, "./enemies.png"),
         new Enemy(180, -525, 270, 2, true, "./enemies.png"),
