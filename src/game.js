@@ -1143,6 +1143,7 @@ export default class Game {
                 "./explosion.png"
               )
             );
+
             //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
             this.enemyExplosion.play();
             //}

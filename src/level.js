@@ -81,8 +81,8 @@ export default class Level {
 
         new Enemy(240, -300, 270, 3, true, "./enemies.png"),
         new Enemy(300, -300, 270, 3, true, "./enemies.png"),
-        new Enemy(360, -300, 270, 3, true, "./enemies.png"),
-        new Enemy(420, -300, 270, 3, true, "./enemies.png"),
+        //new Enemy(360, -300, 270, 3, true, "./enemies.png"),
+        //new Enemy(420, -300, 270, 3, true, "./enemies.png"),
         new Enemy(480, -300, 270, 3, true, "./enemies.png"),
         new Enemy(540, -300, 270, 3, true, "./enemies.png")
 
@@ -93,7 +93,7 @@ export default class Level {
         //new Enemy(width - 250, -300, 180, 0, true, "./enemies.png")
       );
     } else if (level === 2) {
-      this.stages = 2;
+      this.stages = 1;
       this.enemies.push(
         new Enemy(400, -700, 225, 12, true, "./enemies.png"),
         new Enemy(380, -725, 225, 12, true, "./enemies.png"),
@@ -401,7 +401,7 @@ export default class Level {
   }
 
   getNewEnemies(level) {
-    if (level === 0) {
+    if (level === 1) {
       this.enemies.push(
         new Enemy(
           this.screenWidth / 2 - 216,
