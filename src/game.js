@@ -204,7 +204,7 @@ export default class Game {
 
       // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
       if (this.levelComplete) {
-        if (this.delayOver) {
+        if (this.delayOver && this.player.lives > 0) {
           this.thrust();
         } else {
           this.delay(2000, () => {
