@@ -10,6 +10,7 @@ export default class Player {
     this.paused = true;
     this.isVisible = true;
     this.isInvincible = false;
+    this.extraLifeDue = true;
     this.reset();
   }
 
@@ -75,6 +76,10 @@ export default class Player {
         break;
       default:
         this.score += 4;
+    }
+    if (this.score >= 300 && this.extraLifeDue) {
+      this.extraLifeDue = false;
+      this.lives += 1;
     }
   }
 

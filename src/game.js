@@ -61,6 +61,7 @@ export default class Game {
     this.levelComplete = true;
     this.player.paused = true;
     this.player.isVisible = true;
+    this.player.extraLifeDue = true;
     this.screen++;
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
