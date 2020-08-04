@@ -440,7 +440,7 @@ export default class Level {
   }
 
   getNewEnemies(level) {
-    if (level === 1) {
+    if (level === 1 || level > 4) {
       this.enemies.push(
         new Enemy(
           this.screenWidth / 2 - 216,
