@@ -249,35 +249,8 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
-      //this.drawBackground(ctx);
-      /*
-      ctx.rect(0, 0, this.screenWidth, this.screenHeight);
-
-      ctx.fillStyle = "black";
-      ctx.fill();
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#e61ce1";
-      */
-      //ctx.font = "18px consolas sans mono";
-      /*
-      ctx.fillText(
-        "Controls",
-        this.screenWidth / 2,
-        this.screenHeight / 2 - 40
-      );
-      */
-      //ctx.fillStyle = "#a21ce6";
-      /*ctx.fillText(
-        "Use keyboard arrows to move left and right, and <ctrl> to fire.",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 20
-      );*/
-      //ctx.fillStyle = "#741ce6";
-      /*ctx.fillText(
-        "Press <space> to start. Good luck an' go ahead!",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 80
-      );*/
+      this.backgroundImage.yPos=0;
+      this.drawBackground(ctx);
       this.titleText.draw(ctx);
       this.text0.draw(ctx);
       this.text1.draw(ctx);
@@ -287,7 +260,7 @@ export default class Game {
 
       this.text5.draw(ctx);
       //this.enemies.forEach(enemy=>enemy.draw(ctx));
-
+      
       document.getElementById("game-screen").focus();
     } else {
       this.stats.style.display = "flex";
