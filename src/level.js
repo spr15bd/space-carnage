@@ -392,7 +392,7 @@ export default class Level {
         //new Enemy(width - 220, -300, 180, 0, true, "./enemies.png"),
         //new Enemy(width - 250, -300, 180, 0, true, "./enemies.png")
       );
-    } else {
+    } else if (level === 5) {
       this.stages = 2;
       this.enemies.push(
         new Enemy(width / 2 - 130, -480, 180, 1, true, "./enemies.png"),
@@ -429,6 +429,29 @@ export default class Level {
         new Enemy(width / 2 - 16, -310, 90, 0, true, "./enemies.png"),
         new Enemy(width / 2 - 16, -270, 90, 0, true, "./enemies.png"),
         new Enemy(width / 2 - 16, -230, 90, 0, true, "./enemies.png")
+      );
+    } else {
+      this.enemies.push(
+        new Enemy(400, -700, 225, 12, true, "./enemies.png"),
+        new Enemy(380, -725, 225, 12, true, "./enemies.png"),
+        new Enemy(360, -750, 225, 12, true, "./enemies.png"),
+        new Enemy(340, -700, 225, 12, true, "./enemies.png"),
+        new Enemy(320, -725, 225, 12, true, "./enemies.png"),
+        new Enemy(300, -750, 225, 12, true, "./enemies.png"),
+
+        new Enemy(400, -500, -45, 13, true, "./enemies.png"),
+        new Enemy(420, -525, -45, 13, true, "./enemies.png"),
+        new Enemy(440, -550, -45, 13, true, "./enemies.png"),
+        new Enemy(460, -500, -45, 13, true, "./enemies.png"),
+        new Enemy(480, -525, -45, 13, true, "./enemies.png"),
+        new Enemy(500, -550, -45, 13, true, "./enemies.png"),
+
+        new Enemy(-200, -440, 180, 14, true, "./enemies.png"),
+        new Enemy(-200, -485, 180, 14, true, "./enemies.png"),
+        new Enemy(-200, -530, 180, 14, true, "./enemies.png"),
+        new Enemy(-150, -462, 180, 14, true, "./enemies.png"),
+        new Enemy(-150, -508, 180, 14, true, "./enemies.png"),
+        new Enemy(-100, -485, 180, 14, true, "./enemies.png")
       );
     }
   }
