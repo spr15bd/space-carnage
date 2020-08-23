@@ -432,12 +432,12 @@ export default class Level {
       );
     } else if (level === 0) {
       this.enemies.push(
-        new Enemy(400, -700, 240, 12, true, "./enemies.png"),
-        new Enemy(380, -725, 240, 12, true, "./enemies.png"),
-        new Enemy(360, -750, 240, 12, true, "./enemies.png"),
-        new Enemy(340, -700, 240, 12, true, "./enemies.png"),
-        new Enemy(320, -725, 240, 12, true, "./enemies.png"),
-        new Enemy(300, -750, 240, 12, true, "./enemies.png"),
+        new Enemy(400, -700, 180, 12, true, "./enemies.png"),
+        new Enemy(380, -725, 180, 12, true, "./enemies.png"),
+        new Enemy(360, -750, 180, 12, true, "./enemies.png"),
+        new Enemy(340, -700, 180, 12, true, "./enemies.png"),
+        new Enemy(320, -725, 180, 12, true, "./enemies.png"),
+        new Enemy(300, -750, 180, 12, true, "./enemies.png"),
 
         new Enemy(400, -500, -45, 13, true, "./enemies.png"),
         new Enemy(420, -525, -45, 13, true, "./enemies.png"),
