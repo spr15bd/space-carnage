@@ -167,7 +167,7 @@ export default class Game {
     if (this.player != null) this.player.update(delta);
     // update blocks
 
-    this.blocks.forEach(block => {
+    this.blocks.forEach((block) => {
       if (this.queenDead) {
         block.moveTo(Math.random() * 800, -200, delta, delta);
         this.mothershipExplosion.play();
@@ -218,10 +218,10 @@ export default class Game {
 
   thrust() {
     if (this.backgroundImage.yPos < 0) {
-      this.enemies.forEach(enemy => {
+      this.enemies.forEach((enemy) => {
         enemy.position.y += 3;
       });
-      this.blocks.forEach(block => {
+      this.blocks.forEach((block) => {
         block.position.y += 3;
       });
       // do the between levels player thrust upwards routine
@@ -233,7 +233,7 @@ export default class Game {
       this.delay(300, () => {
         this.backgroundImage.yPos = -600;
         this.levelComplete = false;
-        this.enemies.forEach(enemy => {
+        this.enemies.forEach((enemy) => {
           enemy.paused = false;
           enemy.start.y = enemy.position.y;
         });
@@ -249,7 +249,7 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
-      this.backgroundImage.yPos=0;
+      this.backgroundImage.yPos = 0;
       this.drawBackground(ctx);
       this.titleText.draw(ctx);
       this.text0.draw(ctx);
@@ -260,7 +260,7 @@ export default class Game {
 
       this.text5.draw(ctx);
       //this.enemies.forEach(enemy=>enemy.draw(ctx));
-      
+
       document.getElementById("game-screen").focus();
     } else {
       this.stats.style.display = "flex";
@@ -268,21 +268,21 @@ export default class Game {
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
-        this.blocks.forEach(block => {
+        this.blocks.forEach((block) => {
           block.draw(ctx);
         });
       }
-      this.enemies.forEach(enemy => {
+      this.enemies.forEach((enemy) => {
         enemy.draw(ctx);
       });
       if (this.bonusCaption != null) this.bonusCaption.draw(ctx);
       if (this.bulletPool.length > 0) {
-        this.bulletPool.forEach(bullet => {
+        this.bulletPool.forEach((bullet) => {
           bullet.draw(ctx);
         });
       }
 
-      this.explosions.forEach(explosion => {
+      this.explosions.forEach((explosion) => {
         explosion.draw(ctx);
       });
     }
@@ -408,7 +408,7 @@ export default class Game {
         } else if (enemy.movement === 1) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -427,7 +427,8 @@ export default class Game {
               delta,
               delta
             );
-            if (Math.random() > 0.85) {
+            if (Math.random() > 0.8) {
+              // bullet storm!
               this.shootBullet(enemy);
             }
             if (enemy.position.y >= this.player.position.y - 150) {
@@ -437,7 +438,7 @@ export default class Game {
         } else if (enemy.movement === 2) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -454,7 +455,7 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.9) {
+            if (Math.random() > 0.8) {
               this.shootBullet(enemy);
             }
             if (
@@ -468,7 +469,7 @@ export default class Game {
         } else if (enemy.movement === 3) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -500,7 +501,7 @@ export default class Game {
           // finish enemy swoop, move enemy back into formation
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -529,7 +530,7 @@ export default class Game {
               this.enemyAttacking += 1;
               if (
                 this.enemyAttacking >=
-                this.enemies.filter(item => item.enemyType === 2).length
+                this.enemies.filter((item) => item.enemyType === 2).length
               ) {
                 this.enemyAttacking = 0;
               }
@@ -1148,7 +1149,7 @@ export default class Game {
             if (enemy.enemyType === 5) {
               this.enemies.splice(j, 1);
               if (
-                this.enemies.filter(item => item.enemyType === 5).length <= 0
+                this.enemies.filter((item) => item.enemyType === 5).length <= 0
               ) {
                 this.queenDead = true;
                 setTimeout(() => {
@@ -1171,7 +1172,7 @@ export default class Game {
     }
   }
   checkForExplosions(delta) {
-    this.explosions.forEach(explosion => {
+    this.explosions.forEach((explosion) => {
       if (explosion != null) {
         if (explosion.readyForDeletion === true) {
           explosion = null;
@@ -1248,7 +1249,7 @@ export default class Game {
       } else {
         this.enemies = this.level.getNewEnemies(this.screen);
 
-        this.enemies.forEach(enemy => (enemy.paused = false));
+        this.enemies.forEach((enemy) => (enemy.paused = false));
       }
     }
   }
