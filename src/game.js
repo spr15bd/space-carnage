@@ -486,7 +486,8 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.95) {
+            if (Math.random() > 0.96) {
+              // go easy on bullets when enemy moves from player left to player right
               this.shootBullet(enemy);
             }
             if (
