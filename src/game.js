@@ -185,11 +185,14 @@ export default class Game {
     if (this.gameState !== GAMESTATE.MENU) {
       this.checkForExplosions(delta);
 
-      // update bonus enemy caption
+      // update bonus enemy point caption
       if (this.bonusCaption != null) {
         this.bonusCaption.update(delta);
       }
-
+      //update extra life obtained caption
+      if (this.extraLifeCaption != null) {
+        this.extraLifeCaption.update(delta);
+      }
       // update bonus enemies if on screen
       if (!this.bonusTime && !this.levelComplete && this.enemies.length > 0) {
         if (Math.random() > 0.99975) {
