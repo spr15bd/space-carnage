@@ -55,7 +55,7 @@ export default class Game {
       "/captions.png"
     );
     this.bonusCaption = new Bonus(-100, -100, "/bonus25.png");
-    this.extraLifeCaption = new Bonus(-100, -100, "/extraLife.png");
+    this.extraLifeCaption = new Bonus(100, 100, "/extraLife.png");
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
