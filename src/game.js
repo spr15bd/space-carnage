@@ -54,8 +54,16 @@ export default class Game {
       6,
       "/captions.png"
     );
-    this.bonusCaption = new Bonus(-100, -100, "/bonus25.png");
-    this.extraLifeCaption = new Bonus(100, 100, "/extraLife.png");
+    this.bonusCaption = new Bonus(-100, -100, 28, 28, 32, 32, "/bonus25.png");
+    this.extraLifeCaption = new Bonus(
+      100,
+      100,
+      112,
+      112,
+      112,
+      112,
+      "/extraLife.png"
+    );
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
@@ -280,6 +288,7 @@ export default class Game {
         enemy.draw(ctx);
       });
       if (this.bonusCaption != null) this.bonusCaption.draw(ctx);
+      if (this.extraLifeCaption != null) this.extraLifeCaption.draw(ctx);
       if (this.bulletPool.length > 0) {
         this.bulletPool.forEach((bullet) => {
           bullet.draw(ctx);
@@ -1133,6 +1142,10 @@ export default class Game {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
+                28,
+                28,
+                32,
+                32,
                 "./bonus50.png"
               );
               // check for bonus enemies still on screen, if none another bonus enemy may appear
@@ -1142,6 +1155,10 @@ export default class Game {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
+                28,
+                28,
+                32,
+                32,
                 "./bonus25.png"
               );
               // check for bonus enemies still on screen, if none another bonus enemy may appear
