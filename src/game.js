@@ -58,8 +58,8 @@ export default class Game {
     this.extraLifeCaption = new Bonus(
       100,
       100,
-      112,
-      112,
+      96,
+      96,
       112,
       112,
       "/extraLife.png"
