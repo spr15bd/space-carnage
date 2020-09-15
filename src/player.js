@@ -1,4 +1,5 @@
 import Sprite from "./sprite.js";
+import Bonus from "./bonus.js";
 export default class Player {
   constructor(screenWidth, screenHeight, game) {
     // declare player properties
@@ -80,6 +81,15 @@ export default class Player {
     if (this.score >= 300 && this.extraLifeDue) {
       this.extraLifeDue = false;
       this.lives += 1;
+      this.extraLifeCaption = new Bonus(
+        100,
+        100,
+        96,
+        96,
+        112,
+        112,
+        "/extraLife.png"
+      );
     }
   }
 
