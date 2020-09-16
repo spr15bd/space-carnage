@@ -81,7 +81,7 @@ export default class Player {
     if (this.score >= 300 && this.extraLifeDue) {
       this.extraLifeDue = false;
       this.lives += 1;
-      this.extraLifeCaption = new Bonus(
+      this.game.extraLifeCaption = new Bonus(
         100,
         100,
         96,
