@@ -82,8 +82,8 @@ export default class Player {
       this.extraLifeDue = false;
       this.lives += 1;
       this.game.extraLifeCaption = new Bonus(
-        100,
-        100,
+        this.position.x,
+        this.position.y,
         96,
         96,
         112,
