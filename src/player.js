@@ -90,7 +90,7 @@ export default class Player {
         112,
         "/extraLife.png"
       );
-      this.game.extraLifeCaption.speed.y = -60;
+      this.game.extraLifeCaption.speed.y = -80;
     }
   }
 
