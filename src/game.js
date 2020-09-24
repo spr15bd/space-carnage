@@ -55,7 +55,7 @@ export default class Game {
       "/captions.png"
     );
     this.bonusCaption = new Bonus(-100, -100, 28, 28, 32, 32, "/bonus25.png");
-    
+
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
@@ -600,7 +600,7 @@ export default class Game {
 
         if (
           Math.random() > 0.95 &&
-          Math.abs(enemy.position.x - this.player.position.x) < 100
+          Math.abs(enemy.position.x - this.player.position.x) < 60
         ) {
           this.shootBullet(enemy);
         }
