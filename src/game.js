@@ -354,7 +354,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(8);
+          enemy.rotate(6);
         }
       } else if (enemy.enemyType === 1) {
         enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
