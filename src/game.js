@@ -396,7 +396,7 @@ export default class Game {
                   360)
             ) > 5
           ) {
-            enemy.rotate(-11);
+            enemy.rotate(-1);
           }
         }
       } else if (enemy.enemyType === 2) {
