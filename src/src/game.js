@@ -54,13 +54,15 @@ export default class Game {
       6,
       "/captions.png"
     );
-    this.bonusCaption = new Bonus(-100, -100, "/bonus25.png");
+    this.bonusCaption = new Bonus(-100, -100, 28, 28, 32, 32, "/bonus25.png");
+
     this.currentStage = 0;
     this.playerBulletSpeed = -120;
     this.enemyBulletSpeed = 150;
     this.levelComplete = true;
     this.player.paused = true;
     this.player.isVisible = true;
+    this.player.extraLifeDue = true;
     this.screen++;
     this.lastPlayerBulletTimeStamp = 0;
     this.delayOver = true; // set to true whenever a delay is over
@@ -112,7 +114,7 @@ export default class Game {
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
           this.bulletPool.push(
             new Bullet(
-              entity.position.x + (entity.width / 2) - 2, // 2 meaning half of bullet width
+              entity.position.x + entity.width / 2 - 2, // 2 meaning half of bullet width
               entity.position.y,
               this.playerBulletSpeed, // speed of player bullets
               entity.bulletImage
@@ -166,7 +168,7 @@ export default class Game {
     if (this.player != null) this.player.update(delta);
     // update blocks
 
-    this.blocks.forEach(block => {
+    this.blocks.forEach((block) => {
       if (this.queenDead) {
         block.moveTo(Math.random() * 800, -200, delta, delta);
         this.mothershipExplosion.play();
@@ -183,28 +185,31 @@ export default class Game {
     if (this.gameState !== GAMESTATE.MENU) {
       this.checkForExplosions(delta);
 
-      // update bonus enemy caption
+      // update bonus enemy point caption
       if (this.bonusCaption != null) {
         this.bonusCaption.update(delta);
       }
-
+      //update extra life obtained caption
+      if (this.extraLifeCaption != null) {
+        this.extraLifeCaption.update(delta);
+      }
       // update bonus enemies if on screen
       if (!this.bonusTime && !this.levelComplete && this.enemies.length > 0) {
-        if (Math.random() > 0.9995) {
+        if (Math.random() > 0.99975) {
           this.bonusTime = true;
           this.level.getBonusEnemy(9, -30, 20, 270);
         } else if (Math.random() > 0.999) {
           this.bonusTime = true;
-          this.level.getBonusEnemy(11, this.screenWidth + 90, 80, 0);
-          this.level.getBonusEnemy(11, this.screenWidth + 50, 120, 0);
-          this.level.getBonusEnemy(11, this.screenWidth + 90, 160, 0);
+          this.level.getBonusEnemy(11, this.screenWidth + 90, 110, 0);
+          this.level.getBonusEnemy(11, this.screenWidth + 50, 150, 0);
+          this.level.getBonusEnemy(11, this.screenWidth + 90, 190, 0);
         }
       }
       //}
 
       // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
       if (this.levelComplete) {
-        if (this.delayOver) {
+        if (this.delayOver && this.player.lives > 0) {
           this.thrust();
         } else {
           this.delay(2000, () => {
@@ -217,10 +222,10 @@ export default class Game {
 
   thrust() {
     if (this.backgroundImage.yPos < 0) {
-      this.enemies.forEach(enemy => {
+      this.enemies.forEach((enemy) => {
         enemy.position.y += 3;
       });
-      this.blocks.forEach(block => {
+      this.blocks.forEach((block) => {
         block.position.y += 3;
       });
       // do the between levels player thrust upwards routine
@@ -232,7 +237,7 @@ export default class Game {
       this.delay(300, () => {
         this.backgroundImage.yPos = -600;
         this.levelComplete = false;
-        this.enemies.forEach(enemy => {
+        this.enemies.forEach((enemy) => {
           enemy.paused = false;
           enemy.start.y = enemy.position.y;
         });
@@ -248,35 +253,8 @@ export default class Game {
 
   draw(ctx) {
     if (this.gameState === GAMESTATE.MENU) {
-      //this.drawBackground(ctx);
-      /*
-      ctx.rect(0, 0, this.screenWidth, this.screenHeight);
-
-      ctx.fillStyle = "black";
-      ctx.fill();
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#e61ce1";
-      */
-      //ctx.font = "18px consolas sans mono";
-      /*
-      ctx.fillText(
-        "Controls",
-        this.screenWidth / 2,
-        this.screenHeight / 2 - 40
-      );
-      */
-      //ctx.fillStyle = "#a21ce6";
-      /*ctx.fillText(
-        "Use keyboard arrows to move left and right, and <ctrl> to fire.",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 20
-      );*/
-      //ctx.fillStyle = "#741ce6";
-      /*ctx.fillText(
-        "Press <space> to start. Good luck an' go ahead!",
-        this.screenWidth / 2,
-        this.screenHeight / 2 + 80
-      );*/
+      this.backgroundImage.yPos = 0;
+      this.drawBackground(ctx);
       this.titleText.draw(ctx);
       this.text0.draw(ctx);
       this.text1.draw(ctx);
@@ -294,21 +272,22 @@ export default class Game {
       this.player.draw(ctx);
 
       if (this.blocks.length > 0) {
-        this.blocks.forEach(block => {
+        this.blocks.forEach((block) => {
           block.draw(ctx);
         });
       }
-      this.enemies.forEach(enemy => {
+      this.enemies.forEach((enemy) => {
         enemy.draw(ctx);
       });
       if (this.bonusCaption != null) this.bonusCaption.draw(ctx);
+      if (this.extraLifeCaption != null) this.extraLifeCaption.draw(ctx);
       if (this.bulletPool.length > 0) {
-        this.bulletPool.forEach(bullet => {
+        this.bulletPool.forEach((bullet) => {
           bullet.draw(ctx);
         });
       }
 
-      this.explosions.forEach(explosion => {
+      this.explosions.forEach((explosion) => {
         explosion.draw(ctx);
       });
     }
@@ -375,7 +354,7 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             100000
         ) {
-          enemy.rotate(5);
+          enemy.rotate(11);
         }
       } else if (enemy.enemyType === 1) {
         enemy.speed.x = 5 * Math.cos((enemy.angle * Math.PI) / 180);
@@ -417,7 +396,7 @@ export default class Game {
                   360)
             ) > 5
           ) {
-            enemy.rotate(-11);
+            enemy.rotate(-7);
           }
         }
       } else if (enemy.enemyType === 2) {
@@ -434,7 +413,7 @@ export default class Game {
         } else if (enemy.movement === 1) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -453,7 +432,8 @@ export default class Game {
               delta,
               delta
             );
-            if (Math.random() > 0.85) {
+            if (Math.random() > 0.8) {
+              // bullet storm!
               this.shootBullet(enemy);
             }
             if (enemy.position.y >= this.player.position.y - 150) {
@@ -463,7 +443,7 @@ export default class Game {
         } else if (enemy.movement === 2) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -480,7 +460,7 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.9) {
+            if (Math.random() > 0.8) {
               this.shootBullet(enemy);
             }
             if (
@@ -494,7 +474,7 @@ export default class Game {
         } else if (enemy.movement === 3) {
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -511,7 +491,8 @@ export default class Game {
               delta * 2,
               delta * 2
             );
-            if (Math.random() > 0.95) {
+            if (Math.random() > 0.96) {
+              // go easy on bullets when enemy moves from player left to player right
               this.shootBullet(enemy);
             }
             if (
@@ -526,7 +507,7 @@ export default class Game {
           // finish enemy swoop, move enemy back into formation
           if (
             enemy !==
-            this.enemies.filter(item => item.enemyType === 2)[
+            this.enemies.filter((item) => item.enemyType === 2)[
               this.enemyAttacking
             ]
           ) {
@@ -555,7 +536,7 @@ export default class Game {
               this.enemyAttacking += 1;
               if (
                 this.enemyAttacking >=
-                this.enemies.filter(item => item.enemyType === 2).length
+                this.enemies.filter((item) => item.enemyType === 2).length
               ) {
                 this.enemyAttacking = 0;
               }
@@ -619,7 +600,7 @@ export default class Game {
 
         if (
           Math.random() > 0.95 &&
-          Math.abs(enemy.position.x - this.player.position.x) < 100
+          Math.abs(enemy.position.x - this.player.position.x) < 60
         ) {
           this.shootBullet(enemy);
         }
@@ -692,12 +673,7 @@ export default class Game {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.moveTo(
-            enemy.start.x,
-            enemy.start.y + 75,
-            delta,
-            delta * 3
-          );
+          enemy.moveTo(enemy.start.x, enemy.start.y + 75, delta, delta * 3);
 
           /*enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
@@ -706,7 +682,7 @@ export default class Game {
             delta / 2
           );*/
 
-          if (enemy.position.y < enemy.start.y+77) {
+          if (enemy.position.y < enemy.start.y + 77) {
             enemy.movement = 0;
           }
         }
@@ -975,6 +951,12 @@ export default class Game {
           //enemy.movement += 1;
         }
       } else if (enemy.enemyType === 13) {
+        if (
+          Math.random() > 0.65 &&
+          Math.abs(enemy.position.x - this.player.position.x) < 40
+        ) {
+          this.shootBullet(enemy);
+        }
         if (enemy.movement === 0) {
           enemy.angle -= 0.45;
           if (enemy.position.y > this.screenHeight) {
@@ -1032,37 +1014,35 @@ export default class Game {
           //enemy.movement += 1;
         }
       } else if (enemy.enemyType === 14) {
-          
-          if (enemy.movement === 0) {
-            enemy.angle -= 0.15;
-            if (enemy.position.y < 0) {
-              enemy.angle = 270;
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 1) {
-            enemy.angle += 0.1;
-            if (enemy.position.y > this.screenHeight) {
-              enemy.angle =110;
-  
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 2) {
-            //enemy.angle -= 0.2;
-            if (enemy.position.y < 0) {
-              enemy.angle = 250;
-  
-              enemy.movement += 1;
-            }
-          } else if (enemy.movement === 3) {
-            if (enemy.position.y > this.screenHeight) {
-              
-              enemy.movement = 0;
-              enemy.angle = 180;
-              enemy.position.x = enemy.start.x;
-              enemy.position.y = enemy.start.y;
-            } 
+        if (enemy.movement === 0) {
+          enemy.angle -= 0.15;
+          if (enemy.position.y < -50) {
+            enemy.angle = 260;
+            enemy.movement += 1;
           }
-        
+        } else if (enemy.movement === 1) {
+          enemy.angle += 0.1;
+          if (enemy.position.y > this.screenHeight + 100) {
+            enemy.angle = 110;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 2) {
+          //enemy.angle -= 0.2;
+          if (enemy.position.y < 0) {
+            enemy.angle = 250;
+
+            enemy.movement += 1;
+          }
+        } else if (enemy.movement === 3) {
+          if (enemy.position.y > this.screenHeight) {
+            enemy.movement = 0;
+            enemy.angle = 180;
+            enemy.position.x = enemy.start.x;
+            enemy.position.y = enemy.start.y;
+          }
+        }
+
         enemy.speed.x = -5 * Math.cos((enemy.angle * Math.PI) / 180);
         enemy.speed.y = -5 * Math.sin((enemy.angle * Math.PI) / 180);
         enemy.position.x = enemy.position.x + enemy.speed.x;
@@ -1144,6 +1124,7 @@ export default class Game {
                 "./explosion.png"
               )
             );
+
             //if (this.gameState === GAMESTATE.GAMEINPROGRESS) {
             this.enemyExplosion.play();
             //}
@@ -1153,6 +1134,10 @@ export default class Game {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
+                28,
+                28,
+                32,
+                32,
                 "./bonus50.png"
               );
               // check for bonus enemies still on screen, if none another bonus enemy may appear
@@ -1162,6 +1147,10 @@ export default class Game {
               this.bonusCaption = new Bonus(
                 enemy.position.x,
                 enemy.position.y,
+                28,
+                28,
+                32,
+                32,
                 "./bonus25.png"
               );
               // check for bonus enemies still on screen, if none another bonus enemy may appear
@@ -1174,7 +1163,7 @@ export default class Game {
             if (enemy.enemyType === 5) {
               this.enemies.splice(j, 1);
               if (
-                this.enemies.filter(item => item.enemyType === 5).length <= 0
+                this.enemies.filter((item) => item.enemyType === 5).length <= 0
               ) {
                 this.queenDead = true;
                 setTimeout(() => {
@@ -1197,7 +1186,7 @@ export default class Game {
     }
   }
   checkForExplosions(delta) {
-    this.explosions.forEach(explosion => {
+    this.explosions.forEach((explosion) => {
       if (explosion != null) {
         if (explosion.readyForDeletion === true) {
           explosion = null;
@@ -1274,7 +1263,7 @@ export default class Game {
       } else {
         this.enemies = this.level.getNewEnemies(this.screen);
 
-        this.enemies.forEach(enemy => (enemy.paused = false));
+        this.enemies.forEach((enemy) => (enemy.paused = false));
       }
     }
   }
