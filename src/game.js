@@ -404,7 +404,6 @@ export default class Game {
           enemy.moveTo(
             400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y,
-            delta,
             delta
           );
           if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
@@ -420,7 +419,6 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta,
               delta
             );
           } else {
@@ -429,7 +427,6 @@ export default class Game {
             enemy.moveTo(
               260 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               this.player.position.y - 150,
-              delta,
               delta
             );
             if (Math.random() > 0.8) {
@@ -450,7 +447,6 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta,
               delta
             );
           } else {
@@ -458,7 +454,6 @@ export default class Game {
               this.player.position.x - 150,
               this.player.position.y - 150,
               delta * 2,
-              delta * 2
             );
             if (Math.random() > 0.8) {
               this.shootBullet(enemy);
@@ -481,14 +476,12 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta,
               delta
             );
           } else {
             enemy.moveTo(
               this.player.position.x + 150,
               this.player.position.y - 150,
-              delta * 2,
               delta * 2
             );
             if (Math.random() > 0.96) {
@@ -514,21 +507,18 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta,
               delta
             );
           } else {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y,
-              delta,
-              delta * 1.6
+              delta*1.6
             );
             if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta,
                 delta * 2.4
               );
               enemy.movement = 0;
@@ -548,7 +538,6 @@ export default class Game {
           enemy.moveTo(
             424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y,
-            delta,
             delta
           );
 
@@ -653,7 +642,6 @@ export default class Game {
           enemy.moveTo(
             500 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 75,
-            delta,
             delta / 2
           );
           if (enemy.position.y > enemy.start.y - 25) {
@@ -666,14 +654,13 @@ export default class Game {
           enemy.moveTo(
             500 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) * 0.5,
             enemy.start.y + 300,
-            delta,
             delta / 2
           );
           if (enemy.position.y > enemy.start.y + 297) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 2) {
-          enemy.moveTo(enemy.start.x, enemy.start.y + 75, delta, delta * 3);
+          enemy.moveTo(enemy.start.x, enemy.start.y + 75, delta * 3);
 
           /*enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
@@ -691,7 +678,6 @@ export default class Game {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) / 2,
             enemy.start.y,
-            delta,
             delta / 2
           );
           if (enemy.position.y > enemy.start.y - 25) {
@@ -704,7 +690,6 @@ export default class Game {
           enemy.moveTo(
             100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y - 500,
-            delta,
             delta / 2
           );
           if (enemy.position.y < enemy.start.y - 450) {
@@ -714,7 +699,6 @@ export default class Game {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 150,
-            delta,
             delta / 2
           );
 
@@ -727,8 +711,7 @@ export default class Game {
           enemy.moveTo(
             350 + enemy.start.x,
             enemy.start.y - 1000 + 150,
-            delta * 1.5,
-            delta
+            delta * 1.5
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -738,7 +721,6 @@ export default class Game {
             enemy.start.x - 220,
             enemy.start.y - 1000 + 250,
             delta * 1.5,
-            delta
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
@@ -748,7 +730,6 @@ export default class Game {
             350 + enemy.start.x,
             enemy.start.y - 1000 + 350,
             delta * 1.5,
-            delta
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -758,7 +739,6 @@ export default class Game {
             enemy.start.x - 200,
             enemy.start.y - 1000 + 450,
             delta * 1.5,
-            delta
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
@@ -768,7 +748,6 @@ export default class Game {
             300 + enemy.start.x,
             enemy.start.y - 1000 + 550,
             delta * 1.5,
-            delta
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -778,7 +757,6 @@ export default class Game {
             enemy.start.x - 200,
             enemy.start.y - 1000 + 650,
             delta * 1.5,
-            delta
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
