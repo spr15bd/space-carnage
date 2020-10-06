@@ -121,14 +121,14 @@ export default class Enemy {
 
     this.enemySprite.update(delta);
   }
-  moveTo(x, y, deltaX, deltaY) {
-    if (!deltaX || !deltaY || this.paused) return;
+  moveTo(x, y, delta, rateX, rateY) {
+    if (!delta || this.paused) return;
 
     if (this.position.x !== x) {
-      this.speed.x = (x - this.position.x) * (deltaX / 1000);
+      this.speed.x = (x - this.position.x) * rateX * (delta / 1000);
     }
     if (this.position.y !== y) {
-      this.speed.y = (y - this.position.y) * (deltaY / 1000);
+      this.speed.y = (y - this.position.y) * rateY * (delta / 1000);
     }
 
     this.position.x += this.speed.x;
