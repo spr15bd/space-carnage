@@ -453,13 +453,17 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta
+              delta,
+              1,
+              1
             );
           } else {
             enemy.moveTo(
               this.player.position.x - 150,
               this.player.position.y - 150,
-              delta * 2
+              delta * 2,
+              1,
+              1
             );
             if (Math.random() > 0.8) {
               this.shootBullet(enemy);
@@ -482,7 +486,9 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.position.y,
-              delta
+              delta,
+              1,
+              1
             );
           } else {
             enemy.moveTo(
