@@ -704,7 +704,9 @@ export default class Game {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) / 2,
             enemy.start.y,
-            delta / 2
+            delta / 2,
+            1,
+            1
           );
           if (enemy.position.y > enemy.start.y - 25) {
             enemy.movement += 1;
