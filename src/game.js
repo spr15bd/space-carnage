@@ -590,7 +590,9 @@ export default class Game {
             424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y,
             delta,
-            delta * 2
+            delta * 2,
+            1,
+            1
           );
           if (Math.abs(enemy.position.y - enemy.start.y) < 5) {
             this.level.startEnemyWaveCycle1 = Date.now();
@@ -662,7 +664,9 @@ export default class Game {
           enemy.moveTo(
             500 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 75,
-            delta / 2
+            delta / 2,
+            1,
+            1
           );
           if (enemy.position.y > enemy.start.y - 25) {
             enemy.movement += 1;
@@ -674,7 +678,9 @@ export default class Game {
           enemy.moveTo(
             500 * Math.sin(Date.now() * 0.002) + (enemy.start.x + 400) * 0.5,
             enemy.start.y + 300,
-            delta / 2
+            delta / 2,
+            1,
+            1
           );
           if (enemy.position.y > enemy.start.y + 297) {
             enemy.movement += 1;
