@@ -687,14 +687,6 @@ export default class Game {
           }
         } else if (enemy.movement === 2) {
           enemy.moveTo(enemy.start.x, enemy.start.y + 75, delta * 3);
-
-          /*enemy.moveTo(
-            300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
-            enemy.start.y + 650,
-            delta,
-            delta / 2
-          );*/
-
           if (enemy.position.y < enemy.start.y + 77) {
             enemy.movement = 0;
           }
@@ -718,7 +710,9 @@ export default class Game {
           enemy.moveTo(
             100 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y - 500,
-            delta / 2
+            delta / 2,
+            1,
+            1
           );
           if (enemy.position.y < enemy.start.y - 450) {
             enemy.movement += 1;
@@ -727,7 +721,9 @@ export default class Game {
           enemy.moveTo(
             300 * Math.sin(Date.now() * 0.002) + enemy.start.x,
             enemy.start.y + 150,
-            delta / 2
+            delta / 2,
+            1,
+            1
           );
 
           if (enemy.position.y > enemy.start.y + 100) {
@@ -739,7 +735,9 @@ export default class Game {
           enemy.moveTo(
             350 + enemy.start.x,
             enemy.start.y - 1000 + 150,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -748,7 +746,9 @@ export default class Game {
           enemy.moveTo(
             enemy.start.x - 220,
             enemy.start.y - 1000 + 250,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
@@ -757,7 +757,9 @@ export default class Game {
           enemy.moveTo(
             350 + enemy.start.x,
             enemy.start.y - 1000 + 350,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -766,7 +768,9 @@ export default class Game {
           enemy.moveTo(
             enemy.start.x - 200,
             enemy.start.y - 1000 + 450,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
@@ -775,7 +779,9 @@ export default class Game {
           enemy.moveTo(
             300 + enemy.start.x,
             enemy.start.y - 1000 + 550,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x > 200 + enemy.start.x) {
             enemy.movement += 1;
@@ -784,7 +790,9 @@ export default class Game {
           enemy.moveTo(
             enemy.start.x - 200,
             enemy.start.y - 1000 + 650,
-            delta * 1.5
+            delta * 1.5,
+            1,
+            1
           );
           if (enemy.position.x < enemy.start.x - 150) {
             enemy.movement += 1;
@@ -1069,7 +1077,6 @@ export default class Game {
               (enemy.position.y + enemy.height / 2 - this.screenHeight / 2) >
             10400
         ) {
-          //enemy.movement += 1;
         }
       }
 
