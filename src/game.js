@@ -494,7 +494,9 @@ export default class Game {
             enemy.moveTo(
               this.player.position.x + 150,
               this.player.position.y - 150,
-              delta * 2
+              delta,
+              1,
+              1
             );
             if (Math.random() > 0.96) {
               // go easy on bullets when enemy moves from player left to player right
