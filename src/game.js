@@ -461,8 +461,8 @@ export default class Game {
             enemy.moveTo(
               this.player.position.x - 150,
               this.player.position.y - 150,
-              delta * 2,
-              1,
+              delta, //
+              2,
               1
             );
             if (Math.random() > 0.8) {
@@ -529,17 +529,17 @@ export default class Game {
             enemy.moveTo(
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y,
-              delta * 1.6,
+              delta,
               1,
-              1
+              1.6
             );
             if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta * 2.4,
+                delta, //*2.4
                 1,
-                1
+                2.4
               );
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
