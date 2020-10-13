@@ -530,7 +530,7 @@ export default class Game {
               400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
               enemy.start.y,
               delta,
-              1,
+              1.8,
               1.6
             );
             if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
