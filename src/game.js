@@ -526,20 +526,23 @@ export default class Game {
               1
             );
           } else {
-            enemy.moveTo(
-              400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
-              enemy.start.y,
-              delta,
-              1.8,
-              1.6
-            );
-            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) < 20) {
+            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) >= 200) {
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
-                delta, //*2.4
+                delta,
                 1,
-                2.4
+                1.5
+              );
+            } else if (
+              Math.abs(enemy.position.y - (600 + enemy.start.y)) < 200
+            ) {
+              enemy.moveTo(
+                400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
+                enemy.start.y,
+                delta,
+                53,
+                3
               );
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
@@ -592,9 +595,8 @@ export default class Game {
             424 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
             enemy.start.y,
             delta,
-            delta * 2,
             1,
-            1
+            2
           );
           if (Math.abs(enemy.position.y - enemy.start.y) < 5) {
             this.level.startEnemyWaveCycle1 = Date.now();
