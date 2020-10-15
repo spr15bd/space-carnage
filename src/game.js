@@ -459,7 +459,7 @@ export default class Game {
             );
           } else {
             enemy.moveTo(
-              this.player.position.x - 150,
+              this.player.position.x + this.player.width / 2 - 150,
               this.player.position.y - 150,
               delta, //
               2,
@@ -492,7 +492,7 @@ export default class Game {
             );
           } else {
             enemy.moveTo(
-              this.player.position.x + 150,
+              this.player.position.x + this.player.width / 2 + 150,
               this.player.position.y - 150,
               delta,
               1,
