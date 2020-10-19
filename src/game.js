@@ -548,7 +548,7 @@ export default class Game {
               this.level.startEnemyWaveCycle = Date.now();
               this.enemyAttacking += 1;
               if (
-                this.enemyAttacking >=
+                this.enemyAttacking >
                 this.enemies.filter((item) => item.enemyType === 2).length
               ) {
                 this.enemyAttacking = 0;
