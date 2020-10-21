@@ -441,6 +441,7 @@ export default class Game {
             }
             if (enemy.position.y >= this.player.position.y - 150) {
               enemy.movement = 2;
+              console.log("EnemyAttacking: " + this.enemyAttacking);
             }
           }
         } else if (enemy.movement === 2) {
