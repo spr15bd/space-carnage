@@ -408,7 +408,7 @@ export default class Game {
             1,
             1
           );
-          if (Date.now() - this.level.startEnemyWaveCycle >= 8000) {
+          if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
             enemy.movement += 1;
           }
         } else if (enemy.movement === 1) {
