@@ -410,6 +410,7 @@ export default class Game {
           );
           if (Date.now() - this.level.startEnemyWaveCycle >= 10000) {
             enemy.movement += 1;
+            console.log("current movement: " + enemy.movement);
           }
         } else if (enemy.movement === 1) {
           if (
@@ -442,6 +443,7 @@ export default class Game {
             if (enemy.position.y >= this.player.position.y - 150) {
               enemy.movement = 2;
               console.log("EnemyAttacking: " + this.enemyAttacking);
+              console.log("current movement: " + enemy.movement);
             }
           }
         } else if (enemy.movement === 2) {
