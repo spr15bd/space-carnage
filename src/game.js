@@ -529,8 +529,8 @@ export default class Game {
               1
             );
           } else {
-            if (Math.abs(enemy.position.y - (600 + enemy.start.y)) >= 200) {
-              console.log("moving attacking enemy slower");
+            if (Math.abs(enemy.position.y - enemy.start.y) >= 200) {
+              //console.log("start: "+enemy.start.y+", current: "+enemy.position.y);
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
@@ -538,9 +538,8 @@ export default class Game {
                 1,
                 1.5
               );
-            } else if (
-              Math.abs(enemy.position.y - (600 + enemy.start.y)) < 200
-            ) {
+            } else {
+              //console.log("moving attacking enemy faster");
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
