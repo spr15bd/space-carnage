@@ -544,7 +544,7 @@ export default class Game {
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta,
-                53,
+                3,
                 3
               );
               enemy.movement = 0;
