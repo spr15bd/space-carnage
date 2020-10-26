@@ -529,7 +529,7 @@ export default class Game {
               1
             );
           } else {
-            if (Math.abs(enemy.position.y - enemy.start.y) >= 200) {
+            if (Math.abs(enemy.position.y - enemy.start.y) >= 3) {
               //console.log("start: "+enemy.start.y+", current: "+enemy.position.y);
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
