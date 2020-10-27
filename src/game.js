@@ -529,7 +529,7 @@ export default class Game {
               1
             );
           } else {
-            if (Math.abs(enemy.position.y - enemy.start.y) >= 3) {
+            if (Math.abs(enemy.position.y - enemy.start.y) >= 5) {
               //console.log("start: "+enemy.start.y+", current: "+enemy.position.y);
               enemy.moveTo(
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
@@ -544,8 +544,8 @@ export default class Game {
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta,
-                3,
-                3
+                2,
+                10
               );
               enemy.movement = 0;
               this.level.startEnemyWaveCycle = Date.now();
