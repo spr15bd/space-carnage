@@ -535,8 +535,8 @@ export default class Game {
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta,
-                1,
-                1.5
+                1.3,
+                2
               );
             } else {
               //console.log("moving attacking enemy faster");
@@ -544,7 +544,7 @@ export default class Game {
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta,
-                2,
+                1.5,
                 10
               );
               enemy.movement = 0;
