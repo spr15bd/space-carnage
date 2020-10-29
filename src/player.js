@@ -12,6 +12,7 @@ export default class Player {
     this.isVisible = true;
     this.isInvincible = false;
     this.extraLifeDue = true;
+    this.doubleBullet = false;
     this.reset();
   }
 
