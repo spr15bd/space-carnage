@@ -177,6 +177,12 @@ export default class Game {
 
       //block.speed.x = 0;
     });
+
+    // check for double laser
+    if (Math.random() > 0.999 && this.sceen > 0) {
+      this.player.doubleBullet = true;
+    }
+
     // update enemies
     this.moveEnemies(delta);
     // update collisions
@@ -535,7 +541,7 @@ export default class Game {
                 400 * Math.sin(Date.now() * 0.0015) + enemy.start.x,
                 enemy.start.y,
                 delta,
-                1.3,
+                1.5,
                 2
               );
             } else {
