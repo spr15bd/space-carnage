@@ -112,15 +112,17 @@ export default class Game {
       if (entity === this.player && !entity.paused && entity.isVisible) {
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
-          this.bulletPool.push(
-            new Bullet(
-              entity.position.x + entity.width / 2 - 2, // 2 meaning half of bullet width
-              entity.position.y,
-              this.playerBulletSpeed, // speed of player bullets
-              entity.bulletImage
-            )
-          );
-
+          if (!this.player.doubleBullet) {
+            this.bulletPool.push(
+              new Bullet(
+                entity.position.x + entity.width / 2 - 2, // 2 meaning half of bullet width
+                entity.position.y,
+                this.playerBulletSpeed, // speed of player bullets
+                entity.bulletImage
+              )
+            );
+          } else {
+          }
           this.playerLaser.play();
           this.lastPlayerBulletTimeStamp = Date.now();
         }
@@ -179,7 +181,7 @@ export default class Game {
     });
 
     // check for double laser
-    if (Math.random() > 0.999 && this.sceen > 0) {
+    if (Math.random() > 0.999 && this.screen > 0) {
       this.player.doubleBullet = true;
     }
 
