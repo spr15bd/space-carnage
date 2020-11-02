@@ -122,6 +122,22 @@ export default class Game {
               )
             );
           } else {
+            this.bulletPool.push(
+              new Bullet(
+                entity.position.x + entity.width / 2 - 10, // 2 meaning half of bullet width
+                entity.position.y,
+                this.playerBulletSpeed, // speed of player bullets
+                entity.bulletImage
+              )
+            );
+            this.bulletPool.push(
+              new Bullet(
+                entity.position.x + entity.width / 2 + 18, // 2 meaning half of bullet width
+                entity.position.y,
+                this.playerBulletSpeed, // speed of player bullets
+                entity.bulletImage
+              )
+            );
           }
           this.playerLaser.play();
           this.lastPlayerBulletTimeStamp = Date.now();
