@@ -132,7 +132,7 @@ export default class Game {
             );
             this.bulletPool.push(
               new Bullet(
-                entity.position.x + entity.width / 2 + 18, // 2 meaning half of bullet width
+                entity.position.x + entity.width / 2 + 6, // 2 meaning half of bullet width
                 entity.position.y,
                 this.playerBulletSpeed, // speed of player bullets
                 entity.bulletImage
