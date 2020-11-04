@@ -112,6 +112,8 @@ export default class Game {
       if (entity === this.player && !entity.paused && entity.isVisible) {
         // do not allow a player bullet to be fired until a specified time has elapsed
         if (Date.now() - this.lastPlayerBulletTimeStamp > 300) {
+          this.lastPlayerBulletTimeStamp = Date.now();
+          this.playerLaser.play();
           if (!this.player.doubleBullet) {
             this.bulletPool.push(
               new Bullet(
@@ -128,9 +130,7 @@ export default class Game {
                 entity.position.y,
                 this.playerBulletSpeed, // speed of player bullets
                 entity.bulletImage
-              )
-            );
-            this.bulletPool.push(
+              ),
               new Bullet(
                 entity.position.x + entity.width / 2 + 6, // 2 meaning half of bullet width
                 entity.position.y,
@@ -139,8 +139,6 @@ export default class Game {
               )
             );
           }
-          this.playerLaser.play();
-          this.lastPlayerBulletTimeStamp = Date.now();
         }
       } else if (entity.inPlay && !entity.paused) {
         this.bulletPool.push(
@@ -1142,7 +1140,10 @@ export default class Game {
         }
 
         this.blocks.forEach((block, k) => {
-          if (bullet.collidesWith(block) && bullet.speed.y === -120) {
+          if (
+            bullet.collidesWith(block) &&
+            bullet.speed.y === this.playerBulletSpeed
+          ) {
             //destroy block on collision with player bullet as long as it's not the mothership 'sphere' block
             if (block.blockType !== 9) {
               this.blocks.splice(k, 1);
@@ -1155,7 +1156,10 @@ export default class Game {
           if (enemy.enemyType === 9 && enemy.position.x > this.screenWidth) {
             this.enemies.splice(j, 1);
           }
-          if (bullet.collidesWith(enemy) && bullet.speed.y === -120) {
+          if (
+            bullet.collidesWith(enemy) &&
+            bullet.speed.y === this.playerBulletSpeed
+          ) {
             this.bulletPool.splice(i, 1);
             this.player.incrementScore(enemy.enemyType);
             this.explosions.push(
