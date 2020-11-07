@@ -204,6 +204,7 @@ export default class Game {
     // update collisions
     this.checkForCollisions(delta);
 
+    // update bullets
     this.bulletPool.forEach((bullet, i) => {
       bullet.update(delta);
     });
@@ -1122,7 +1123,6 @@ export default class Game {
     // check for and handle any player, enemy or screen boundary collisions with bullets
     if (this.bulletPool != null && this.bulletPool.length > 0) {
       this.bulletPool.forEach((bullet, i) => {
-        
         if (
           (bullet.speed.y === this.playerBulletSpeed &&
             bullet.position.y < 0) ||
