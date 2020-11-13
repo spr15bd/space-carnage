@@ -127,13 +127,13 @@ export default class Game {
             this.bulletPool.push(
               new Bullet(
                 entity.position.x + entity.width / 2 - 10, // 2 meaning half of bullet width
-                entity.position.y + 10,
+                entity.position.y + 15,
                 this.playerBulletSpeed, // speed of player bullets
                 entity.bulletImage
               ),
               new Bullet(
                 entity.position.x + entity.width / 2 + 6, // 2 meaning half of bullet width
-                entity.position.y + 10,
+                entity.position.y + 15,
                 this.playerBulletSpeed, // speed of player bullets
                 entity.bulletImage
               )
