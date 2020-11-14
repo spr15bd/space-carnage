@@ -1280,6 +1280,7 @@ export default class Game {
     this.playerExplosion.play();
     this.player.isVisible = false;
     this.player.lives -= 1;
+    this.player.doubleBullet = false;
     if (this.player.lives <= 0) {
       // game over
       setTimeout(() => {
