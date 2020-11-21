@@ -40,8 +40,6 @@ export default class Game {
     this.blocks = [];
 
     this.initialiseMenuText();
-
-    //this.backgroundImage.yPos = 600;
   }
 
   initialiseGame() {
@@ -74,7 +72,7 @@ export default class Game {
       x: 0,
       y: 0
     };
-    this.enemyAttacking = 0;
+    this.enemyAttacking = 0; // the left most enemy in the formation on level 1
     this.nextDistance = 0;
     this.backgroundImage.yPos = -600;
     this.level = new Level(this.screen, this.screenWidth, this.screenHeight); // initialise the first level
