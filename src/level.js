@@ -725,6 +725,44 @@ export default class Level {
         //new Enemy(width - 220, -300, 180, 0, true, "./enemies.png"),
         //new Enemy(width - 250, -300, 180, 0, true, "./enemies.png")
       );
+    } else if (level === 9) {
+      this.stages = 2;
+      this.enemies.push(
+        new Enemy(width / 2 - 130, -480, 180, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 160, -480, 180, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 190, -480, 180, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 220, -480, 180, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 250, -480, 180, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 280, -480, 180, 1, true, "./enemies.png"),
+
+        new Enemy(width / 2 + 100, -480, 0, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 130, -480, 0, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 160, -480, 0, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 190, -480, 0, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 220, -480, 0, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 250, -480, 0, 1, true, "./enemies.png"),
+
+        new Enemy(width / 2 - 280, -230, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 250, -200, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 220, -170, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 190, -140, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 160, -110, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 130, -80, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 - 100, -50, 90, 1, true, "./enemies.png"),
+        new Enemy(width / 2 + 248, -230, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 218, -200, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 188, -170, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 158, -140, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 128, -110, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 98, -80, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 + 68, -50, 135, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -430, 90, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -390, 90, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -350, 90, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -310, 90, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -270, 90, 0, true, "./enemies.png"),
+        new Enemy(width / 2 - 16, -230, 90, 0, true, "./enemies.png")
+      );
     }
   }
   getBlocks() {
