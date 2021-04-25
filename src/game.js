@@ -20,10 +20,10 @@ export default class Game {
     this.backgroundImage.src = "/starbackground.png";
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
-    this.playerLaser = new Sound("/sounds/laser.m4a", 3, 0.1);
-    this.enemyExplosion = new Sound("/sounds//enemyExplosion.m4a", 3, 0.25);
-    this.playerExplosion = new Sound("/sounds//explosion.m4a", 3, 0.15);
-    this.mothershipExplosion = new Sound("/sounds/randomize79.m4a", 3, 0.15);
+    this.playerLaser = new Sound("/sounds/laser.ogg", 3, 0.1);
+    this.enemyExplosion = new Sound("/sounds//enemyExplosion.ogg", 3, 0.25);
+    this.playerExplosion = new Sound("/sounds//explosion.ogg", 3, 0.15);
+    this.mothershipExplosion = new Sound("/sounds/randomize79.ogg", 3, 0.15);
 
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
