@@ -174,22 +174,16 @@ export default class Game {
       this.gameOverText.update(delta);
     }
 
-    //if (this.gameState !== GAMESTATE.GAMEINPROGRESS) {
-    //  return;
-    //}
-
     // update player
     if (this.player != null) this.player.update(delta);
+    
     // update blocks
-
     this.blocks.forEach((block) => {
       if (this.queenDead) {
         block.moveTo(Math.random() * 800, -200, delta, delta);
         this.mothershipExplosion.play();
       }
       block.update(delta);
-
-      //block.speed.x = 0;
     });
 
     // check for double laser
@@ -230,7 +224,7 @@ export default class Game {
           this.level.getBonusEnemy(11, this.screenWidth + 90, 190, 0);
         }
       }
-      //}
+      
 
       // when all enemies defeated, thrust the player ship upward a few seconds & move to next level
       if (this.levelComplete) {
