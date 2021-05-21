@@ -763,6 +763,32 @@ export default class Level {
         new Enemy(width / 2 - 16, -270, 90, 0, true, "./enemies.png"),
         new Enemy(width / 2 - 16, -230, 90, 0, true, "./enemies.png")
       );
+    } else if (level==10) {
+        this.enemies.push(
+        new Enemy(340, -500, -100, 12, true, "./enemies.png"),
+        new Enemy(320, -525, -100, 12, true, "./enemies.png"),
+        new Enemy(300, -550, -100, 12, true, "./enemies.png"),
+        new Enemy(280, -500, -100, 12, true, "./enemies.png"),
+        new Enemy(260, -525, -100, 12, true, "./enemies.png"),
+        new Enemy(240, -550, -100, 12, true, "./enemies.png"),
+        new Enemy(220, -575, -100, 12, true, "./enemies.png"),
+          
+        new Enemy(460, -500, -55, 13, true, "./enemies.png"),
+        new Enemy(480, -525, -55, 13, true, "./enemies.png"),
+        new Enemy(500, -550, -55, 13, true, "./enemies.png"),
+        new Enemy(520, -500, -55, 13, true, "./enemies.png"),
+        new Enemy(540, -525, -55, 13, true, "./enemies.png"),
+        new Enemy(560, -550, -55, 13, true, "./enemies.png"),
+        new Enemy(520, -575, -55, 13, true, "./enemies.png"),
+
+        new Enemy(-200, -440, 180, 14, true, "./enemies.png"),
+        new Enemy(-200, -485, 180, 14, true, "./enemies.png"),
+        new Enemy(-200, -530, 180, 14, true, "./enemies.png"),
+        new Enemy(-150, -462, 180, 14, true, "./enemies.png"),
+        new Enemy(-150, -508, 180, 14, true, "./enemies.png"),
+        new Enemy(-100, -485, 180, 14, true, "./enemies.png"),
+        new Enemy(-100, -462, 180, 14, true, "./enemies.png")
+      );
     }
   }
   getBlocks() {
