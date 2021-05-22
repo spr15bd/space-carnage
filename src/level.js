@@ -339,13 +339,6 @@ export default class Level {
           true,
           "./enemies.png"
         )
-
-        /*new Enemy(240, -500, 270, 2, "./enemies.png"),
-        new Enemy(300, -500, 270, 2, "./enemies.png"),
-        new Enemy(360, -500, 270, 2, "./enemies.png"),
-        new Enemy(420, -500, 270, 2, "./enemies.png"),
-        new Enemy(480, -500, 270, 2, "./enemies.png"),
-        new Enemy(540, -500, 270, 2, "./enemies.png")*/
       );
     } else if (level === 4) {
       this.stages = 1;
