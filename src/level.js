@@ -782,6 +782,8 @@ export default class Level {
         new Enemy(-100, -485, 180, 14, true, "./enemies.png"),
         new Enemy(-100, -462, 180, 14, true, "./enemies.png")
       );
+    } else if (level==11) {
+      console.log("Level 11 - another boss level."); 
     }
   }
   getBlocks() {
