@@ -24,10 +24,8 @@ export default class Game {
     this.enemyExplosion = new Sound("/sounds//enemyExplosion.ogg", 3, 0.25);
     this.playerExplosion = new Sound("/sounds//explosion.ogg", 3, 0.15);
     this.mothershipExplosion = new Sound("/sounds/randomize79.ogg", 3, 0.15);
-
     this.player = new Player(this.screenWidth, this.screenHeight, this);
     new Input(this.player, this);
-
     this.screen = -1;
     this.gameState = GAMESTATE.MENU; // initially show the menu screen
     this.bulletPool = []; // array for enemy and player bullets
@@ -35,10 +33,8 @@ export default class Game {
     this.score = document.getElementById("score");
     this.lives = document.getElementById("lives");
     this.hiscore = document.getElementById("hiscore");
-
     this.enemies = [];
     this.blocks = [];
-
     this.initialiseMenuText();
   }
 
@@ -100,8 +96,6 @@ export default class Game {
 
   gameOver() {
     this.screen = -1;
-    //this.bulletPool = null;
-    //this.explosions = [];
     this.gameState = GAMESTATE.GAMEOVER;
   }
 
@@ -281,10 +275,7 @@ export default class Game {
       this.text2.draw(ctx);
       this.text3.draw(ctx);
       this.text4.draw(ctx);
-
       this.text5.draw(ctx);
-      //this.enemies.forEach(enemy=>enemy.draw(ctx));
-
       document.getElementById("game-screen").focus();
     } else {
       this.stats.style.display = "flex";
